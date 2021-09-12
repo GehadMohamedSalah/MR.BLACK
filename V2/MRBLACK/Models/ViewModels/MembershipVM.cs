@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBLACK.Models.Database;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace MRBLACK.Models.ViewModels
         public string ArName { get; set; }
         public IFormFile FormFile { get; set; }
         public string ImgPath { get; set; }
-        public bool IsProvider { get; set; }
+        public int MembershipType { get; set; }
         public List<MembershipLink> MembershipLinkList { get; set; }
         public List<int> DeletedLinks { get; set; }
     }

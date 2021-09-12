@@ -23,7 +23,7 @@ namespace MRBLACK.Models.Database
         public string ArName { get; set; }
         public string EnName { get; set; }
         public string ImgPath { get; set; }
-        public bool IsProvider { get; set; }
+        public int? MembershipType { get; set; }
         [InverseProperty(nameof(MembershipLink.Membership))]
         public virtual ICollection<MembershipLink> MembershipLinks { get; set; }
         public virtual ICollection<IdentitySetupRole> IdentitySetupRoles { get; set; }

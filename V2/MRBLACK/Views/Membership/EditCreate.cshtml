@@ -30,18 +30,13 @@
                     <input asp-for="FormFile" type="file" class="form-control" placeholder="صورة العضوية" />
                     <span asp-validation-for="FormFile" class="text-danger"></span>
                 </div>
-                <div class="col-sm-6 mt-20">
-                    @*@if (Model.IsProvider)
-        {
-            <input type="checkbox" asp-for="IsProvider" checked="checked"/>
-        }
-        else
-        {
-            <input type="checkbox" asp-for="IsProvider" />
-        }*@
-
-                    <input type="checkbox" asp-for="IsProvider" />
-                    <label asp-for="IsProvider">هل هذه عضوية مقدم خدمة؟</label>
+                <div class="col-sm-6">
+                    <select asp-for="MembershipType" class="form-control">
+                        <option selected disabled value="-1">اختر نوع العضوية</option>
+                        <option value="1">طالب</option>
+                        <option value="2">مقدم خدمة</option>
+                        <option value="3">معلن</option>
+                    </select>
                 </div>
                 
             </div>

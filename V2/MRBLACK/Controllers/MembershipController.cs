@@ -65,7 +65,7 @@ namespace MRBLACK.Controllers
                     ArName = model.ArName,
                     EnName = model.EnName,
                     ImgPath = filePath,
-                    IsProvider = model.IsProvider
+                    MembershipType = model.MembershipType
                 };
 
                 //add list of links to Membership obj
@@ -109,7 +109,7 @@ namespace MRBLACK.Controllers
                 model.EnName = ms.First().EnName;
                 model.ArName = ms.First().ArName;
                 model.ImgPath = ms.First().ImgPath;
-                model.IsProvider = ms.First().IsProvider;
+                model.MembershipType = (int)ms.First().MembershipType;
                 model.MembershipLinkList = new List<MembershipLink>();
                 if (ms.First().MembershipLinks != null)
                 {
@@ -130,8 +130,7 @@ namespace MRBLACK.Controllers
                 //set new values to Membership obj
                 ms.EnName = model.EnName;
                 ms.ArName = model.ArName;
-                ms.IsProvider = model.IsProvider;
-
+                ms.MembershipType = model.MembershipType;
                 //upload image
                 if (model.FormFile != null)
                 {

@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Data;
 using MRBLACK.Models.Database;
+using MRBLACK.Models.Enums;
 
 namespace MRBLACK.Areas.Identity.Pages.Account
 {
@@ -113,15 +114,15 @@ namespace MRBLACK.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //add user to provider or student according to membership
-                    var isproviderMembership = ProviderMembership();
-                    if (isproviderMembership)
+                    var membershipType = GetMembershipType();
+                    if (membershipType == (int)MembershipType.Provider)
                     {
                         user.RedirectUrl = "/Home/ProviderHomePage";
                         _identityDb.SaveChanges();
                         CreateProvider(user.Id);
                     }
 
-                    else
+                    else if(membershipType == (int)MembershipType.Student)
                     {
                         user.RedirectUrl = "/Home/StudentHomePage";
                         _identityDb.SaveChanges();
@@ -143,10 +144,10 @@ namespace MRBLACK.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private bool ProviderMembership()
+        private int GetMembershipType()
         {
             var membership = appDb.Memberships.FirstOrDefault(c => c.Id == Input.MembershipId);
-            return membership.IsProvider;
+            return (int)membership.MembershipType;
         }
 
         private void CreateProvider(string userId)
