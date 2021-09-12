@@ -1,0 +1,61 @@
+﻿@model Mr_Black.Database.RegisterViewModel
+
+@{
+    Layout = "~/Views/Shared/_DefaultLayout.cshtml";
+    ViewBag.Title = "سجل معنا";
+}
+
+<div class="login-page">
+    <section>
+        <div id="container_demo" style="margin-top:100px;">
+            <div id="wrapper" style="width:90%;">
+                <div id="login" class="animate form">
+                    <form asp-action="Register" asp-controller="Account">
+                        <h1>سجل بياناتك</h1>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input asp-for="Phone" class="form-control" placeholder="رقم الهاتف" />
+                                <span asp-validation-for="Phone" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Username" class="form-control" placeholder="اسم المستخدم" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <input asp-for="Email" class="form-control" placeholder="البريد الالكتروني" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Password" class="form-control" placeholder="كلمة المرور" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <p class="login button">
+                                <input type="submit" value="سجل" />
+                            </p>
+                        </div>
+                        
+                        <p class="change_link">
+                            <a href="/Account/Login" class="to_register">تسجيل دخول</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

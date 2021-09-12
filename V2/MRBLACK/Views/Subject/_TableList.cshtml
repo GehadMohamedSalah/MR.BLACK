@@ -1,0 +1,24 @@
+﻿@model List<MRBLACK.Models.Database.Subject>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Edit/@item.Id')">
+                <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Delete/@item.Id')">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+}

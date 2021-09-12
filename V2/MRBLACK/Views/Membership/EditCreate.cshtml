@@ -1,0 +1,86 @@
+﻿@model MRBLACK.Models.ViewModels.MembershipVM
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h2 class="text-center">اضافة/تعديل عضوية</h2>
+        </div>
+        <div class="panel-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <input asp-for="EnName" class="form-control" placeholder="الاسم" />
+                    <span asp-validation-for="EnName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <span asp-validation-for="ArName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 text-center" style="margin: 10px 0px 10px 0px !important; ">
+                    <input asp-for="FormFile" type="file" class="form-control" placeholder="صورة العضوية" />
+                    <span asp-validation-for="FormFile" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6 mt-20">
+                    @*@if (Model.IsProvider)
+        {
+            <input type="checkbox" asp-for="IsProvider" checked="checked"/>
+        }
+        else
+        {
+            <input type="checkbox" asp-for="IsProvider" />
+        }*@
+
+                    <input type="checkbox" asp-for="IsProvider" />
+                    <label asp-for="IsProvider">هل هذه عضوية مقدم خدمة؟</label>
+                </div>
+                
+            </div>
+            <div style="margin: 0px 20px 0px 20px !important;">
+                <partial name="_MembershipLinkList" model="@Model" />
+            </div>
+            
+
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-info" href="/Membership/Index">عودة للقائمة</a>
+            <input type="button" onclick="SubmitForm();" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+
+</form>
+
+
+
+<script type="text/javascript">
+
+    function SubmitForm() {
+        FillMembershipListModel();
+        $("#myForm").submit();
+    }
+
+    function FillMembershipListModel() {
+        var titles = document.getElementsByClassName("MembershipLinkList_Title");
+        var descs = document.getElementsByClassName("MembershipLinkList_Description");
+        var links = document.getElementsByClassName("MembershipLinkList_Link");
+        for (var i = 0; i < titles.length; i++) {
+            titles[i].setAttribute("name", "MembershipLinkList[" + i + "].Title");
+            descs[i].setAttribute("name", "MembershipLinkList[" + i + "].Description");
+            links[i].setAttribute("name", "MembershipLinkList[" + i + "].Link");
+        }
+    }
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

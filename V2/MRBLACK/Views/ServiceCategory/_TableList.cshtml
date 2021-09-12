@@ -1,0 +1,38 @@
+﻿@model List<MRBLACK.Models.Database.ServiceCategory>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentCategory.ArName)
+        </td>
+        <td>
+            @if (item.PricingMethod == 1)
+            {
+                <p>جبري</p>
+                <p class="text-primary">سعر الخدمة : @item.ServicePrice</p>
+                <p class="text-success">مبلغ امنصة من سعر الخدمة : @item.PlatformRevenueFromServPrice</p>
+            }
+            else
+            {
+                <p>عمولة</p>
+                <p class="text-success">نسبة المنصة من سعر الخدمة : @item.CommissionPercentage</p>
+            }
+        </td>
+        <td>@item.RevenueFromThisCatgoryToPlatform</td>
+        <td>
+            <a  class="btn btn-info" href="/ServiceCategory/Edit/@item.Id">
+                <i class="fa fa-edit"></i>
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/ServiceCategory/Delete/@item.Id')">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+}

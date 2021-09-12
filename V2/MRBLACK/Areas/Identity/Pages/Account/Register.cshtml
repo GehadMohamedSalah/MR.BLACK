@@ -1,0 +1,80 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+    
+}
+
+<div class="login-page">
+    <section>
+        <div id="container_demo" style="margin-top:100px;">
+            <div id="wrapper" style="width:90%;">
+                <div id="login" class="animate form">
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <h1>سجل بياناتك</h1>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <input asp-for="Input.ArName" class="form-control" placeholder="الاسم باللغة العربية" />
+                                <span asp-validation-for="Input.ArName" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Input.EnName" class="form-control" placeholder="الاسم باللغة الانجليزيه" />
+                                <span asp-validation-for="Input.EnName" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Input.Phone" class="form-control" placeholder="رقم الهاتف" />
+                                <span asp-validation-for="Input.Phone" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Input.Username" class="form-control" placeholder="اسم المستخدم" />
+                                <span asp-validation-for="Input.Username" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <select class="form-control sellist" asp-for="Input.MembershipId" asp-items="Model.MembershipList">
+                                    <option disabled value="-1" selected>اختر نوع العضوية</option>
+                                </select>
+                                <span asp-validation-for="Input.MembershipId" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Input.Email" class="form-control" placeholder="البريد الالكتروني" />
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <input asp-for="Input.ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
+                                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="Input.Password" class="form-control" placeholder="كلمة المرور" />
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6"></div>
+                            <div class="col-sm-6">
+                                <select class="form-control sellist" asp-for="Input.CountryId" asp-items="Model.CountryList">
+                                    <option disabled value="-1" selected>اختر الدولة</option>
+                                </select>
+                                <span asp-validation-for="Input.CountryId" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <p class="login button">
+                                <input type="submit" value="سجل" />
+                            </p>
+                        </div>
+
+                        <p class="change_link">
+                            <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl"  class="to_register">تسجيل دخول</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

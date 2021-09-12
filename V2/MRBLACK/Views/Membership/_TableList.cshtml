@@ -1,0 +1,29 @@
+﻿@model List<MRBLACK.Models.Database.Membership>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <a href="~/Images/@item.ImgPath" target="_blank">
+                <img src="~/Images/@item.ImgPath" width="50" height="50" />
+            </a>
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            <a  class="btn btn-info" href="/Membership/Edit/@item.Id">
+                <i class="fa fa-edit"></i>
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Membership/Delete/@item.Id')">
+                <i class="fa fa-trash"></i>
+            </button>
+        </td>
+    </tr>
+}

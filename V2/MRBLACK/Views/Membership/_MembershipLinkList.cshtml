@@ -1,0 +1,79 @@
+﻿@model MRBLACK.Models.ViewModels.MembershipVM
+
+@{
+    Layout = null;
+}
+
+<div class="form-group row">
+    <h4>روابط العضوية</h4>
+    <table class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>العنوان</th>
+                <th>الوصف</th>
+                <th>الرابط</th>
+                <th>حذف</th>
+            </tr>
+        </thead>
+        <tbody id="tbMembershipLinkList">
+            @{
+                var i = 1;
+            }
+            @foreach (var item in Model.MembershipLinkList)
+            {
+                var rowId = "addedRow_" + i;
+                <tr id="@rowId">
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td><a href="@item.Link" target="_blank">@item.Link</a></td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="DeleteMembershipLink(@item.Id, '@rowId')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <button type="button" class="btn btn-primary" onclick="CreateMembershipLink()">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div id="dvDeletedLinks">
+
+</div>
+
+<script type="text/javascript">
+
+    function DeleteMembershipLink(id, rowId) {
+        var inp = "<input type='hidden' name='DeletedLinks' value='" + id + "'/>"
+        $("#dvDeletedLinks").append(inp);
+        DeleteTableRow(rowId);
+    }
+
+    function CreateMembershipLink() {
+        var addedRowsNum = Number(document.getElementsByClassName("newRows").length);
+        var rowId = "row_" + addedRowsNum;
+        var delFuncName = "DeleteTableRow('" + rowId + "')";
+        var trOpen = "<tr class='newRows' id='" + rowId + "'>",
+            td1 = "<td><input type='text' name='' class='form-control MembershipLinkList_Title' placeholder='العنوان'/></td>",
+            td2 = "<td><input type='text' name='' class='form-control MembershipLinkList_Description' placeholder='الوصف'/></td>",
+            td3 = "<td><input type='text' name='' class='form-control MembershipLinkList_Link' placeholder='الرابط'/></td>",
+            td4 = '<td><button type="button" class="btn btn-danger" onclick="' + delFuncName + '"><i class="fa fa-trash"></i></button></td>',
+            trClose = "</tr>";
+        var newRow = trOpen + td1 + td2 + td3 + td4 + trClose;
+        $("#tbMembershipLinkList").append(newRow);
+    }
+
+    function DeleteTableRow(rowId) {
+        $("#" + rowId).remove();
+    }
+</script>
