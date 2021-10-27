@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBLACK.Areas.Identity.Data;
@@ -19,13 +21,14 @@ namespace MRBLACK.Controllers
     {
         private readonly Repository<Country> _Country;
         private readonly Repository<CurrencyType> _CurrencyType;
-        private readonly int PageSize;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public CountryController(IRepository<Country> Country,
-            IRepository<CurrencyType> CurrencyType)
+            IRepository<CurrencyType> CurrencyType
+            , IWebHostEnvironment webHostEnvironment)
         {
             _Country = (Repository<Country>)Country;
             _CurrencyType = (Repository<CurrencyType>)CurrencyType;
-            PageSize = 5;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         #region CRUD OPERTIONS
@@ -46,10 +49,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Country model)
+        public IActionResult Create(Country model, IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if(img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Countries");
+                }
                 _Country.Add(model);
                 return RedirectToAction(nameof(Index));
             }
@@ -69,10 +76,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Country model)
+        public IActionResult Edit(Country model,IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Countries");
+                }
                 _Country.Update(model);
                 return RedirectToAction(nameof(Index));
             }

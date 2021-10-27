@@ -16,6 +16,22 @@
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
         <td>
+            @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+            {
+                foreach (var ucds in item.UcdsEductionManagement)
+                {
+                    <span>@ucds.University.ArName - @ucds.University.Country.ArName</span>
+                    <br />
+                }
+            }
+        </td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <img src="~/Uploads/Images/Colleges/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+            }
+        </td>
+        <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/College/Edit/@item.Id')">
                 <i class="fa fa-edit"></i>  تعديل
             </button>

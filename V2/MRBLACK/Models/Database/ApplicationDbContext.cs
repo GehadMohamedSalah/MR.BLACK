@@ -2,7 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
@@ -17,71 +19,70 @@ namespace MRBLACK.Models.Database
         {
         }
 
-        public virtual DbSet<AcademicYear> AcademicYears { get; set; }
-        public virtual DbSet<Advertising> Advertisings { get; set; }
-        public virtual DbSet<AdvertisingAttachment> AdvertisingAttachments { get; set; }
-        public virtual DbSet<AdvertisingPackage> AdvertisingPackages { get; set; }
-        public virtual DbSet<AdvertisingPackageInvoice> AdvertisingPackageInvoices { get; set; }
-        public virtual DbSet<AdvertisingPackageInvoiceView> AdvertisingPackageInvoiceViews { get; set; }
-        public virtual DbSet<AdvertisingPackagePage> AdvertisingPackagePages { get; set; }
-        public virtual DbSet<AdvertisingPackageRequest> AdvertisingPackageRequests { get; set; }
-        public virtual DbSet<Article> Articles { get; set; }
-        public virtual DbSet<ArticleCategory> ArticleCategories { get; set; }
-        public virtual DbSet<ArticleResource> ArticleResources { get; set; }
-        public virtual DbSet<BalanceTransfer> BalanceTransfers { get; set; }
-        public virtual DbSet<BookCategory> BookCategories { get; set; }
-        public virtual DbSet<BookInvoice> BookInvoices { get; set; }
-        public virtual DbSet<BookStore> BookStores { get; set; }
-        public virtual DbSet<College> Colleges { get; set; }
-        public virtual DbSet<Copun> Copuns { get; set; }
-        public virtual DbSet<Country> Countries { get; set; }
-        public virtual DbSet<CurrencyExchange> CurrencyExchanges { get; set; }
-        public virtual DbSet<CurrencyType> CurrencyTypes { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Gallery> Galleries { get; set; }
-        public virtual DbSet<Membership> Memberships { get; set; }
-        public virtual DbSet<MembershipLink> MembershipLinks { get; set; }
-        public virtual DbSet<Messaging> Messagings { get; set; }
-        public virtual DbSet<Notification> Notifications { get; set; }
-        public virtual DbSet<PaymentWay> PaymentWays { get; set; }
-        public virtual DbSet<Privilage> Privilages { get; set; }
-        public virtual DbSet<Punishment> Punishments { get; set; }
-        public virtual DbSet<RequestServiceStep> RequestServiceSteps { get; set; }
-        public virtual DbSet<RolePrivilage> RolePrivilages { get; set; }
-        public virtual DbSet<Service> Services { get; set; }
-        public virtual DbSet<ServiceCategory> ServiceCategories { get; set; }
-        public virtual DbSet<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
-        public virtual DbSet<ServiceProvider> ServiceProviders { get; set; }
-        public virtual DbSet<ServiceRequest> ServiceRequests { get; set; }
-        public virtual DbSet<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoices { get; set; }
-        public virtual DbSet<ServicesPurchaseInvoice> ServicesPurchaseInvoices { get; set; }
-        public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<Subject> Subjects { get; set; }
-        public virtual DbSet<SystemPage> SystemPages { get; set; }
-        public virtual DbSet<SystemSetting> SystemSettings { get; set; }
-        public virtual DbSet<TechnicalSupport> TechnicalSupports { get; set; }
-        public virtual DbSet<Term> Terms { get; set; }
-        public virtual DbSet<University> Universities { get; set; }
-        public virtual DbSet<UserBookGift> UserBookGifts { get; set; }
-        public virtual DbSet<UserVisit> UserVisits { get; set; }
+        public virtual DbSet<AcademicYear> AcademicYear { get; set; }
+        public virtual DbSet<Advertising> Advertising { get; set; }
+        public virtual DbSet<AdvertisingAttachment> AdvertisingAttachment { get; set; }
+        public virtual DbSet<AdvertisingPackage> AdvertisingPackage { get; set; }
+        public virtual DbSet<AdvertisingPackageInvoice> AdvertisingPackageInvoice { get; set; }
+        public virtual DbSet<AdvertisingPackageInvoiceView> AdvertisingPackageInvoiceView { get; set; }
+        public virtual DbSet<AdvertisingPackagePage> AdvertisingPackagePage { get; set; }
+        public virtual DbSet<AdvertisingPackageRequest> AdvertisingPackageRequest { get; set; }
+        public virtual DbSet<Article> Article { get; set; }
+        public virtual DbSet<ArticleCategory> ArticleCategory { get; set; }
+        public virtual DbSet<ArticleResource> ArticleResource { get; set; }
+        public virtual DbSet<BalanceTransfer> BalanceTransfer { get; set; }
+        public virtual DbSet<BookCategory> BookCategory { get; set; }
+        public virtual DbSet<BookInvoice> BookInvoice { get; set; }
+        public virtual DbSet<BookStore> BookStore { get; set; }
+        public virtual DbSet<College> College { get; set; }
+        public virtual DbSet<Copun> Copun { get; set; }
+        public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<CurrencyExchange> CurrencyExchange { get; set; }
+        public virtual DbSet<CurrencyType> CurrencyType { get; set; }
+        public virtual DbSet<Department> Department { get; set; }
+        public virtual DbSet<Gallery> Gallery { get; set; }
+        public virtual DbSet<Membership> Membership { get; set; }
+        public virtual DbSet<MembershipLink> MembershipLink { get; set; }
+        public virtual DbSet<Messaging> Messaging { get; set; }
+        public virtual DbSet<Notification> Notification { get; set; }
+        public virtual DbSet<PaymentWay> PaymentWay { get; set; }
+        public virtual DbSet<Privilage> Privilage { get; set; }
+        public virtual DbSet<Punishment> Punishment { get; set; }
+        public virtual DbSet<RequestServiceStep> RequestServiceStep { get; set; }
+        public virtual DbSet<RolePrivilage> RolePrivilage { get; set; }
+        public virtual DbSet<Service> Service { get; set; }
+        public virtual DbSet<ServiceCategory> ServiceCategory { get; set; }
+        public virtual DbSet<ServiceCategoryRequest> ServiceCategoryRequest { get; set; }
+        public virtual DbSet<ServiceProvider> ServiceProvider { get; set; }
+        public virtual DbSet<ServiceRequest> ServiceRequest { get; set; }
+        public virtual DbSet<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoice { get; set; }
+        public virtual DbSet<ServicesPurchaseInvoice> ServicesPurchaseInvoice { get; set; }
+        public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<Subject> Subject { get; set; }
+        public virtual DbSet<SystemPage> SystemPage { get; set; }
+        public virtual DbSet<SystemSetting> SystemSetting { get; set; }
+        public virtual DbSet<TechnicalSupport> TechnicalSupport { get; set; }
+        public virtual DbSet<Term> Term { get; set; }
+        public virtual DbSet<UcdsEductionManagement> UcdsEductionManagement { get; set; }
+        public virtual DbSet<University> University { get; set; }
+        public virtual DbSet<UserBookGift> UserBookGift { get; set; }
+        public virtual DbSet<UserVisit> UserVisit { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
             modelBuilder.Entity<Advertising>(entity =>
             {
                 entity.HasOne(d => d.Provider)
-                    .WithMany(p => p.Advertisings)
+                    .WithMany(p => p.Advertising)
                     .HasForeignKey(d => d.ProviderId)
                     .HasConstraintName("FK_Advertising_ServiceProvider");
             });
@@ -89,7 +90,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<AdvertisingAttachment>(entity =>
             {
                 entity.HasOne(d => d.Advertising)
-                    .WithMany(p => p.AdvertisingAttachments)
+                    .WithMany(p => p.AdvertisingAttachment)
                     .HasForeignKey(d => d.AdvertisingId)
                     .HasConstraintName("FK_AdvertisingAttachment_Advertising");
             });
@@ -97,7 +98,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<AdvertisingPackage>(entity =>
             {
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.AdvertisingPackages)
+                    .WithMany(p => p.AdvertisingPackage)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_AdvertisingPackage_CurrencyType");
             });
@@ -105,7 +106,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<AdvertisingPackageInvoice>(entity =>
             {
                 entity.HasOne(d => d.AdvertisingPackageRequest)
-                    .WithMany(p => p.AdvertisingPackageInvoices)
+                    .WithMany(p => p.AdvertisingPackageInvoice)
                     .HasForeignKey(d => d.AdvertisingPackageRequestId)
                     .HasConstraintName("FK_AdvertisingPackageInvoice_AdvertisingPackageRequest");
             });
@@ -113,7 +114,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<AdvertisingPackageInvoiceView>(entity =>
             {
                 entity.HasOne(d => d.AdvertisingPackageInvoice)
-                    .WithMany(p => p.AdvertisingPackageInvoiceViews)
+                    .WithMany(p => p.AdvertisingPackageInvoiceView)
                     .HasForeignKey(d => d.AdvertisingPackageInvoiceId)
                     .HasConstraintName("FK_AdvertisingPackageInvoiceView_AdvertisingPackageInvoice");
             });
@@ -121,12 +122,12 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<AdvertisingPackagePage>(entity =>
             {
                 entity.HasOne(d => d.AdvertisingPackage)
-                    .WithMany(p => p.AdvertisingPackagePages)
+                    .WithMany(p => p.AdvertisingPackagePage)
                     .HasForeignKey(d => d.AdvertisingPackageId)
                     .HasConstraintName("FK_AdvertisingPackagePage_AdvertisingPackage");
 
                 entity.HasOne(d => d.SystemPage)
-                    .WithMany(p => p.AdvertisingPackagePages)
+                    .WithMany(p => p.AdvertisingPackagePage)
                     .HasForeignKey(d => d.SystemPageId)
                     .HasConstraintName("FK_AdvertisingPackagePage_SystemPage");
             });
@@ -134,7 +135,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<Article>(entity =>
             {
                 entity.HasOne(d => d.ArticleCategory)
-                    .WithMany(p => p.Articles)
+                    .WithMany(p => p.Article)
                     .HasForeignKey(d => d.ArticleCategoryId)
                     .HasConstraintName("FK_Article_ArticleCategory");
             });
@@ -142,15 +143,16 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<ArticleResource>(entity =>
             {
                 entity.HasOne(d => d.Article)
-                    .WithMany(p => p.ArticleResources)
+                    .WithMany(p => p.ArticleResource)
                     .HasForeignKey(d => d.ArticleId)
                     .HasConstraintName("FK_ArticleResource_Article");
             });
 
+
             modelBuilder.Entity<BalanceTransfer>(entity =>
             {
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.BalanceTransfers)
+                    .WithMany(p => p.BalanceTransfer)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_BalanceTransfer_CurrencyType");
             });
@@ -158,12 +160,12 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<BookInvoice>(entity =>
             {
                 entity.HasOne(d => d.Book)
-                    .WithMany(p => p.BookInvoices)
+                    .WithMany(p => p.BookInvoice)
                     .HasForeignKey(d => d.BookId)
                     .HasConstraintName("FK_BookInvoice_BookStore");
 
                 entity.HasOne(d => d.Copun)
-                    .WithMany(p => p.BookInvoices)
+                    .WithMany(p => p.BookInvoice)
                     .HasForeignKey(d => d.CopunId)
                     .HasConstraintName("FK_BookInvoice_Copun");
             });
@@ -171,12 +173,12 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<BookStore>(entity =>
             {
                 entity.HasOne(d => d.BookCategory)
-                    .WithMany(p => p.BookStores)
+                    .WithMany(p => p.BookStore)
                     .HasForeignKey(d => d.BookCategoryId)
                     .HasConstraintName("FK_BookStore_BookCategory");
 
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.BookStores)
+                    .WithMany(p => p.BookStore)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_BookStore_CurrencyType");
             });
@@ -184,12 +186,12 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<Copun>(entity =>
             {
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Copuns)
+                    .WithMany(p => p.Copun)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Copun_ServiceCategory");
 
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.Copuns)
+                    .WithMany(p => p.Copun)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_Copun_CurrencyType");
             });
@@ -197,7 +199,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<Country>(entity =>
             {
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.Countries)
+                    .WithMany(p => p.Country)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_Country_CurrencyType");
             });
@@ -205,15 +207,20 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<CurrencyExchange>(entity =>
             {
                 entity.HasOne(d => d.Currency)
-                    .WithMany(p => p.CurrencyExchanges)
+                    .WithMany(p => p.CurrencyExchange)
                     .HasForeignKey(d => d.CurrencyId)
                     .HasConstraintName("FK_CurrencyExchange_CurrencyType");
+            });
+
+            modelBuilder.Entity<CurrencyType>(entity =>
+            {
+                entity.Property(e => e.ValueInPound).HasDefaultValueSql("((1))");
             });
 
             modelBuilder.Entity<MembershipLink>(entity =>
             {
                 entity.HasOne(d => d.Membership)
-                    .WithMany(p => p.MembershipLinks)
+                    .WithMany(p => p.MembershipLink)
                     .HasForeignKey(d => d.MembershipId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_MembershipLink_Membership");
@@ -222,7 +229,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<RolePrivilage>(entity =>
             {
                 entity.HasOne(d => d.Privilage)
-                    .WithMany(p => p.RolePrivilages)
+                    .WithMany(p => p.RolePrivilage)
                     .HasForeignKey(d => d.PrivilageId)
                     .HasConstraintName("FK_RolePrivilage_Privilage");
             });
@@ -230,47 +237,47 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<Service>(entity =>
             {
                 entity.HasOne(d => d.AcademinYear)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.AcademinYearId)
                     .HasConstraintName("FK_Service_AcademicYear");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_Service_ServiceCategory");
 
                 entity.HasOne(d => d.College)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.CollegeId)
                     .HasConstraintName("FK_Service_College");
 
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_Service_CurrencyType");
 
                 entity.HasOne(d => d.Department)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.DepartmentId)
                     .HasConstraintName("FK_Service_Department");
 
                 entity.HasOne(d => d.Provider)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.ProviderId)
                     .HasConstraintName("FK_Service_ServiceProvider");
 
                 entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.SubjectId)
                     .HasConstraintName("FK_Service_Subject");
 
                 entity.HasOne(d => d.Term)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.TermId)
                     .HasConstraintName("FK_Service_Term");
 
                 entity.HasOne(d => d.University)
-                    .WithMany(p => p.Services)
+                    .WithMany(p => p.Service)
                     .HasForeignKey(d => d.UniversityId)
                     .HasConstraintName("FK_Service_University");
             });
@@ -278,7 +285,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<ServiceCategory>(entity =>
             {
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.ServiceCategories)
+                    .WithMany(p => p.ServiceCategory)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_ServiceCategory_CurrencyType");
 
@@ -291,43 +298,47 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<ServiceCategoryRequest>(entity =>
             {
                 entity.HasOne(d => d.AcademinYear)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.AcademinYearId)
                     .HasConstraintName("FK_ServiceCategoryRequest_AcademicYear");
 
                 entity.HasOne(d => d.Category)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.CategoryId)
                     .HasConstraintName("FK_ServiceCategoryRequest_ServiceCategory");
 
                 entity.HasOne(d => d.College)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.CollegeId)
                     .HasConstraintName("FK_ServiceCategoryRequest_College");
 
                 entity.HasOne(d => d.Department)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.DepartmentId)
                     .HasConstraintName("FK_ServiceCategoryRequest_Department");
 
                 entity.HasOne(d => d.Provider)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.ProviderId)
                     .HasConstraintName("FK_ServiceCategoryRequest_ServiceProvider");
 
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.ServiceCategoryRequest)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_ServiceCategoryRequest_Student");
 
                 entity.HasOne(d => d.Subject)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.SubjectId)
                     .HasConstraintName("FK_ServiceCategoryRequest_Subject");
 
                 entity.HasOne(d => d.Term)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.TermId)
                     .HasConstraintName("FK_ServiceCategoryRequest_Term");
 
                 entity.HasOne(d => d.University)
-                    .WithMany(p => p.ServiceCategoryRequests)
+                    .WithMany(p => p.ServiceCategoryRequest)
                     .HasForeignKey(d => d.UniversityId)
                     .HasConstraintName("FK_ServiceCategoryRequest_University");
             });
@@ -335,24 +346,20 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<ServiceProvider>(entity =>
             {
                 entity.HasOne(d => d.Country)
-                    .WithMany(p => p.ServiceProviders)
+                    .WithMany(p => p.ServiceProvider)
                     .HasForeignKey(d => d.CountryId)
                     .HasConstraintName("FK_ServiceProvider_Country");
 
                 entity.HasOne(d => d.PaymentWay)
-                    .WithMany(p => p.ServiceProviders)
+                    .WithMany(p => p.ServiceProvider)
                     .HasForeignKey(d => d.PaymentWayId)
                     .HasConstraintName("FK_ServiceProvider_PaymentWay");
-            });
-
-            modelBuilder.Entity<ServiceRequest>(entity =>
-            {
             });
 
             modelBuilder.Entity<ServicesInServicesPurchaseInvoice>(entity =>
             {
                 entity.HasOne(d => d.Inv)
-                    .WithMany(p => p.ServicesInServicesPurchaseInvoices)
+                    .WithMany(p => p.ServicesInServicesPurchaseInvoice)
                     .HasForeignKey(d => d.InvId)
                     .HasConstraintName("FK_ServicesInServicesPurchaseInvoice_ServicesPurchaseInvoice");
             });
@@ -360,12 +367,12 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<ServicesPurchaseInvoice>(entity =>
             {
                 entity.HasOne(d => d.Copun)
-                    .WithMany(p => p.ServicesPurchaseInvoices)
+                    .WithMany(p => p.ServicesPurchaseInvoice)
                     .HasForeignKey(d => d.CopunId)
                     .HasConstraintName("FK_ServicesPurchaseInvoice_Copun");
 
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.ServicesPurchaseInvoices)
+                    .WithMany(p => p.ServicesPurchaseInvoice)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_ServicesPurchaseInvoice_CurrencyType");
             });
@@ -373,40 +380,67 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasOne(d => d.AcademicYear)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.AcademicYearId)
                     .HasConstraintName("FK_Student_AcademicYear");
 
                 entity.HasOne(d => d.College)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.CollegeId)
                     .HasConstraintName("FK_Student_College");
 
                 entity.HasOne(d => d.Department)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.DepartmentId)
                     .HasConstraintName("FK_Student_Department");
 
                 entity.HasOne(d => d.PaymentWay)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.PaymentWayId)
                     .HasConstraintName("FK_Student_PaymentWay");
 
                 entity.HasOne(d => d.Term)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.TermId)
                     .HasConstraintName("FK_Student_Term");
 
                 entity.HasOne(d => d.University)
-                    .WithMany(p => p.Students)
+                    .WithMany(p => p.Student)
                     .HasForeignKey(d => d.UniversityId)
                     .HasConstraintName("FK_Student_University");
+            });
+
+            modelBuilder.Entity<UcdsEductionManagement>(entity =>
+            {
+                entity.HasOne(d => d.College)
+                    .WithMany(p => p.UcdsEductionManagement)
+                    .HasForeignKey(d => d.CollegeId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_UCDS_EductionManagement_College");
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.UcdsEductionManagement)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_UCDS_EductionManagement_Department");
+
+                entity.HasOne(d => d.Subject)
+                    .WithMany(p => p.UcdsEductionManagement)
+                    .HasForeignKey(d => d.SubjectId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_UCDS_EductionManagement_Subject");
+
+                entity.HasOne(d => d.University)
+                    .WithMany(p => p.UcdsEductionManagement)
+                    .HasForeignKey(d => d.UniversityId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_UCDS_EductionManagement_University");
             });
 
             modelBuilder.Entity<University>(entity =>
             {
                 entity.HasOne(d => d.Country)
-                    .WithMany(p => p.Universities)
+                    .WithMany(p => p.University)
                     .HasForeignKey(d => d.CountryId)
                     .HasConstraintName("FK_University_Country");
             });
@@ -414,7 +448,7 @@ namespace MRBLACK.Models.Database
             modelBuilder.Entity<UserBookGift>(entity =>
             {
                 entity.HasOne(d => d.CurrencyType)
-                    .WithMany(p => p.UserBookGifts)
+                    .WithMany(p => p.UserBookGift)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_UserBookGift_CurrencyType");
             });

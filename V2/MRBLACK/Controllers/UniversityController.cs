@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBLACK.Areas.Identity.Data;
@@ -19,13 +21,16 @@ namespace MRBLACK.Controllers
     {
         private readonly Repository<University> _University;
         private readonly Repository<Country> _Country;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         //private readonly int PageSize;
         public UniversityController(IRepository<University> University,
-            IRepository<Country> Country)
+            IRepository<Country> Country
+            , IWebHostEnvironment webHostEnvironment)
         {
             _University = (Repository<University>)University;
             _Country = (Repository<Country>)Country;
             //PageSize = 5;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         #region CRUD OPERTIONS
@@ -46,10 +51,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(University model)
+        public IActionResult Create(University model, IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Universities");
+                }
                 _University.Add(model);
                 return RedirectToAction(nameof(Index));
             }
@@ -69,10 +78,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(University model)
+        public IActionResult Edit(University model, IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Universities");
+                }
                 _University.Update(model);
                 return RedirectToAction(nameof(Index));
             }

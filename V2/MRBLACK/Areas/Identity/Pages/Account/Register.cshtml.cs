@@ -146,13 +146,13 @@ namespace MRBLACK.Areas.Identity.Pages.Account
 
         private int GetMembershipType()
         {
-            var membership = appDb.Memberships.FirstOrDefault(c => c.Id == Input.MembershipId);
+            var membership = appDb.Membership.FirstOrDefault(c => c.Id == Input.MembershipId);
             return (int)membership.MembershipType;
         }
 
         private void CreateProvider(string userId)
         {
-            appDb.ServiceProviders.Add(new ServiceProvider()
+            appDb.ServiceProvider.Add(new ServiceProvider()
             {
                 UserId = userId,
                 CountryId = Input.CountryId,
@@ -162,7 +162,7 @@ namespace MRBLACK.Areas.Identity.Pages.Account
 
         private void CreateStudent(string userId)
         {
-            appDb.Students.Add(new Student()
+            appDb.Student.Add(new Student()
             {
                 UserId = userId,
                 CountryId = Input.CountryId
@@ -186,8 +186,8 @@ namespace MRBLACK.Areas.Identity.Pages.Account
 
         private void FillLists()
         {
-            MembershipList = new SelectList(appDb.Memberships.ToList(), "Id", "ArName");
-            CountryList = new SelectList(appDb.Countries.ToList(), "Id", "ArName");
+            MembershipList = new SelectList(appDb.Membership.ToList(), "Id", "ArName");
+            CountryList = new SelectList(appDb.Country.ToList(), "Id", "ArName");
         }
     }
 }

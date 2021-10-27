@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("ServiceProvider")]
     public partial class ServiceProvider
     {
         public ServiceProvider()
         {
-            Advertisings = new HashSet<Advertising>();
-            ServiceCategoryRequests = new HashSet<ServiceCategoryRequest>();
-            Services = new HashSet<Service>();
+            Advertising = new HashSet<Advertising>();
+            Service = new HashSet<Service>();
+            ServiceCategoryRequest = new HashSet<ServiceCategoryRequest>();
         }
 
         [Key]
@@ -33,16 +33,16 @@ namespace MRBLACK.Models.Database
         public decimal WithdrawnBalances { get; set; }
 
         [ForeignKey(nameof(CountryId))]
-        [InverseProperty("ServiceProviders")]
+        [InverseProperty("ServiceProvider")]
         public virtual Country Country { get; set; }
         [ForeignKey(nameof(PaymentWayId))]
-        [InverseProperty("ServiceProviders")]
+        [InverseProperty("ServiceProvider")]
         public virtual PaymentWay PaymentWay { get; set; }
-        [InverseProperty(nameof(Advertising.Provider))]
-        public virtual ICollection<Advertising> Advertisings { get; set; }
-        [InverseProperty(nameof(ServiceCategoryRequest.Provider))]
-        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
-        [InverseProperty(nameof(Service.Provider))]
-        public virtual ICollection<Service> Services { get; set; }
+        [InverseProperty("Provider")]
+        public virtual ICollection<Advertising> Advertising { get; set; }
+        [InverseProperty("Provider")]
+        public virtual ICollection<Service> Service { get; set; }
+        [InverseProperty("Provider")]
+        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequest { get; set; }
     }
 }

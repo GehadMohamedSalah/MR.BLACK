@@ -2,21 +2,21 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("ServiceCategory")]
     public partial class ServiceCategory
     {
         public ServiceCategory()
         {
-            Copuns = new HashSet<Copun>();
+            Copun = new HashSet<Copun>();
             InverseParentCategory = new HashSet<ServiceCategory>();
-            ServiceCategoryRequests = new HashSet<ServiceCategoryRequest>();
-            Services = new HashSet<Service>();
+            Service = new HashSet<Service>();
+            ServiceCategoryRequest = new HashSet<ServiceCategoryRequest>();
         }
 
         [Key]
@@ -44,18 +44,18 @@ namespace MRBLACK.Models.Database
         public string ImgPath { get; set; }
 
         [ForeignKey(nameof(CurrencyTypeId))]
-        [InverseProperty("ServiceCategories")]
+        [InverseProperty("ServiceCategory")]
         public virtual CurrencyType CurrencyType { get; set; }
         [ForeignKey(nameof(ParentCategoryId))]
         [InverseProperty(nameof(ServiceCategory.InverseParentCategory))]
         public virtual ServiceCategory ParentCategory { get; set; }
-        [InverseProperty(nameof(Copun.Category))]
-        public virtual ICollection<Copun> Copuns { get; set; }
+        [InverseProperty("Category")]
+        public virtual ICollection<Copun> Copun { get; set; }
         [InverseProperty(nameof(ServiceCategory.ParentCategory))]
         public virtual ICollection<ServiceCategory> InverseParentCategory { get; set; }
-        [InverseProperty(nameof(ServiceCategoryRequest.Category))]
-        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
-        [InverseProperty(nameof(Service.Category))]
-        public virtual ICollection<Service> Services { get; set; }
+        [InverseProperty("Category")]
+        public virtual ICollection<Service> Service { get; set; }
+        [InverseProperty("Category")]
+        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequest { get; set; }
     }
 }

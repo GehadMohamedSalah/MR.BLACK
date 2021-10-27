@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("CurrencyExchange")]
     public partial class CurrencyExchange
     {
         [Key]
@@ -18,7 +18,7 @@ namespace MRBLACK.Models.Database
         public decimal? CurrencyValInhMainCurrency { get; set; }
 
         [ForeignKey(nameof(CurrencyId))]
-        [InverseProperty(nameof(CurrencyType.CurrencyExchanges))]
+        [InverseProperty(nameof(CurrencyType.CurrencyExchange))]
         public virtual CurrencyType Currency { get; set; }
     }
 }

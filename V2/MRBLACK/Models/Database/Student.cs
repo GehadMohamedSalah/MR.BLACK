@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("Student")]
     public partial class Student
     {
         public Student()
         {
-            ServiceCategoryRequests = new HashSet<ServiceCategoryRequest>();
+            ServiceCategoryRequest = new HashSet<ServiceCategoryRequest>();
         }
 
         [Key]
@@ -28,28 +28,27 @@ namespace MRBLACK.Models.Database
         public int? PaymentWayId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal WalletBalance { get; set; }
+        public int? CountryId { get; set; }
 
         [ForeignKey(nameof(AcademicYearId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual AcademicYear AcademicYear { get; set; }
         [ForeignKey(nameof(CollegeId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual College College { get; set; }
         [ForeignKey(nameof(DepartmentId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual Department Department { get; set; }
         [ForeignKey(nameof(PaymentWayId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual PaymentWay PaymentWay { get; set; }
         [ForeignKey(nameof(TermId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual Term Term { get; set; }
         [ForeignKey(nameof(UniversityId))]
-        [InverseProperty("Students")]
+        [InverseProperty("Student")]
         public virtual University University { get; set; }
-        [InverseProperty(nameof(ServiceCategoryRequest.Student))]
-        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
-
-        public int? CountryId { get; set; }
+        [InverseProperty("Student")]
+        public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequest { get; set; }
     }
 }

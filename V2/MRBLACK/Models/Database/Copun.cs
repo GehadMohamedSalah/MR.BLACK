@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("Copun")]
     public partial class Copun
     {
         public Copun()
         {
-            BookInvoices = new HashSet<BookInvoice>();
-            ServicesPurchaseInvoices = new HashSet<ServicesPurchaseInvoice>();
+            BookInvoice = new HashSet<BookInvoice>();
+            ServicesPurchaseInvoice = new HashSet<ServicesPurchaseInvoice>();
         }
 
         [Key]
@@ -33,14 +33,14 @@ namespace MRBLACK.Models.Database
         public DateTime? EndDate { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
-        [InverseProperty(nameof(ServiceCategory.Copuns))]
+        [InverseProperty(nameof(ServiceCategory.Copun))]
         public virtual ServiceCategory Category { get; set; }
         [ForeignKey(nameof(CurrencyTypeId))]
-        [InverseProperty("Copuns")]
+        [InverseProperty("Copun")]
         public virtual CurrencyType CurrencyType { get; set; }
-        [InverseProperty(nameof(BookInvoice.Copun))]
-        public virtual ICollection<BookInvoice> BookInvoices { get; set; }
-        [InverseProperty(nameof(ServicesPurchaseInvoice.Copun))]
-        public virtual ICollection<ServicesPurchaseInvoice> ServicesPurchaseInvoices { get; set; }
+        [InverseProperty("Copun")]
+        public virtual ICollection<BookInvoice> BookInvoice { get; set; }
+        [InverseProperty("Copun")]
+        public virtual ICollection<ServicesPurchaseInvoice> ServicesPurchaseInvoice { get; set; }
     }
 }

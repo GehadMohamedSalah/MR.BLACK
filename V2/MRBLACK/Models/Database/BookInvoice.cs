@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("BookInvoice")]
     public partial class BookInvoice
     {
         [Key]
@@ -26,10 +26,10 @@ namespace MRBLACK.Models.Database
         public bool IsAgift { get; set; }
 
         [ForeignKey(nameof(BookId))]
-        [InverseProperty(nameof(BookStore.BookInvoices))]
+        [InverseProperty(nameof(BookStore.BookInvoice))]
         public virtual BookStore Book { get; set; }
         [ForeignKey(nameof(CopunId))]
-        [InverseProperty("BookInvoices")]
+        [InverseProperty("BookInvoice")]
         public virtual Copun Copun { get; set; }
     }
 }

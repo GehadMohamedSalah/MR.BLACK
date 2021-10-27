@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="TempDb\**" />
+    <Content Remove="TempDb\**" />
+    <EmbeddedResource Remove="TempDb\**" />
+    <None Remove="TempDb\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Models\IdentitySetupRole.cs" />
   </ItemGroup>
 
@@ -39,8 +46,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Database\" />
     <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\Uploads\Images\Countries\" />
+    <Folder Include="wwwroot\Uploads\Images\Colleges\" />
+    <Folder Include="wwwroot\Uploads\Images\Departments\" />
+    <Folder Include="wwwroot\Uploads\Images\Subjects\" />
+    <Folder Include="wwwroot\Uploads\Images\Universities\" />
   </ItemGroup>
 
   <ItemGroup>

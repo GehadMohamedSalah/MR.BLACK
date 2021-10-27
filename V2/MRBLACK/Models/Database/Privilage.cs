@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("Privilage")]
     public partial class Privilage
     {
         public Privilage()
         {
-            RolePrivilages = new HashSet<RolePrivilage>();
+            RolePrivilage = new HashSet<RolePrivilage>();
         }
 
         [Key]
@@ -22,7 +22,7 @@ namespace MRBLACK.Models.Database
         public string EnName { get; set; }
         public int? OrderNum { get; set; }
 
-        [InverseProperty(nameof(RolePrivilage.Privilage))]
-        public virtual ICollection<RolePrivilage> RolePrivilages { get; set; }
+        [InverseProperty("Privilage")]
+        public virtual ICollection<RolePrivilage> RolePrivilage { get; set; }
     }
 }

@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("Service")]
     public partial class Service
     {
-        public Service()
-        {
-        }
-
         [Key]
         public int Id { get; set; }
         public string ArName { get; set; }
@@ -43,31 +39,31 @@ namespace MRBLACK.Models.Database
         public decimal PlatformRevenue { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]
-        [InverseProperty(nameof(AcademicYear.Services))]
+        [InverseProperty(nameof(AcademicYear.Service))]
         public virtual AcademicYear AcademinYear { get; set; }
         [ForeignKey(nameof(CategoryId))]
-        [InverseProperty(nameof(ServiceCategory.Services))]
+        [InverseProperty(nameof(ServiceCategory.Service))]
         public virtual ServiceCategory Category { get; set; }
         [ForeignKey(nameof(CollegeId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual College College { get; set; }
         [ForeignKey(nameof(CurrencyTypeId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual CurrencyType CurrencyType { get; set; }
         [ForeignKey(nameof(DepartmentId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual Department Department { get; set; }
         [ForeignKey(nameof(ProviderId))]
-        [InverseProperty(nameof(ServiceProvider.Services))]
+        [InverseProperty(nameof(ServiceProvider.Service))]
         public virtual ServiceProvider Provider { get; set; }
         [ForeignKey(nameof(SubjectId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual Subject Subject { get; set; }
         [ForeignKey(nameof(TermId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual Term Term { get; set; }
         [ForeignKey(nameof(UniversityId))]
-        [InverseProperty("Services")]
+        [InverseProperty("Service")]
         public virtual University University { get; set; }
     }
 }

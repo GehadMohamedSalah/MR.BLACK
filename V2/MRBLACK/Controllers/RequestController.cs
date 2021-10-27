@@ -255,7 +255,7 @@ namespace MRBLACK.Controllers
             else if (prov != null)
             {
                 filteredRequests = requests.Where(c => c.ProviderId != null && c.ProviderId == prov.Id).ToList();
-                if (prov.Services != null)
+                if (prov.Service != null)
                 {
 
                     foreach (var req in requests)
@@ -265,7 +265,7 @@ namespace MRBLACK.Controllers
                             //service request in service category request
                             var srInscr1 = srInscr.Where(c => c.ServiceCategoryRequestId == req.Id);
                             var suitable = 0;
-                            var provServices = prov.Services.Where(c => c.UniversityId == req.UniversityId
+                            var provServices = prov.Service.Where(c => c.UniversityId == req.UniversityId
                             && c.CollegeId == req.CollegeId && c.AcademinYearId == req.AcademinYearId
                             && c.DepartmentId == req.DepartmentId
                             && c.TermId == req.TermId && c.SubjectId == req.SubjectId).ToList();

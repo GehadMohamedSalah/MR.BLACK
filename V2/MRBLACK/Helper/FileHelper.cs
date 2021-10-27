@@ -27,31 +27,5 @@ namespace MRBLACK.Helper
             }
             return uniqueFileName;
         }
-
-        //public static async Task<string> UploadFile(IFormFile FormFile)
-        //{
-        //    try
-        //    {
-        //        if(FormFile == null)
-        //        {
-        //            return null;
-        //        }
-        //        else
-        //        {
-        //            var filename = ContentDispositionHeaderValue.Parse(FormFile.ContentDisposition).FileName.Trim('"');
-        //            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", FormFile.FileName);
-        //            using (System.IO.Stream stream = new FileStream(path, FileMode.Create))
-        //            {
-        //                await FormFile.CopyToAsync(stream);
-        //            }
-        //            return path;
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        return null;
-        //    }
-
-        //}
     }
 }

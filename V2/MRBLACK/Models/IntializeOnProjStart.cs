@@ -21,9 +21,9 @@ namespace MRBLACK.Models
             UserManager<IdentitySetupUser> _userManager = scope.ServiceProvider.GetService<UserManager<IdentitySetupUser>>();
 
             ApplicationDbContext appContext = scope.ServiceProvider.GetService<ApplicationDbContext>();
-            if (appContext.CurrencyTypes.Where(c => c.IsMainCurrency == true).Count() == 0)
+            if (appContext.CurrencyType.Where(c => c.IsMainCurrency == true).Count() == 0)
             {
-                appContext.CurrencyTypes.Add(new CurrencyType()
+                appContext.CurrencyType.Add(new CurrencyType()
                 {
                     ArName = "الجنيه",
                     EnName = "Pound",

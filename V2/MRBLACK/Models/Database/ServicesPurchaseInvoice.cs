@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("ServicesPurchaseInvoice")]
     public partial class ServicesPurchaseInvoice
     {
         public ServicesPurchaseInvoice()
         {
-            ServicesInServicesPurchaseInvoices = new HashSet<ServicesInServicesPurchaseInvoice>();
+            ServicesInServicesPurchaseInvoice = new HashSet<ServicesInServicesPurchaseInvoice>();
         }
 
         [Key]
@@ -31,19 +31,21 @@ namespace MRBLACK.Models.Database
         public decimal ProviderRevenue { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal Platformrevenue { get; set; }
-
-        [ForeignKey(nameof(CopunId))]
-        [InverseProperty("ServicesPurchaseInvoices")]
-        public virtual Copun Copun { get; set; }
-        [ForeignKey(nameof(CurrencyTypeId))]
-        [InverseProperty("ServicesPurchaseInvoices")]
-        public virtual CurrencyType CurrencyType { get; set; }
-        [InverseProperty(nameof(ServicesInServicesPurchaseInvoice.Inv))]
-        public virtual ICollection<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoices { get; set; }
+        public int? ServiceCategoryRequestId { get; set; }
         public int? PaymentWayId { get; set; }
         public bool IsPaid { get; set; }
-        public int? ServiceCategoryRequestId { get; set; }
+        [Column(TypeName = "decimal(18, 3)")]
         public decimal TotalFees { get; set; }
+        [Column(TypeName = "decimal(18, 3)")]
         public decimal Discount { get; set; }
+
+        [ForeignKey(nameof(CopunId))]
+        [InverseProperty("ServicesPurchaseInvoice")]
+        public virtual Copun Copun { get; set; }
+        [ForeignKey(nameof(CurrencyTypeId))]
+        [InverseProperty("ServicesPurchaseInvoice")]
+        public virtual CurrencyType CurrencyType { get; set; }
+        [InverseProperty("Inv")]
+        public virtual ICollection<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoice { get; set; }
     }
 }

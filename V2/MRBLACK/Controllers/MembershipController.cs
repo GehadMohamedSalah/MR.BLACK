@@ -73,7 +73,7 @@ namespace MRBLACK.Controllers
                 {
                     foreach (var item in model.MembershipLinkList)
                     {
-                        ms.MembershipLinks.Add(item);
+                        ms.MembershipLink.Add(item);
                     }
                 }
 
@@ -111,9 +111,9 @@ namespace MRBLACK.Controllers
                 model.ImgPath = ms.First().ImgPath;
                 model.MembershipType = (int)ms.First().MembershipType;
                 model.MembershipLinkList = new List<MembershipLink>();
-                if (ms.First().MembershipLinks != null)
+                if (ms.First().MembershipLink != null)
                 {
-                    model.MembershipLinkList.AddRange(ms.First().MembershipLinks);
+                    model.MembershipLinkList.AddRange(ms.First().MembershipLink);
                 }
             }
             return View("EditCreate", model);
@@ -142,7 +142,7 @@ namespace MRBLACK.Controllers
                 {
                     foreach (var item in model.MembershipLinkList)
                     {
-                        ms.MembershipLinks.Add(item);
+                        ms.MembershipLink.Add(item);
                     }
                 }
 

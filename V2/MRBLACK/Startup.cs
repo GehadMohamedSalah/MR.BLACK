@@ -139,6 +139,7 @@ namespace MRBLACK
             services.AddScoped<IRepository<PaymentWay>, Repository<PaymentWay>>();
             services.AddScoped<IRepository<SystemSetting>, Repository<SystemSetting>>();
             services.AddScoped<IRepository<Copun>, Repository<Copun>>();
+            services.AddScoped<IRepository<UcdsEductionManagement>, Repository<UcdsEductionManagement>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

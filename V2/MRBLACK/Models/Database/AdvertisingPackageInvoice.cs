@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("AdvertisingPackageInvoice")]
     public partial class AdvertisingPackageInvoice
     {
         public AdvertisingPackageInvoice()
         {
-            AdvertisingPackageInvoiceViews = new HashSet<AdvertisingPackageInvoiceView>();
+            AdvertisingPackageInvoiceView = new HashSet<AdvertisingPackageInvoiceView>();
         }
 
         [Key]
@@ -30,9 +30,9 @@ namespace MRBLACK.Models.Database
         public DateTime? FinishedDateTime { get; set; }
 
         [ForeignKey(nameof(AdvertisingPackageRequestId))]
-        [InverseProperty("AdvertisingPackageInvoices")]
+        [InverseProperty("AdvertisingPackageInvoice")]
         public virtual AdvertisingPackageRequest AdvertisingPackageRequest { get; set; }
-        [InverseProperty(nameof(AdvertisingPackageInvoiceView.AdvertisingPackageInvoice))]
-        public virtual ICollection<AdvertisingPackageInvoiceView> AdvertisingPackageInvoiceViews { get; set; }
+        [InverseProperty("AdvertisingPackageInvoice")]
+        public virtual ICollection<AdvertisingPackageInvoiceView> AdvertisingPackageInvoiceView { get; set; }
     }
 }

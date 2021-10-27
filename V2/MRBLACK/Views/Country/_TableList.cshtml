@@ -14,7 +14,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
+        
         <td>@Html.DisplayFor(modelItem => item.CurrencyType.ArName)</td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <img src="~/Uploads/Images/Countries/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+            }
+        </td>
         <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Country/Edit/@item.Id')">
                 <i class="fa fa-edit"></i><span>  تعديل</span>

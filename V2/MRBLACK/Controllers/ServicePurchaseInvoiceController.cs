@@ -206,7 +206,7 @@ namespace MRBLACK.Controllers
                 PaymentWayId = model.PaymentWayId,
                 CopunId = model.CopunId,
                 ServiceCategoryRequestId = model.RequestId,
-                ServicesInServicesPurchaseInvoices = model.ServiceInvoiceList,
+                ServicesInServicesPurchaseInvoice = model.ServiceInvoiceList,
                 TotalCost = 0,
                 Platformrevenue = 0,
                 ProviderRevenue = 0
@@ -279,7 +279,7 @@ namespace MRBLACK.Controllers
                 var prov = _Provider.GetFirstOrDefault(c => c.Id == (int)providerId, "Services");
                 var req = _ServiceCategoryRequest.GetElement((int)requestId);
                 var srInscr = _ServiceRequest.GetAll(c => c.ServiceCategoryRequestId == req.Id).ToList();
-                var provServices = prov.Services.Where(c => c.UniversityId == req.UniversityId
+                var provServices = prov.Service.Where(c => c.UniversityId == req.UniversityId
                 && c.CollegeId == req.CollegeId && c.AcademinYearId == req.AcademinYearId
                 && c.DepartmentId == req.DepartmentId
                 && c.TermId == req.TermId && c.SubjectId == req.SubjectId).ToList();

@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
-#nullable disable
+// Code scaffolded by EF Core assumes nullable reference types (NRTs) are not used or disabled.
+// If you have enabled NRTs for your project, then un-comment the following line:
+// #nullable disable
 
 namespace MRBLACK.Models.Database
 {
-    [Table("AdvertisingPackagePage")]
     public partial class AdvertisingPackagePage
     {
         [Key]
@@ -17,10 +17,10 @@ namespace MRBLACK.Models.Database
         public int? SystemPageId { get; set; }
 
         [ForeignKey(nameof(AdvertisingPackageId))]
-        [InverseProperty("AdvertisingPackagePages")]
+        [InverseProperty("AdvertisingPackagePage")]
         public virtual AdvertisingPackage AdvertisingPackage { get; set; }
         [ForeignKey(nameof(SystemPageId))]
-        [InverseProperty("AdvertisingPackagePages")]
+        [InverseProperty("AdvertisingPackagePage")]
         public virtual SystemPage SystemPage { get; set; }
     }
 }
