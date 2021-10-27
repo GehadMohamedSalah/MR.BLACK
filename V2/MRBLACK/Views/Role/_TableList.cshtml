@@ -1,11 +1,13 @@
 ﻿@model List<MRBLACK.Areas.Identity.Data.IdentitySetupRole>
 @{
     Layout = null;
+    var i = ViewBag.PageStartRowNum;
 }
 
 @foreach (var item in Model)
 {
     <tr>
+        <td>@i</td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -16,10 +18,10 @@
             @if (item.CanBeEditedOrDeleted)
             {
                 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Role/Edit/@item.Id')">
-                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-edit"></i><span>  تعديل</span>
                 </button>
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Role/Delete/@item.Id')">
-                    <i class="fa fa-trash"></i>
+                    <i class="fa fa-trash"></i><span>  حذف</span>
                 </button>
             }
             else
@@ -28,7 +30,9 @@
             }
         </td>
         <td>
-            <a class="btn btn-success" href="/Role/RoleUsers/@item.Id"><i class="fa fa-users"></i></a>
+            @*/Role/RoleUsers/@item.Id"*@
+            <a class="btn btn-success" href="#"><i class="fa fa-users"></i></a>
         </td>
     </tr>
+    i++;
 }

@@ -1,0 +1,52 @@
+﻿@model MRBLACK.Models.Database.SystemSetting
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="SaveSystemSetting" method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h1 class="text-center">صفحة الرسوم</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="col-sm-12">
+                            <label asp-for="ImprovementFeesForStudent" class="control-label">رسوم تحسين المنصة على الطالب</label>
+                            <input asp-for="ImprovementFeesForStudent" class="form-control" />
+                            <span asp-validation-for="ImprovementFeesForStudent" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="ImprovementFeesForServiceProvider" class="control-label">رسوم تحسين منصة على مقدم الخدمة</label>
+                            <input asp-for="ImprovementFeesForServiceProvider" class="form-control" />
+                            <span asp-validation-for="ImprovementFeesForServiceProvider" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="SellingFeesForStudent" class="control-label">رسوم شراء على الطالب</label>
+                            <input asp-for="SellingFeesForStudent" class="form-control" />
+                            <span asp-validation-for="SellingFeesForStudent" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="SellingFeesForServiceProvider" class="control-label">رسوم بيع على المقدم</label>
+                            <input asp-for="SellingFeesForServiceProvider" class="form-control" />
+                            <span asp-validation-for="SellingFeesForServiceProvider" class="text-danger"></span>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-sm-offset-5">
+                            <input type="submit" value="حفظ" class="btn btn-primary" style="width:100% !important;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 //using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using MRBLACK.Data;
+using Newtonsoft.Json;
 
 namespace MRBLACK.Controllers
 {
@@ -25,7 +26,6 @@ namespace MRBLACK.Controllers
         private readonly Repository<CurrencyType> _CurrencyType;
         private readonly IdentitySetupContext _context;
         private readonly int PageSize;
-        private string LoggedUserRole;
         public ServiceCategoryController(IRepository<ServiceCategory> ServiceCategory,
             IRepository<CurrencyType> CurrencyType,
             IdentitySetupContext context)
@@ -36,26 +36,12 @@ namespace MRBLACK.Controllers
             PageSize = 5;
         }
 
-        private void SetLoggedUserData()
-        {
-            var LoggedUserId = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userId
-
-            if(LoggedUserRole == null)
-            {
-                var roles = _context.UserRoles.Where(c => c.UserId == LoggedUserId);
-                if (roles != null)
-                {
-                    LoggedUserRole = _context.Roles.Find(roles.First().RoleId).Name;
-                }
-            }
-        }
-
         #region CRUD OPERTIONS
 
         #region Get ServiceCategorys
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -72,8 +58,7 @@ namespace MRBLACK.Controllers
         {
             if (ModelState.IsValid)
             {
-                SetLoggedUserData();
-                if (LoggedUserRole == "ADMIN")
+                if (GeneralHelper.GetLoggedUserRole(User.FindFirstValue(ClaimTypes.NameIdentifier),_context) == "ADMIN")
                     model.IsAccepted = true;
                 _ServiceCategory.Add(model);
                 return RedirectToAction(nameof(Index));
@@ -105,6 +90,22 @@ namespace MRBLACK.Controllers
             if (ModelState.IsValid)
             {
                 _ServiceCategory.Update(model);
+                //var childern = new List<ServiceCategory>();
+                //GeneralHelper.GetSpecificChildernCategories(_ServiceCategory, model.Id, childern);
+                //if(childern != null && childern.Count() > 0)
+                //{
+                //    childern.ForEach(c =>
+                //    {
+                //        c.FormType = model.FormType;
+                //        c.PricingMethod = model.PricingMethod;
+                //        c.ServicePrice = model.ServicePrice;
+                //        c.PlatformRevenueFromServPrice = model.PlatformRevenueFromServPrice;
+                //        c.CommissionPercentage = model.CommissionPercentage;
+                //        c.CurrencyTypeId = model.CurrencyTypeId;
+                //        c.AutoAcceptedService = model.AutoAcceptedService;
+                //        _ServiceCategory.Update(c);
+                //    });
+                //}
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Edit);
@@ -149,7 +150,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<ServiceCategory>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<ServiceCategory>> GetPagedListItems(string searchStr, int pageNumber, int pageSize)
         {
             Expression<Func<ServiceCategory, bool>> filter = null;
             Func<IQueryable<ServiceCategory>, IOrderedQueryable<ServiceCategory>> orderBy = o => o.OrderByDescending(c => c.ArName);
@@ -160,20 +161,20 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-
-            return await PagedList<ServiceCategory>.CreateAsync(_ServiceCategory.GetAllAsIQueryable(filter, orderBy),
-                pageNumber, PageSize);
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+            return await PagedList<ServiceCategory>.CreateAsync(_ServiceCategory.GetAllAsIQueryable(filter, orderBy, "ParentCategory"),
+                pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<ServiceCategory>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<ServiceCategory>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/ServiceCategory/GetItems";
             model.GetPaginationUrl = "/ServiceCategory/GetPagination";
             return PartialView("_Pagination", model);
@@ -190,6 +191,15 @@ namespace MRBLACK.Controllers
             ViewBag.CurrencyTypeList = new SelectList(_CurrencyType.GetAll(), "Id", "ArName");
         }
 
+        #endregion
+
+
+        #region AJAX CALL
+        public IActionResult GetParentCategoryDetails(int categoryId)
+        {
+            var result = JsonConvert.SerializeObject(_ServiceCategory.GetElement(categoryId));
+            return Json(result);
+        }
         #endregion
     }
 }

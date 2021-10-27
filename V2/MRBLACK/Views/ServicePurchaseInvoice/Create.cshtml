@@ -1,0 +1,307 @@
+﻿@model MRBLACK.Models.ViewModels.ServicePurchaseInvoiceVM
+@using MRBLACK.Models.Enums
+
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var colspan = 4;
+    decimal totals = 0;
+}
+
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+@if (Model.RequestId != null)
+{
+    <style>
+        #StudentId {
+            pointer-events: none;
+        }
+    </style>
+}
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h2 class="text-center">انشاء فاتورة</h2>
+                </div>
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="RequestId"/>
+                    <input type="hidden" asp-for="CopunId"/>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <label asp-for="InvCode">رقم الفاتورة</label>
+                            <input asp-for="InvCode" readonly class="form-control" placeholder="الكود" />
+                            <span asp-validation-for="InvCode" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="InvDateTime">تاريخ الفاتورة</label>
+                            <input asp-for="InvDateTime" readonly class="form-control" placeholder="تاريخ الفاتورة" />
+                            <span asp-validation-for="InvDateTime" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-6">
+                            <label asp-for="StudentId">الطالب</label>
+                            <select class="form-control" asp-for="StudentId" asp-items="@Model.StudentList">
+                            </select>
+                            <span asp-validation-for="StudentId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label asp-for="ProviderId">مقدم الخدمة</label>
+                            <select class="form-control" asp-for="ProviderId" asp-items="@Model.ProviderList">
+                                <option value="-1" selected disabled>اختر مقدم الخدمة</option>
+                            </select>
+                            <span asp-validation-for="ProviderId" class="text-danger"></span>
+                        </div>
+
+                        <div class="dvServiceList">
+                            
+                        </div>
+
+                        @if (Model.RequestId != null)
+                        {
+                            <div class="col-sm-6">
+                                <label asp-for="RequestCode">رقم الطلب</label>
+                                <input asp-for="RequestCode" readonly class="form-control" placeholder="رقم الطلب" />
+                                <span asp-validation-for="RequestCode" class="text-danger"></span>
+                            </div>
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <td colspan="@colspan" class="text-center">محتوى الطلب</td>
+                                    </tr>
+                                    <tr>
+                                        <th>الاسم</th>
+                                        <th>العدد</th>
+                                        <th>مدة التسليم بالايام</th>
+                                        @if (Model.FormType == (int)ServiceFormType.Research)
+                                        {
+                                            <th>عدد الصفح</th>
+                                            <th>مقدمة وخاتمة</th>
+                                            <th>هوامش</th>
+                                            <th>مصادر</th>
+                                            <th>تدقيق املائي</th>
+                                            colspan = 9;
+                                        }
+                                        <td>السعر</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    @if (Model.RequestContent != null && Model.RequestContent.Count() > 0)
+                                    {
+                                        var i = 0;
+                                        foreach (var item in Model.RequestContent)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" asp-for="RequestContent[i].Id" readonly class="form-control" value="@item.Id" />
+
+                                                    <input asp-for="RequestContent[i].SubCategoryName" readonly class="form-control" value="@item.SubCategoryName" />
+                                                </td>
+                                                <td>
+                                                    <input readonly asp-for="RequestContent[i].TimesOfService" class="form-control" onkeyup="CalcServicePric(this,'price_@i',@item.Price)" />
+                                                </td>
+                                                <td>
+                                                    <input readonly asp-for="RequestContent[i].DeliveryPeriodInDays" class="form-control" />
+                                                </td>
+                                                @if (Model.FormType == 2)
+                                                {
+                                                    <td>
+                                                        <input readonly asp-for="RequestContent[i].PaperNum" class="form-control" disabled />
+                                                    </td>
+                                                    <td>
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasIntroAndEnd" disabled />
+                                                    </td>
+                                                    <td>
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasMargins"disabled />
+                                                    </td>
+                                                    <td>
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasReference" disabled/>
+                                                    </td>
+                                                    <td>
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasSpelling"disabled />
+                                                    </td>
+                                                }
+                                                <td >
+                                                    @if (item.PricingMethod == (int)PricingMethod.Commission)
+                                                    {
+                                                        <span id="priceCol_@Model.RequestContent[i].Id" class="spprice">لم يحدد بعد</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        totals += (item.Price * item.TimesOfService);
+                                                        <span id="priceCol_@Model.RequestContent[i].Id" class="spprice">@(item.Price * item.TimesOfService)</span>
+                                                    }
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="@colspan">
+                                            <span>اجمالي سعر الخدمات:  </span>
+                                            <span id="totals">@totals</span>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+
+                        }
+
+                        <div class="col-sm-4">
+                            <label asp-for="Copun">كوبون خصم</label>
+                            <input class="form-control" asp-for="Copun" />
+                            <span asp-validation-for="Copun" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-2">
+                            <label>تفعيل الكوبون</label>
+                            <button type="button" class="col-sm-12 btn btn-bitbucket" id="btnCopunActivation">تفعيل</button>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label asp-for="CurrencyTypeId">نوع العملة</label>
+                            <select class="form-control" asp-for="CurrencyTypeId">
+                                @foreach(var item in Model.CurrencyTypeList)
+                                {
+                                    <option value="@item.Id" data-html="@item.ValueInPound">@item.ArName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label asp-for="PaymentWayId">طريقة الدفع</label>
+                            <select class="form-control" asp-for="PaymentWayId">
+                                <option selected disabled value="-1">اختر طريقة الدفع</option>
+                                @foreach (var item in Model.PaymentWayList)
+                                {
+                                    <option value="@item.Id" fees="@item.TransferFees">@item.ArName</option>
+                                }
+                            </select>
+                            <span asp-validation-for="PaymentWayId" class="text-danger"></span>
+                        </div>
+
+                        <table class="table table-bordered table-striped table-hover mt--10">
+                            <tr>
+                                <td>اجمالي سعر الخدمات</td>
+                                <td id="totals1">@totals</td>
+                            </tr>
+                            <tr>
+                                <td>الرسوم</td>
+                                <td id="totalFees">@(Model.PlatformFees + Model.TransferFees)</td>
+                            </tr>
+                            <tr>
+                                <td>نسبة الخصم %</td>
+                                <td id="Discount">0</td>
+                            </tr>
+                            <tr>
+                                <td>اجمالي الفاتورة</td>
+                                <td id="totalInv">@(totals + Model.PlatformFees + Model.TransferFees)</td>
+                            </tr>
+                        </table>
+
+                    </div>
+                    <div style="display:none" id="dvServiceInvoiceList">
+
+                    </div>
+                    <div class="panel-footer">
+                        @if (Model.RequestId != null)
+                        {
+                            <a class="btn btn-info" href="/Request/Details/@Model.RequestId">عودة للطلب</a>
+                        }
+                        <input type="submit" value="حفظ" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+    $("#ProviderId").change(function () {
+        var providerId = $(this).val();
+        var requestId = $("#RequestId").val();
+        $.ajax({
+            url: "/ServicePurchaseInvoice/GetServiceCost",
+            type: "get",
+            data: { providerId: providerId, requestId: requestId },
+            success: function (result) {
+                if (result != null && result != "") {
+                    var jsonobj = JSON.parse(result);
+                    $("#dvServiceInvoiceList").empty();
+                    for (var i = 0; i < jsonobj.length; i++) {
+                        document.getElementById("priceCol_" + jsonobj[i].SubRequestId).innerHTML = jsonobj[i].ServiceTotalCost;
+
+                        var idInp = '<input type="hidden" name="ServiceInvoiceList[' + i + '].Id" value="0"/>';
+                        var invIdInp = '<input type="hidden" name="ServiceInvoiceList[' + i + '].InvId" value=""/>';
+                        var serviceIdInp = '<input type="hidden" name="ServiceInvoiceList['+i+'].ServiceId" value="' + jsonobj[i].ServiceId+'"/>';
+                        var subRequestIdInp = '<input type="hidden" name="ServiceInvoiceList[' + i + '].SubRequestId" value="' + jsonobj[i].SubRequestId+'"/>'
+                        $("#dvServiceInvoiceList").append(idInp);
+                        $("#dvServiceInvoiceList").append(invIdInp);
+                        $("#dvServiceInvoiceList").append(serviceIdInp);
+                        $("#dvServiceInvoiceList").append(subRequestIdInp);
+                    }
+                    CalculateTotalServiceCost();
+                }
+            }
+        });
+    });
+
+    function CalculateTotalServiceCost() {
+        var spprice = $(".spprice");
+        var totals = 0;
+        for (var i = 0; i < spprice.length; i++) {
+            totals = totals + Number(spprice[i].innerHTML);
+        }
+        $("#totals").html(totals);
+        $("#totals1").html(totals);
+        CalcTotalInvoice();
+    }
+
+    $("#btnCopunActivation").click(function () {
+        var copun = $("#Copun").val();
+        var totalServicesCost = Number($("#totals").html());
+        $.ajax({
+            url: "/ServicePurchaseInvoice/GetCopunDiscount",
+            type: "get",
+            data: { copun: copun, totalServicesCost: totalServicesCost },
+            success: function (result) {
+                var jsobj = JSON.parse(result);
+                $("#CopunId").val(jsobj.Id);
+                $("#Discount").html(jsobj.DiscountPercentage);
+                CalcTotalInvoice();
+            }
+        });
+    });
+
+    $("#PaymentWayId").change(function () {
+        CalcPaymentFees();
+    });
+
+    function CalcPaymentFees() {
+        var paymentFees = Number($("#PaymentWayId").find(":selected").attr("fees"));
+        var total = Number($("#totals").html());
+        var oldFees = Number("@(Model.PlatformFees + Model.TransferFees)");
+        $("#totalFees").html((total * paymentFees / 100) + oldFees);
+        CalcTotalInvoice();
+    }
+
+    function CalcTotalInvoice() {
+        //if (Number($("#totalFees").html()) == 0) {
+        //    CalcPaymentFees();
+        //}
+        var total = Number($("#totals1").html());
+        var fees = Number($("#totalFees").html());
+        var discount = total * Number($("#Discount").html()) / 100;
+        var totalInv = total + fees - discount;
+        $("#totalInv").html(totalInv);
+    }
+</script>

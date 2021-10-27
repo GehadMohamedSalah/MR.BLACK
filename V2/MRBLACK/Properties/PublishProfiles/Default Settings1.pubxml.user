@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAeIka7m8zuEWJRAuF1j58JgAAAAACAAAAAAAQZgAAAAEAACAAAAB1NjeZryZ+HvP9HOyVE0MZcT2MYhu19s+IEpXwcne+dQAAAAAOgAAAAAIAACAAAADxrnnDTFSelbt46W2aOHTPdFJlJXcf0tuEwmlrfTvZ+SAAAABf+pd5yZT89SRQn8rQ/fBfXNH6Iw5D0ES30FcnlgWK+UAAAABgM9pYmy6A+SV6UPS+wNvF8OvHqqT3ZmV4lgCWGdlTY1QBrOqfqzkqQbVPCBssenIMDDjB/gSgcwws4ulKoWWz</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="IdentitySetupContextConnection">
+      <Value>Server=SQL5108.site4now.net%3bDatabase=db_a6e36f_mrblack%3bUser Id=db_a6e36f_mrblack_admin%3bPassword=MRBLACK_123456%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="MRBLACK.Data.IdentitySetupContext">
+      <Value>Server=SQL5108.site4now.net%3bDatabase=db_a6e36f_mrblack%3bUser Id=db_a6e36f_mrblack_admin%3bPassword=MRBLACK_123456%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </EFMigrations>
+    <EFMigrations Include="MRBLACK.Models.Database.ApplicationDbContext">
+      <Value>Server=SQL5108.site4now.net%3bDatabase=db_a6e36f_mrblack%3bUser Id=db_a6e36f_mrblack_admin%3bPassword=MRBLACK_123456%3bTrusted_Connection=True%3bMultipleActiveResultSets=true</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

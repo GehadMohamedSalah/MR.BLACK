@@ -14,7 +14,6 @@ namespace MRBLACK.Models.Database
         public Student()
         {
             ServiceCategoryRequests = new HashSet<ServiceCategoryRequest>();
-            ServiceRequests = new HashSet<ServiceRequest>();
         }
 
         [Key]
@@ -50,7 +49,7 @@ namespace MRBLACK.Models.Database
         public virtual University University { get; set; }
         [InverseProperty(nameof(ServiceCategoryRequest.Student))]
         public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
-        [InverseProperty(nameof(ServiceRequest.Student))]
-        public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
+
+        public int? CountryId { get; set; }
     }
 }

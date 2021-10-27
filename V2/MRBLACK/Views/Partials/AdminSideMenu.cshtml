@@ -19,71 +19,113 @@
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
+            <li class="treeview">
+            </li>
             <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("home") ? "active" : "")">
-                <a href="@Url.Action("Index", "Home")">
+                <a href="/Home/Index">
                     <i class="fa fa-book"></i> <span>الرئيسية</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("role") ? "active" : "")">
                 <a href="@Url.Action("Index", "Role")">
                     <i class="fa fa-circle"></i> <span>الادوار و الصلاحيات</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("currencytype") ? "active" : "")">
                 <a href="@Url.Action("Index", "CurrencyType")">
                     <i class="fa fa-coins"></i> <span>العملات</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("country") 
+                || Context.Request.Path.ToString().ToLower().Contains("university")
+                ||Context.Request.Path.ToString().ToLower().Contains("college")
+                || Context.Request.Path.ToString().ToLower().Contains("department")
+                ||Context.Request.Path.ToString().ToLower().Contains("academicyear")
+                ||Context.Request.Path.ToString().ToLower().Contains("term")
+                ||Context.Request.Path.ToString().ToLower().Contains("subject")
+                ||Context.Request.Path.ToString().ToLower().Contains("copun") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-cogs"></i> <span>الاعدادات العامة</span>
                 </a>
                 <ul class="treeview-menu">
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("country") ? "active" : "")">
                         <a href="@Url.Action("Index", "Country")">
                             <i class="fa fa-flag"></i> <span>الدول</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("university") ? "active" : "")">
                         <a href="@Url.Action("Index", "University")">
                             <i class="fa fa-university"></i> <span>الجامعات</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("college") ? "active" : "")">
                         <a href="@Url.Action("Index", "College")">
                             <i class="fa fa-school"></i> <span>الكليات</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("department") ? "active" : "")">
                         <a href="@Url.Action("Index", "Department")">
                             <i class="fa fa-industry"></i> <span>الاقسام</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("academicyear") ? "active" : "")">
                         <a href="@Url.Action("Index", "AcademicYear")">
                             <i class="fa fa-calendar"></i> <span>السنين الدراسية</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("term") ? "active" : "")">
                         <a href="@Url.Action("Index", "Term")">
                             <i class="fa fa-list"></i> <span>الترمات</span>
                         </a>
                     </li>
-                    <li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("subject") ? "active" : "")">
                         <a href="@Url.Action("Index", "Subject")">
                             <i class="fa fa-book-open"></i> <span>المواد</span>
                         </a>
                     </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("copun") ? "active" : "")">
+                        <a href="@Url.Action("Index", "Copun")">
+                            <i class="fa fa-percent"></i> <span>كوبونات الخصم</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li class="treeview">
+
+            <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting") ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-cogs"></i> <span>اعدادات النظام</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/index") ? "active" : "")">
+                        <a href="@Url.Action("Index", "SystemSetting")">
+                            <i class="fa fa-cog"></i> <span>اعدادات النظام</span>
+                        </a>
+                    </li>
+                    <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/systemfees") ? "active" : "")">
+                        <a href="@Url.Action("SystemFees", "SystemSetting")">
+                            <i class="fa fa-money-bill-wave"></i> <span>الرسوم</span>
+                        </a>
+                    </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/researchadditionratio") ? "active" : "")">
+                        <a href="@Url.Action("ResearchAdditionRatio", "SystemSetting")">
+                            <i class="fa fa-percent"></i> <span>نسب مكملات البحث</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") ? "active" : "")">
                 <a href="@Url.Action("Index", "Membership")">
                     <i class="fa fa-id-card"></i> <span>العضويات</span>
                 </a>
             </li>
-            <li class="treeview">
+            <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("servicecategory") ? "active" : "")">
                 <a href="@Url.Action("Index", "ServiceCategory")">
                     <i class="fa fa-list-alt"></i> <span>تصنيفات الخدمات</span>
+                </a>
+            </li>
+            <li  class="treeview @(Context.Request.Path.ToString().ToLower().Contains("service") ? "active" : "")">
+                <a href="@Url.Action("Index", "Service")">
+                    <i class="fa fa-tasks"></i> <span>الخدمات</span>
                 </a>
             </li>
             @*

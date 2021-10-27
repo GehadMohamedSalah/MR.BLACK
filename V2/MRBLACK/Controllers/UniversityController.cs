@@ -19,21 +19,21 @@ namespace MRBLACK.Controllers
     {
         private readonly Repository<University> _University;
         private readonly Repository<Country> _Country;
-        private readonly int PageSize;
+        //private readonly int PageSize;
         public UniversityController(IRepository<University> University,
             IRepository<Country> Country)
         {
             _University = (Repository<University>)University;
             _Country = (Repository<Country>)Country;
-            PageSize = 5;
+            //PageSize = 5;
         }
 
         #region CRUD OPERTIONS
 
         #region Get Universities
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -118,7 +118,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<University>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<University>> GetPagedListItems(string searchStr, int pageNumber, int pageSize)
         {
             Expression<Func<University, bool>> filter = null;
             Func<IQueryable<University>, IOrderedQueryable<University>> orderBy = o => o.OrderByDescending(c => c.ArName);
@@ -130,20 +130,20 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.Country.ArName.Contains(searchStr);
             }
-
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             return await PagedList<University>.CreateAsync(_University.GetAllAsIQueryable(filter, orderBy, "Country"),
-                pageNumber, PageSize);
+                pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<University>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<University>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/University/GetItems";
             model.GetPaginationUrl = "/University/GetPagination";
             return PartialView("_Pagination", model);

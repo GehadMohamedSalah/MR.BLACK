@@ -2,11 +2,13 @@
 @using MRBLACK.Models.Enums
 @{
     Layout = null;
+    var i = ViewBag.PageStartRowNum;
 }
 
 @foreach (var item in Model)
 {
     <tr>
+        <td>@i</td>
         <td>
             <a href="~/Images/@item.ImgPath" target="_blank">
                 <img src="~/Images/@item.ImgPath" width="50" height="50" />
@@ -23,22 +25,23 @@
             {
                 <span>طالب</span>
             }
-            else if(item.MembershipType == (int)MembershipType.Provider)
+            else if (item.MembershipType == (int)MembershipType.Provider)
             {
                 <span>مقدم خدمة</span>
             }
-            else if(item.MembershipType == (int)MembershipType.Advertiser)
+            else if (item.MembershipType == (int)MembershipType.Advertiser)
             {
                 <span>معلن</span>
             }
         </td>
         <td>
             <a class="btn btn-info" href="/Membership/Edit/@item.Id">
-                <i class="fa fa-edit"></i>
+                <i class="fa fa-edit"></i><span>  تعديل</span>
             </a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Membership/Delete/@item.Id')">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash"></i><span>  حذف</span>
             </button>
         </td>
     </tr>
+    i++;
 }

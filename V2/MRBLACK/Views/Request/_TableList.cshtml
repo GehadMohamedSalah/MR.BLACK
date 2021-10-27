@@ -1,0 +1,67 @@
+﻿@model List<MRBLACK.Models.ViewModels.RequestIndexVM>
+@using MRBLACK.Models.Enums;
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Code)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequestDateTime)
+        </td>
+        <td>
+            @if (item.Status == (int)Status.Pending)
+            {
+                <span class="text-blue">قيد الانتظار</span>
+            }
+            else if (item.Status == (int)Status.Accepted)
+            {
+                <span class="text-black">تم الموافقة وقيد العمل</span>
+            }
+            else if (item.Status == (int)Status.Finished)
+            {
+                <span class="text-warning">تم الانتهاء</span>
+            }
+            else if (item.Status == (int)Status.Delivered)
+            {
+                <span class="text-success">تم التسليم</span>
+            }
+        </td>
+        <td>
+            @if (item.Total == 0)
+            {
+                <span>لم تحدد بعد</span>
+            }
+            else
+            {
+                @Html.DisplayFor(modelItem => item.Total)
+            }
+        </td>
+        <td>
+            @if (ViewBag.IsStudent == true)
+            {
+                if (item.Status == (int)Status.Pending && item.ProvidersAccepted == null)
+                {
+                    <a class="btn btn-info" href="/Request/Edit/@item.Id"><i class="fa fa-edit"></i><span>  تعديل</span></a>
+                }
+                if (item.Status == (int)Status.Pending)
+                {
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Request/Delete/@item.Id')">
+                        <i class="fa fa-trash"></i><span>  حذف</span>
+                    </button>
+                }
+            }
+            <a class="btn btn-success" href="/Request/Details/@item.Id"><i class="fa fa-eye"></i></a>
+        </td>
+    </tr>
+    i++;
+}

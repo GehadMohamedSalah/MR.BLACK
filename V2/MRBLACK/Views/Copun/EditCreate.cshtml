@@ -1,0 +1,141 @@
+﻿@model MRBLACK.Models.Database.Copun
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string StartDate = "";
+    string EndDate = "";
+    if (Model.StartDate != null)
+    {
+        StartDate = ((DateTime)Model.StartDate).ToString("yyyy-MM-dd");
+    }
+
+    if (Model.EndDate != null)
+    {
+        EndDate = ((DateTime)Model.EndDate).ToString("yyyy-MM-dd");
+    }
+    if(ViewBag.ActionName == "Create")
+    {
+        Model.IsPublic = false;
+    }
+}
+@if (Model.IsPublic == true)
+{
+    <style>
+        #dvCategoryId {
+            display: none;
+        }
+    </style>
+}
+else
+{
+    <style>
+        #dvCategoryId {
+            display: inherit;
+        }
+    </style>
+}
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
+
+    <div class="panel">
+        <div class="panel-heading">
+            <h2 class="text-center">اضافة/تعديل كوبون خصم</h2>
+        </div>
+        <div class="panel-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label asp-for="NameOrCode">كود الخصم</label>
+                    <input asp-for="NameOrCode" class="form-control" placeholder="كود الخصم" />
+                    <span asp-validation-for="NameOrCode" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-12">
+                    <input type="checkbox" asp-for="IsPublic" />
+                    <label asp-for="IsPublic">هل هو بشكل عام على اي خدمات</label>
+                    <span asp-validation-for="IsPublic" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12" id="dvCategoryId">
+                    <label asp-for="CategoryId">التصنيف</label>
+                    <select class="form-control" asp-for="CategoryId" asp-items="@ViewBag.CategoryList">
+                        <option value="-1" selected disabled>اختر التصنيف</option>
+                    </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="DiscountPercentage">نسبة الخصم</label>
+                    <input asp-for="DiscountPercentage" class="form-control" placeholder="نسبة الخصم" />
+                    <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="MinInvoiceVal">اقل قيمة للفاتورة</label>
+                    <input asp-for="MinInvoiceVal" class="form-control" placeholder="اقل قيمة للفاتورة" />
+                    <span asp-validation-for="MinInvoiceVal" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="CurrencyTypeId">نوع العملة</label>
+                    <select class="form-control" asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList">
+                        <option value="-1" selected disabled>اختر نوع العملة</option>
+                    </select>
+                    <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="DiscountOnWho">على من سيكون الخصم؟</label>
+                    <select class="form-control" asp-for="DiscountOnWho">
+                        <option value="-1" selected disabled>اختر على من سيكون الخصم</option>
+                        <option value="1">المنصة</option>
+                        <option value="2">مقدم الخدمة</option>
+                    </select>
+                    <span asp-validation-for="DiscountOnWho" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="StartDate">تاريخ بدأ استخدام الكوبون</label>
+                    <input asp-for="StartDate" type="date" class="form-control" placeholder="تاريخ بدأ استخدام الكوبون" value="@StartDate" />
+                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="EndDate">تاريخ انتهاءه</label>
+                    <input asp-for="EndDate" type="date" class="form-control" placeholder="تاريخ انتهاءه" value="@EndDate" />
+                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-info" href="/Copun/Index">عودة للقائمة</a>
+            <input type="submit" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+
+</form>
+
+
+<script type="text/javascript">
+    //$("#IsPublic").change(function () {
+    //    debugger;
+    //    var IsPublic = $(this).val();
+    //    var check = false;
+    //    if (IsPublic == "true") {
+    //        $(this).val("false");
+    //    }
+    //    else {
+    //        $(this).val("true");
+    //    }
+    //    //if (IsPublic == "true") {
+    //    //    $("#dvCategoryId").css("display", "none");
+    //    //}
+    //    //else {
+    //    //    $("#dvCategoryId").css("display", "inherit");
+    //    //}
+
+    //});
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

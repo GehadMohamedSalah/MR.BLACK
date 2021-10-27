@@ -14,6 +14,15 @@
         display2 = "";
     }
 }
+
+@if(Model.ParentCategoryId != null)
+{
+<style>
+    #FormType, #PricingMethod, #ServicePrice, #PlatformRevenueFromServPrice, #CommissionPercentage, #CurrencyTypeId, #AutoAcceptedService{
+        pointer-events:none;
+    }
+</style>
+}
 <!-- ClientSide Validation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
@@ -29,7 +38,7 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label asp-for="EnName">الاسم</label>
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم" />
+                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -39,15 +48,22 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ParentCategoryId">الصنف الرئيسي</label>
-                    <select class="form-control" asp-for="ParentCategoryId" asp-items="@ViewBag.ParentCategoryList">
+                    <select class="form-control" data-live-search="true" asp-for="ParentCategoryId" asp-items="@ViewBag.ParentCategoryList">
                         <option value="-1" selected disabled>اختر الصنف الرئيسي</option>
                     </select>
                     <span asp-validation-for="ParentCategoryId" class="text-danger"></span>
                 </div>
-
+                <div class="col-sm-6">
+                    <label asp-for="FormType">نوع الفورمة للخدمات المضافة تحت  هذا التصنيف</label>
+                    <select class="form-control" data-live-search="true" asp-for="FormType">
+                        <option disabled selected value="-1">اختر الفورمة</option>
+                        <option value="1">حل واجب</option>
+                        <option value="2">بحث</option>
+                    </select>
+                </div>
                 <div class="col-sm-6">
                     <label asp-for="PricingMethod">نوع التسعير</label>
-                    <select asp-for="PricingMethod" class="form-control">
+                    <select asp-for="PricingMethod" class="form-control" data-live-search="true" onchange="ChangePricingMethod(this)">
                         <option selected value="-1" disabled>اختر نوع التسعر</option>
                         <option value="1">جبري</option>
                         <option value="2">عمولة</option>
@@ -71,7 +87,7 @@
                 </div>
                 <div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
                     <label asp-for="CurrencyTypeId">نوع العملة</label>
-                    <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
+                    <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control" data-live-search="true">
                         <option selected disabled value="-1">اختر نوع العملة</option>
                     </select>
                     <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
@@ -90,9 +106,10 @@
 
 </form>
 
+
 <script type="text/javascript">
-    $("#PricingMethod").click(function () {
-        if ($(this).val() == 1) {
+    function ChangePricingMethod(elementval) {
+        if (elementval == 1) {
             document.getElementById("dvServicePrice").style.display = "";
             document.getElementById("dvPlatformRevenueFromServPrice").style.display = "";
             document.getElementById("dvCurrencyTypeId").style.display = "";
@@ -104,6 +121,41 @@
             document.getElementById("dvCurrencyTypeId").style.display = "none";
             document.getElementById("dvCommissionPercentage").style.display = "";
         }
+    }
+   
+    $("#ParentCategoryId").change(function () {
+        var categoryId = $(this).val();
+        ChangePricingMethod(categoryId);
+        //$.ajax({
+        //    url: "/ServiceCategory/GetParentCategoryDetails",
+        //    type: "get",
+        //    data: { categoryId: categoryId },
+        //    success: function (result) {
+        //        debugger;
+        //        var jsonResult = JSON.parse(result);
+        //        $("#FormType").val(jsonResult.FormType);
+        //        $("#FormType").css("pointer-events", "none");
+        //        $("#PricingMethod").val(jsonResult.PricingMethod);
+        //        $("#PricingMethod").css("pointer-events", "none");
+        //        $("#ServicePrice").val(jsonResult.ServicePrice);
+        //        $("#ServicePrice").css("pointer-events", "none");
+        //        $("#PlatformRevenueFromServPrice").val(jsonResult.PlatformRevenueFromServPrice);
+        //        $("#PlatformRevenueFromServPrice").css("pointer-events", "none");
+        //        $("#CommissionPercentage").val(jsonResult.CommissionPercentage);
+        //        $("#CommissionPercentage").css("pointer-events", "none");
+        //        $("#CurrencyTypeId").val(jsonResult.CurrencyTypeId);
+        //        $("#CurrencyTypeId").css("pointer-events", "none");
+        //        $("#AutoAcceptedService").val(jsonResult.AutoAcceptedService);
+        //        if (jsonResult.AutoAcceptedService == false) {
+        //            $("#AutoAcceptedService").removeAttr("checked");
+        //        }
+        //        else {
+        //            $("#AutoAcceptedService").prop("checked",true);
+        //        }
+        //        $("#AutoAcceptedService").css("pointer-events", "none");
+
+        //    }
+        //});
     });
 </script>
 

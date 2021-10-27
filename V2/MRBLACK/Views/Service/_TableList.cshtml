@@ -1,0 +1,33 @@
+﻿@model List<MRBLACK.Models.Database.Service>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.ArName)
+        </td>
+        <td>
+            <a class="btn btn-info" href="/Service/Edit/@item.Id">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Service/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
+    i++;
+}

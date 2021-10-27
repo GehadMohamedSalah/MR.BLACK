@@ -10,28 +10,55 @@
         PreviousPage = Model.PreviousPage,
         NextPage = Model.NextPage,
         GetItemsUrl = "/AcademicYear/GetItems",
-        GetPaginationUrl = "/AcademicYear/GetPagination"
+        GetPaginationUrl = "/AcademicYear/GetPagination",
+        ItemsCount = Model.ItemsCount,
+        StartIndex = Model.StartIndex,
+        EndIndex = Model.EndIndex
     };
 }
 
 <h1 class="text-center">شاشة السنين الدراسية</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/AcademicYear/Create')">
-            اضافة جديد
-        </button>
-        <div class="input-group mt-5">
-            <input class="form-control left-border-none" type="text" id="inpSearch" placeholder="اكتب للبحث" value="">
-            <span class="input-group-addon transparent" onclick="ReloadPagination(@Model.PageIndex)">
-                <i class='fa fa-search' aria-hidden='true'></i>
-            </span>
+        <div class="row">
+            <div class="col-sm-8">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/AcademicYear/Create')">
+                    <i class="fa fa-plus"></i><span>  اضافة جديد</span>
+                </button>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group mt-5">
+                    <input class="form-control left-border-none" type="text" id="inpSearch" placeholder="اكتب للبحث" value="">
+                    <span class="input-group-addon transparent" onclick="ReloadPagination(@Model.PageIndex)">
+                        <i class='fa fa-search' aria-hidden='true'></i>
+                    </span>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <table>
+                    <tr>
+                        <td><span>عرض </span></td>
+                        <td>
+                            <select class="form-control" onchange="ReloadPagination(@Model.PageIndex)" id="entires">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </td>
+                        <td><span> من المدخلات</span></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div class="panel-body">
         <table class="table table-striped table-hover table-bordered">
-            <thead>
+            <thead class="bg-blue">
                 <tr>
-                    <td>الاسم</td>
+                    <td>#</td>
+                    <td>الاسم بالانجليزية</td>
                     <td>الاسم بالعربية</td>
                     <td>الاجراءات</td>
                 </tr>

@@ -31,9 +31,9 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Countries
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -118,7 +118,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<Country>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<Country>> GetPagedListItems(string searchStr, int pageNumber, int pageSize)
         {
             Expression<Func<Country, bool>> filter = null;
             Func<IQueryable<Country>, IOrderedQueryable<Country>> orderBy = o => o.OrderByDescending(c => c.EnName);
@@ -130,20 +130,20 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.CurrencyType.ArName.Contains(searchStr);
             }
-
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             return await PagedList<Country>.CreateAsync(_Country.GetAllAsIQueryable(filter, orderBy,"CurrencyType"),
-                pageNumber, PageSize);
+                pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<Country>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<Country>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/Country/GetItems";
             model.GetPaginationUrl = "/Country/GetPagination";
             return PartialView("_Pagination", model);

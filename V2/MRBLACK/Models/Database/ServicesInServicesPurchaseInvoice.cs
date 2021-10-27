@@ -14,13 +14,10 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         public int? InvId { get; set; }
-        public int? ServiceRequestId { get; set; }
-
+        public int? ServiceId { get; set; }
+        public int? SubRequestId { get; set; }
         [ForeignKey(nameof(InvId))]
         [InverseProperty(nameof(ServicesPurchaseInvoice.ServicesInServicesPurchaseInvoices))]
         public virtual ServicesPurchaseInvoice Inv { get; set; }
-        [ForeignKey(nameof(ServiceRequestId))]
-        [InverseProperty("ServicesInServicesPurchaseInvoices")]
-        public virtual ServiceRequest ServiceRequest { get; set; }
     }
 }

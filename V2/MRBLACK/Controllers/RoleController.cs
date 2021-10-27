@@ -28,9 +28,9 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Roles
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -137,7 +137,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<IdentitySetupRole>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<IdentitySetupRole>> GetPagedListItems(string searchStr, int pageNumber, int pageSize)
         {
             var model = _context.Roles.Where(i => i.MembershipId == null &&
                 i.IsDeleted == false);
@@ -146,18 +146,19 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 model = model.Where(c => c.Name.ToLower().Contains(searchStr) || c.ArName.Contains(searchStr));
             }
-            return await PagedList<IdentitySetupRole>.CreateAsync(model, pageNumber, PageSize);
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+            return await PagedList<IdentitySetupRole>.CreateAsync(model, pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<IdentitySetupRole>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<IdentitySetupRole>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/Role/GetItems";
             model.GetPaginationUrl = "/Role/GetPagination";
             return PartialView("_Pagination", model);

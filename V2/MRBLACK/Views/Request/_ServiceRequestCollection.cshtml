@@ -1,0 +1,104 @@
+﻿@model MRBLACK.Models.ViewModels.RequestVM
+@using MRBLACK.Models.Enums
+@{
+    Layout = null;
+    var colspan = 4;
+    decimal totals = 0;
+}
+
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>العدد</th>
+            <th>مدة التسليم بالايام</th>
+            @if (Model.FormType == (int)ServiceFormType.Research)
+            {
+                <th>عدد الصفح</th>
+                <th>مقدمة وخاتمة</th>
+                <th>هوامش</th>
+                <th>مصادر</th>
+                <th>تدقيق املائي</th>
+                colspan = 9;
+            }
+            <td>السعر</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.ServiceRequestCollection != null && Model.ServiceRequestCollection.Count() > 0)
+        {
+            var i = 0;
+            foreach (var item in Model.ServiceRequestCollection)
+            {
+                <tr>
+                    <td>
+                        <input type="hidden" asp-for="ServiceRequestCollection[i].Id" />
+                        <input type="hidden" asp-for="ServiceRequestCollection[i].SubCategoryId" />
+                        <input asp-for="ServiceRequestCollection[i].SubCategoryName" readonly class="form-control" value="@item.SubCategoryName" />
+                    </td>
+                    <td>
+                        <input asp-for="ServiceRequestCollection[i].TimesOfService" class="form-control" onkeyup="CalcServicePric(this,'price_@i',@item.Price)" />
+                    </td>
+                    <td>
+                        <input asp-for="ServiceRequestCollection[i].DeliveryPeriodInDays" class="form-control" />
+                    </td>
+                    @if (Model.FormType == 2)
+                    {
+                        <td>
+                            <input asp-for="ServiceRequestCollection[i].PaperNum" class="form-control" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="ServiceRequestCollection[i].HasIntroAndEnd" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="ServiceRequestCollection[i].HasMargins" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="ServiceRequestCollection[i].HasReference" />
+                        </td>
+                        <td>
+                            <input type="checkbox" asp-for="ServiceRequestCollection[i].HasSpelling" />
+                        </td>
+                    }
+                    <td>
+                        @if (item.PricingMethod == (int)PricingMethod.Commission)
+                        {
+                            <span>لم يحدد بعد</span>
+                        }
+                        else
+                        {
+                            totals += (item.Price * item.TimesOfService);
+                            <span id="price_@i" class="spprice">@(item.Price * item.TimesOfService)</span>
+                        }
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="@colspan">
+                <span>الاجمالي:  </span>
+                <span id="totals">@totals</span>
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<script type="text/javascript">
+
+    function CalcServicePric(element, eleId, price) {
+        debugger;
+        var times = $(element).val();
+        var result = Number(times) * price;
+        document.getElementById(eleId).innerHTML = result;
+        var spprices = $(".spprice");
+        var totals = 0;
+        for (var i = 0; i < spprices.length; i++) {
+            totals = totals + Number(spprices[i].innerHTML);
+        }
+        document.getElementById("totals").innerHTML = totals;
+    }
+
+</script>

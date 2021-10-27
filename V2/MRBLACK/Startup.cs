@@ -31,10 +31,13 @@ namespace MRBLACK
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;"));
-            
+            //options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;")
+            options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
+            );
             services.AddDbContext<IdentitySetupContext>(options =>
-            options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;"));
+            //options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;")
+            options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
+            );
 
             services.AddIdentity<IdentitySetupUser, IdentitySetupRole>()
                 .AddDefaultUI()
@@ -126,6 +129,16 @@ namespace MRBLACK
             services.AddScoped<IRepository<Subject>, Repository<Subject>>();
             services.AddScoped<IRepository<Department>, Repository<Department>>();
             services.AddScoped<IRepository<ServiceCategory>, Repository<ServiceCategory>>();
+            services.AddScoped<IRepository<Service>, Repository<Service>>();
+            services.AddScoped<IRepository<Models.Database.ServiceProvider>, Repository<Models.Database.ServiceProvider>>();
+            services.AddScoped<IRepository<ServiceCategoryRequest>, Repository<ServiceCategoryRequest>>();
+            services.AddScoped<IRepository<ServiceRequest>, Repository<ServiceRequest>>();
+            services.AddScoped<IRepository<Student>, Repository<Student>>();
+            services.AddScoped<IRepository<ServicesPurchaseInvoice>, Repository<ServicesPurchaseInvoice>>();
+            services.AddScoped<IRepository<ServicesInServicesPurchaseInvoice>, Repository<ServicesInServicesPurchaseInvoice>>();
+            services.AddScoped<IRepository<PaymentWay>, Repository<PaymentWay>>();
+            services.AddScoped<IRepository<SystemSetting>, Repository<SystemSetting>>();
+            services.AddScoped<IRepository<Copun>, Repository<Copun>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

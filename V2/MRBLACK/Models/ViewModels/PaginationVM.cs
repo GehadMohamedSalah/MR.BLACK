@@ -13,5 +13,8 @@ namespace MRBLACK.Models.ViewModels
         public bool NextPage { get; set; }
         public string GetItemsUrl { get; set; }
         public string GetPaginationUrl { get; set; }
+        public int StartIndex { get; set; }
+        public int EndIndex { get; set; }
+        public int ItemsCount { get; set; }
     }
 }

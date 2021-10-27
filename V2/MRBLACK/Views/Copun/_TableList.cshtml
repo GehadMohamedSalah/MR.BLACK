@@ -1,0 +1,63 @@
+﻿@model List<MRBLACK.Models.Database.Copun>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameOrCode)
+        </td>
+        <td>
+            @if (item.Category != null)
+            {
+                <span>@item.Category.ArName</span>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiscountPercentage)
+        </td>
+        <td>
+            @if (item.DiscountOnWho == 1)
+            {
+                <span>المنصة</span>
+            }
+            else
+            {
+                <span>مقدم الخدمة</span>
+            }
+        </td>
+        <td>
+            @{
+                var s = (DateTime)item.StartDate;
+            }
+            @s.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+
+            @{
+                var e = (DateTime)item.EndDate;
+            }
+            @e.ToString("dd-MM-yyyy")
+        </td>
+        <td>
+            @item.MinInvoiceVal
+            @if (item.CurrencyType != null)
+            {
+                <span>   @item.CurrencyType.ArName</span>
+            }
+        </td>
+        <td>
+            <a class="btn btn-info" href="/Copun/Edit/@item.Id">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Copun/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
+    i++;
+}

@@ -1,11 +1,13 @@
 ﻿@model List<MRBLACK.Models.Database.ServiceCategory>
 @{
     Layout = null;
+    var i = ViewBag.PageStartRowNum;
 }
 
 @foreach (var item in Model)
 {
     <tr>
+        <td>@i</td>
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
@@ -27,12 +29,13 @@
         </td>
         <td>@item.RevenueFromThisCatgoryToPlatform</td>
         <td>
-            <a  class="btn btn-info" href="/ServiceCategory/Edit/@item.Id">
-                <i class="fa fa-edit"></i>
+            <a class="btn btn-info" href="/ServiceCategory/Edit/@item.Id">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
             </a>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/ServiceCategory/Delete/@item.Id')">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash"></i><span>  حذف</span>
             </button>
         </td>
     </tr>
+    i++;
 }

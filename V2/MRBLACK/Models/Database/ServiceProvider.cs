@@ -40,7 +40,7 @@ namespace MRBLACK.Models.Database
         public virtual PaymentWay PaymentWay { get; set; }
         [InverseProperty(nameof(Advertising.Provider))]
         public virtual ICollection<Advertising> Advertisings { get; set; }
-        [InverseProperty(nameof(ServiceCategoryRequest.ProviderIdSelectedFromStudentNavigation))]
+        [InverseProperty(nameof(ServiceCategoryRequest.Provider))]
         public virtual ICollection<ServiceCategoryRequest> ServiceCategoryRequests { get; set; }
         [InverseProperty(nameof(Service.Provider))]
         public virtual ICollection<Service> Services { get; set; }

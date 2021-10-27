@@ -1,14 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MRBLACK.Models.Database;
 using MRBLACK.Models.ViewModels;
+using MRBLACK.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MRBLACK.Controllers
 {
     public class PartialsController : Controller
     {
+        private readonly Repository<ServiceProvider> _Provider;
+        public PartialsController(IRepository<ServiceProvider> Provider)
+        {
+            _Provider = (Repository<ServiceProvider>)Provider;
+        }
         public ActionResult Header()
         {
             HeaderVM headerVM = new HeaderVM()
@@ -46,5 +55,41 @@ namespace MRBLACK.Controllers
             };
             return PartialView(sideMenuVM);
         }
+
+        public ActionResult UserHeader()
+        {
+            HeaderVM headerVM = new HeaderVM()
+            {
+                Name = "User Mr Black",
+            };
+            headerVM.NavItems = new List<NavItem>();
+            Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if(_Provider.GetAll(filter1) != null && _Provider.GetAll(filter1).Count() > 0)
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName="خدماتي",
+                    ItemUrl="/Service/Index"
+                });
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "الطلبات",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+            else
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "الطلبات",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+
+            headerVM.NotificationsNumber = 0;
+            return PartialView(headerVM);
+        }
+
     }
 }

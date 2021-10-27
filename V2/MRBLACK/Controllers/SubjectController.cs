@@ -17,19 +17,19 @@ namespace MRBLACK.Controllers
     public class SubjectController : Controller
     {
         private readonly Repository<Subject> _Subject;
-        private readonly int PageSize;
+        //private readonly int PageSize;
         public SubjectController(IRepository<Subject> Subject)
         {
             _Subject = (Repository<Subject>)Subject;
-            PageSize = 5;
+          //  PageSize = 5;
         }
 
         #region CRUD OPERTIONS
 
         #region Get Subjects
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -110,7 +110,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<Subject>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<Subject>> GetPagedListItems(string searchStr, int pageNumber, int pageSize)
         {
             Expression<Func<Subject, bool>> filter = null;
             Func<IQueryable<Subject>, IOrderedQueryable<Subject>> orderBy = o => o.OrderByDescending(c => c.ArName);
@@ -121,20 +121,20 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy),
-                pageNumber, PageSize);
+                pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<Subject>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<Subject>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/Subject/GetItems";
             model.GetPaginationUrl = "/Subject/GetPagination";
             return PartialView("_Pagination", model);

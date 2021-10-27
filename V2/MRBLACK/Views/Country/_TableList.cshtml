@@ -1,11 +1,13 @@
 ﻿@model List<MRBLACK.Models.Database.Country>
 @{
     Layout = null;
+    var i = ViewBag.PageStartRowNum;
 }
 
 @foreach (var item in Model)
 {
     <tr>
+        <td>@i</td>
         <td>
             @Html.DisplayFor(modelItem => item.EnName)
         </td>
@@ -15,11 +17,12 @@
         <td>@Html.DisplayFor(modelItem => item.CurrencyType.ArName)</td>
         <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Country/Edit/@item.Id')">
-                <i class="fa fa-edit"></i>
+                <i class="fa fa-edit"></i><span>  تعديل</span>
             </button>
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Country/Delete/@item.Id')">
-                <i class="fa fa-trash"></i>
+                <i class="fa fa-trash"></i><span>  حذف</span>
             </button>
         </td>
     </tr>
+    i++;
 }

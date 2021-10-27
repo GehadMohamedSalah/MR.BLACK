@@ -13,7 +13,6 @@ namespace MRBLACK.Models.Database
     {
         public Service()
         {
-            ServiceRequests = new HashSet<ServiceRequest>();
         }
 
         [Key]
@@ -70,7 +69,5 @@ namespace MRBLACK.Models.Database
         [ForeignKey(nameof(UniversityId))]
         [InverseProperty("Services")]
         public virtual University University { get; set; }
-        [InverseProperty(nameof(ServiceRequest.Service))]
-        public virtual ICollection<ServiceRequest> ServiceRequests { get; set; }
     }
 }

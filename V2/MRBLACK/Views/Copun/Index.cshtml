@@ -1,0 +1,81 @@
+﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.Database.Copun>
+@using MRBLACK.Models.ViewModels;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var paginationVM = new PaginationVM()
+    {
+        PageIndex = Model.PageIndex,
+        TotalPages = Model.TotalPages,
+        PreviousPage = Model.PreviousPage,
+        NextPage = Model.NextPage,
+        GetItemsUrl = "/Copun/GetItems",
+        GetPaginationUrl = "/Copun/GetPagination",
+        ItemsCount = Model.ItemsCount,
+        StartIndex = Model.StartIndex,
+        EndIndex = Model.EndIndex
+    };
+}
+
+<h1 class="text-center">شاشة كوبونات الخصم</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-8">
+                <a type="button" class="btn btn-primary" href="/Copun/Create">
+                    <i class="fa fa-plus"></i><span>  اضافة جديد</span>
+                </a>
+            </div>
+            <div class="col-sm-4">
+                <div class="input-group mt-5">
+                    <input class="form-control left-border-none" type="text" id="inpSearch" placeholder="اكتب للبحث" value="">
+                    <span class="input-group-addon transparent" onclick="ReloadPagination(@Model.PageIndex)">
+                        <i class='fa fa-search' aria-hidden='true'></i>
+                    </span>
+                </div>
+
+            </div>
+            <div class="col-sm-4">
+                <table>
+                    <tr>
+                        <td><span>عرض </span></td>
+                        <td>
+                            <select class="form-control" onchange="ReloadPagination(@Model.PageIndex)" id="entires">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </td>
+                        <td><span> من المدخلات</span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>        
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="bg-blue">
+                <tr>
+                    <td>#</td>
+                    <td>كود الخصم</td>
+                    <td>التصنيف</td>
+                    <td>نسبة الخصم</td>
+                    <td>على من سيكون الخصم</td>
+                    <td>بداية الكوبون</td>
+                    <td>نهاية الكوبون</td>
+                    <td>اقل قيمة للفاتورة</td>
+                    <td>الاجراءات</td>
+                </tr>
+            </thead>
+            <tbody id="tbBody">
+                <partial name="_TableList" model="@Model.ToList()" />
+            </tbody>
+        </table>
+        <div id="dvPagination">
+            <partial name="_Pagination" model="@paginationVM" />
+        </div>
+    </div>
+</div>
+

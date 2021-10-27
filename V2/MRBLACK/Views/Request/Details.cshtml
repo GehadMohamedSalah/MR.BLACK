@@ -1,0 +1,224 @@
+﻿@model MRBLACK.Models.ViewModels.RequestVM
+@using MRBLACK.Models.Enums
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var colspan = 4;
+    decimal totals = 0;
+}
+<script type="text/javascript">
+    $("input").attr("disabled", "disabled");
+</script>
+<div class="row">
+    <div class="col-sm-10 col-lg-offset-1">
+        <div class="panel">
+            <div class="panel-heading">
+                <h2 class="text-center">بيانات الطلب رقم @Model.ServiceCategoryRequest.RequestCode</h2>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <tr>
+                            <td colspan="2" class="text-center">البيانات الاساسية</td>
+                        </tr>
+                        <tr>
+                            <td>اسم الطالب</td>
+                            <td>@ViewBag.StudentName</td>
+                        </tr>
+                        <tr>
+                            <td>تاريخ ووقت الطلب</td>
+                            <td>@Model.ServiceCategoryRequest.RequestDateTime</td>
+                        </tr>
+                        <tr>
+                            <td>الحالة</td>
+                            @if (Model.ServiceCategoryRequest.Status == (int)Status.Pending)
+                            {
+                                <td class="btn btn-success">قيد الانتظار</td>
+                            }
+                            else if (Model.ServiceCategoryRequest.Status == (int)Status.Accepted)
+                            {
+                                <td>موافق عليه وقيد التنفيذ</td>
+                            }
+                            else if (Model.ServiceCategoryRequest.Status == (int)Status.Finished)
+                            {
+                                <td>تم الانتهاء</td>
+                            }
+                            else if (Model.ServiceCategoryRequest.Status == (int)Status.Delivered)
+                            {
+                                <td>تم التسليم</td>
+                            }
+                        </tr>
+                        <tr>
+                            <td>البلد</td>
+                            <td>@Model.ServiceCategoryRequest.University.Country.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>الجامعة</td>
+                            <td>@Model.ServiceCategoryRequest.University.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>الكلية</td>
+                            <td>@Model.ServiceCategoryRequest.College.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>السنة الدراسية</td>
+                            <td>@Model.ServiceCategoryRequest.AcademinYear.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>القسم</td>
+                            <td>@Model.ServiceCategoryRequest.Department.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>الترم</td>
+                            <td>@Model.ServiceCategoryRequest.Term.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>المادة</td>
+                            <td>@Model.ServiceCategoryRequest.Subject.ArName</td>
+                        </tr>
+                        <tr>
+                            <td>التصنيف الرئيسي</td>
+                            <td>@Model.ServiceCategoryRequest.Category.ArName</td>
+                        </tr>
+                    </table>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="@colspan" class="text-center">محتوى الطلب</td>
+                            </tr>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>العدد</th>x
+                                <th>مدة التسليم بالايام</th>
+                                @if (Model.FormType == 2)
+                                {
+                                    <th>عدد الصفح</th>
+                                    <th>مقدمة وخاتمة</th>
+                                    <th>هوامش</th>
+                                    <th>مصادر</th>
+                                    <th>تدقيق املائي</th>
+                                    colspan = 9;
+                                }
+                                <td>السعر</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                var i = 0;
+                            }
+                            @foreach (var item in Model.ServiceRequestCollection)
+                            {
+                                <tr>
+                                    <td>
+                                        <input disabled asp-for="ServiceRequestCollection[i].SubCategoryName" readonly class="form-control" value="@item.SubCategoryName" />
+                                    </td>
+                                    <td>
+                                        <input disabled asp-for="ServiceRequestCollection[i].TimesOfService" class="form-control" />
+                                    </td>
+                                    <td>
+                                        <input disabled asp-for="ServiceRequestCollection[i].DeliveryPeriodInDays" class="form-control" />
+                                    </td>
+                                    @if (Model.FormType == 2)
+                                    {
+                                        <td>
+                                            <input disabled asp-for="ServiceRequestCollection[i].PaperNum" class="form-control" />
+                                        </td>
+                                        <td>
+                                            <input disabled type="checkbox" asp-for="ServiceRequestCollection[i].HasIntroAndEnd" />
+                                        </td>
+                                        <td>
+                                            <input disabled type="checkbox" asp-for="ServiceRequestCollection[i].HasMargins" />
+                                        </td>
+                                        <td>
+                                            <input disabled type="checkbox" asp-for="ServiceRequestCollection[i].HasReference" />
+                                        </td>
+                                        <td>
+                                            <input disabled type="checkbox" asp-for="ServiceRequestCollection[i].HasSpelling" />
+                                        </td>
+                                    }
+                                    <td>
+                                        @if (item.PricingMethod == (int)PricingMethod.Commission)
+                                        {
+                                            <span>لم يحدد بعد</span>
+                                        }
+                                        else
+                                        {
+                                            totals += (item.Price * item.TimesOfService);
+                                            <span id="price_@i" class="spprice">@(item.Price * item.TimesOfService)</span>
+                                        }
+                                    </td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="@colspan">
+                                    <span>الاجمالي:  </span>
+                                    @if (ViewBag.TotalCostInvoice != null)
+                                    {
+                                        <span id="totals">@ViewBag.TotalCostInvoice</span>
+                                    }
+                                    else
+                                    {
+                                        <span id="totals">@totals</span>
+                                    }
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                </div>
+                <div class="panel-footer">
+                    @if (ViewBag.IsStudent != null)
+                    {
+                        if (Model.ServiceCategoryRequest.ProvidersAccepted != null &&
+                            Model.ServiceCategoryRequest.ProviderId == null)
+                        {
+                            //select provider and start to pay
+                            <a href="/ServicePurchaseInvoice/Create?requestId=@Model.ServiceCategoryRequest.Id" class="btn btn-success">اختر مقدم الخدمةو قم بالدفع</a>
+                        }
+                        if (Model.ServiceCategoryRequest.Status == (int)Status.Finished)
+                        {
+                            //deliver
+                            <a class="btn btn-warning"
+                               href="/Request/ChangeStatus?requestId=@Model.ServiceCategoryRequest.Id&&status=@((int)Status.Delivered)">اضغط هنا لتأكيد استلامك للخدمة</a>
+                        }
+                    }
+
+                    @if (ViewBag.IsProvider != null)
+                    {
+                        //accept
+                        if (Model.ServiceCategoryRequest.Status == (int)Status.Pending)
+                        {
+                            if (Model.ServiceCategoryRequest.ProvidersAccepted != null)
+                            {
+                                if (!Model.ServiceCategoryRequest.ProvidersAccepted.Contains(ViewBag.IsProvider.Id.ToString()))
+                                {
+                                    <a class="btn btn-success"
+                                       href="/Request/ChangeStatus?requestId=@Model.ServiceCategoryRequest.Id&&status=@((int)Status.Accepted)">موافقة</a>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-bitbucket">لقد قمت بالموافقة على هذا الطلب في انتظار رد الطالب واتمام عملية الدفع</button>
+                                }
+                            }
+                            else
+                            {
+                                <a class="btn btn-success"
+                                   href="/Request/ChangeStatus?requestId=@Model.ServiceCategoryRequest.Id&&status=@((int)Status.Accepted)">موافقة</a>
+                            }
+                        }
+                        //finish
+                        if (Model.ServiceCategoryRequest.Status == (int)Status.Accepted)
+                        {
+                            <a class="btn btn-warning"
+                               href="/Request/ChangeStatus?requestId=@Model.ServiceCategoryRequest.Id&&status=@((int)Status.Finished)">اضغط هنا لتأكيد انهاءك للخدمة</a>
+                        }
+                    }
+                    <a class="btn btn-info" href="/Request/Index">عودة للقائمة</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

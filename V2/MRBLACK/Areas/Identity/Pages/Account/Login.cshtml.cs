@@ -97,7 +97,7 @@ namespace MRBLACK.Areas.Identity.Pages.Account
                             }
                             else
                             {
-                                return Redirect(user.RedirectUrl);
+                                return Redirect("/Home/Index");
                             }
 
                         }

@@ -40,5 +40,10 @@ namespace MRBLACK.Models.Database
         public virtual CurrencyType CurrencyType { get; set; }
         [InverseProperty(nameof(ServicesInServicesPurchaseInvoice.Inv))]
         public virtual ICollection<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoices { get; set; }
+        public int? PaymentWayId { get; set; }
+        public bool IsPaid { get; set; }
+        public int? ServiceCategoryRequestId { get; set; }
+        public decimal TotalFees { get; set; }
+        public decimal Discount { get; set; }
     }
 }

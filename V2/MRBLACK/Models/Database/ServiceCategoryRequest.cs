@@ -22,11 +22,13 @@ namespace MRBLACK.Models.Database
         public int? SubjectId { get; set; }
         public int? StudentId { get; set; }
         public string ProvidersAccepted { get; set; }
-        public int? ProviderIdSelectedFromStudent { get; set; }
-        public bool HasMargins { get; set; }
-        public bool HasSpelling { get; set; }
-        public bool HasReference { get; set; }
-        public bool HasIntroAndEnd { get; set; }
+        public int? ProviderId { get; set; }
+        public string RequestCode { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? RequestDateTime { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? AcceptedDateTime { get; set; }
+        public int? Status { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]
         [InverseProperty(nameof(AcademicYear.ServiceCategoryRequests))]
@@ -40,9 +42,9 @@ namespace MRBLACK.Models.Database
         [ForeignKey(nameof(DepartmentId))]
         [InverseProperty("ServiceCategoryRequests")]
         public virtual Department Department { get; set; }
-        [ForeignKey(nameof(ProviderIdSelectedFromStudent))]
+        [ForeignKey(nameof(ProviderId))]
         [InverseProperty(nameof(ServiceProvider.ServiceCategoryRequests))]
-        public virtual ServiceProvider ProviderIdSelectedFromStudentNavigation { get; set; }
+        public virtual ServiceProvider Provider { get; set; }
         [ForeignKey(nameof(StudentId))]
         [InverseProperty("ServiceCategoryRequests")]
         public virtual Student Student { get; set; }

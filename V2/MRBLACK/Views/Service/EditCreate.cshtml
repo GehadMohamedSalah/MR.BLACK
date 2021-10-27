@@ -1,0 +1,284 @@
+﻿@model MRBLACK.Models.Database.Service
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    #dvResearch {
+        display: none;
+    }
+</style>
+@if (Model.Category != null)
+{
+    if (Model.Category.FormType == (int)MRBLACK.Models.Enums.ServiceFormType.Research)
+    {
+        <style>
+            #dvResearch {
+                display: inherit;
+            }
+        </style>
+    }
+}
+
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
+    <div class="panel">
+        <div class="panel-heading">
+            <h2 class="text-center">اضافة/تعديل خدمة</h2>
+        </div>
+        <div class="panel-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label asp-for="EnName">الاسم</label>
+                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <span asp-validation-for="EnName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="ArName">الاسم بالعربية</label>
+                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <span asp-validation-for="ArName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-12">
+                    <label asp-for="Description">الوصف</label>
+                    <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+                </div>
+                <div class="col-sm-6">
+                    <label for="CountryId">الدولة</label>
+                    <select id="CountryId" class="form-control" data-live-search="true" onchange="ChangeCountry(this);">
+                        <option value="-1" disabled selected>اختر الدولة</option>
+                        @foreach (var item in ViewBag.CountryList)
+                        {
+                            if (Model.University != null)
+                            {
+                                if (item.Value == Model.University.CountryId.ToString())
+                                {
+                                    <option value="@item.Value" selected>@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="UniversityId">الجامعة</label>
+                    <select asp-for="UniversityId" class="form-control" data-live-search="true" asp-items="@ViewBag.UniversityList">
+                        <option value="-1" disabled selected>اختر الجامعة</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="CollegeId">الكلية</label>
+                    <select asp-for="CollegeId" class="form-control" data-live-search="true" asp-items="@ViewBag.CollegeList">
+                        <option value="-1" disabled selected>اختر الكلية</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="DepartmentId">القسم</label>
+                    <select asp-for="DepartmentId" class="form-control" data-live-search="true" asp-items="@ViewBag.DepartmentList">
+                        <option value="-1" disabled selected>اختر القسم</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="AcademinYearId">السنة الدراسية</label>
+                    <select asp-for="AcademinYearId" class="form-control" data-live-search="true" asp-items="@ViewBag.AcademicYearList">
+                        <option value="-1" disabled selected>اختر السنة الدراسية</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="TermId">الترم</label>
+                    <select asp-for="TermId" class="form-control" data-live-search="true" asp-items="@ViewBag.TermList">
+                        <option value="-1" disabled selected>اختر الترم</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="SubjectId">المادة</label>
+                    <select asp-for="SubjectId" class="form-control" data-live-search="true" asp-items="@ViewBag.SubjectList">
+                        <option value="-1" disabled selected>اختر المادة</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="ProviderId">مقدم الخدمة</label>
+                    <select asp-for="ProviderId" class="form-control" data-live-search="true" asp-items="@ViewBag.ProviderList">
+                        <option value="-1" selected disabled>اختر مقدم الخدمة</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="CategoryId">التصنيف</label>
+                    <select asp-for="CategoryId" class="form-control" data-live-search="true" onchange="ChangeCategory(this);" asp-items="@ViewBag.CategoryList">
+                        <option value="-1" disabled selected>اختر التصنيف</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="TotalPrice">السعر</label>
+                    <input asp-for="TotalPrice" class="form-control" />
+                </div>
+                <div class="col-sm-6">
+                    <label for="PlatformCommission">نسبة المنصة من السعر (%)</label>
+                    <input id="PlatformCommission" value="@ViewBag.PlatformCommission" class="form-control" disabled />
+                </div>
+                <div class="col-sm-6">
+                    <label for="PlatformCommissionVal">مبلغ المنصة من السعر</label>
+                    <input id="PlatformCommissionVal" value="@ViewBag.PlatformCommissionVal" class="form-control" disabled />
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="Discount">اضافة خصم</label>
+                    <input asp-for="Discount" class="form-control" />
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="CurrencyTypeId">نوع العملة</label>
+                    <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
+                        <option value="-1" selected disabled>اختر نوع العملة</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group row" id="dvResearch">
+                <div class="col-sm-12">
+                    <h4 class="text-center">عدد الصفحات</h4>
+                </div>
+
+                <div class="col-sm-6">
+                    <label asp-for="MinNumOfPages">من</label>
+                    <input asp-for="MinNumOfPages" class="form-control" min="1" />
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="MaxNumOfPages">الى</label>
+                    <input asp-for="MaxNumOfPages" class="form-control" min="1" />
+                </div>
+                <div class="col-sm-12 mt-20">
+                    <div class="col-sm-3">
+                        <input asp-for="HasMargins" type="checkbox" />
+                        <label asp-for="HasMargins">يحتوي على هوامش</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input asp-for="HasReference" type="checkbox" />
+                        <label asp-for="HasReference">يحتوي على مراجع</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input asp-for="HasSpelling" type="checkbox" />
+                        <label asp-for="HasSpelling">تدقيق املائي</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input asp-for="HasIntroAndEnd" type="checkbox" />
+                        <label asp-for="HasIntroAndEnd">يحتوي على مقدمة و خاتمة</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <label for="Total">السعر بعد اضافة الخصم و خصم مبلغ او نسبة المنصة</label>
+                @{
+                    decimal Total = 0;
+                }
+                @if (Model.Id > 0)
+                {
+                    decimal commVal = ViewBag.PlatformCommissionVal;
+                    if (ViewBag.PlatformCommission > 0)
+                    {
+                        commVal = Model.TotalPrice * ((decimal)ViewBag.PlatformCommission) / 100;
+                    }
+                    Total = Model.TotalPrice - commVal - Model.Discount;
+                }
+                <input type="number" class="form-control" id="Total" value="@Total" disabled />
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-info" href="/Service/Index">عودة للقائمة</a>
+            <input type="submit" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+
+</form>
+
+<script type="text/javascript">
+
+    function ChangeCountry(element) {
+        var countryId = $(element).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/GetCountryUniversities",
+            data: { CountryId: countryId },
+            success: function (result) {
+                debugger;
+                $("#UniversityId").empty();
+                $("#UniversityId").append("<option value='-1' selected disabled>اختر الجامعة</option>");
+
+                for (var i = 0; i < result.length; i++) {
+                    $("#UniversityId").append('<option value="' + result[i].value + '">' + result[i].text + '</option>');
+                }
+            }
+        });
+    }
+
+    var categoryServiceCurrencyType = 0;
+    function ChangeCategory(element) {
+        var categoryId = $(element).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/GetServiceCategoryDetails",
+            data: { CategoryId: categoryId },
+            success: function (result) {
+                debugger;
+                var jsobj = JSON.parse(result);
+                if (jsobj.PricingMethod == 1) { //gabry
+                    $('#TotalPrice').val(jsobj.ServicePrice);
+                    $('#TotalPrice').prop('readonly', true);
+                    $("#CurrencyTypeId").val(jsobj.CurrencyTypeId);
+                    $('#CurrencyTypeId').attr("style", "pointer-events: none;");
+                    $('#PlatformCommissionVal').val(jsobj.PlatformRevenueFromServPrice);
+                    $('#PlatformCommission').val(0);
+                }
+                else if (jsobj.PricingMethod == 2) {//commission
+                    $('#TotalPrice').val(0);
+                    $('#TotalPrice').prop('readonly', false);
+                    $('#CurrencyTypeId').attr("style", "pointer-events:inherit;");
+                    $('#PlatformCommissionVal').val(0);
+                    $('#PlatformCommission').val(jsobj.CommissionPercentage);
+
+                }
+
+                if (jsobj.FormType == 2) {//Research
+                    $("#dvResearch").attr("style", "display:inherit;");
+                }
+                else {
+                    $("#dvResearch").attr("style", "display:none;");
+                }
+
+                CalculatePrice();
+            }
+        });
+    }
+
+    $("#TotalPrice, #Discount").keyup(function () {
+        CalculatePrice();
+    });
+
+    function CalculatePrice() {
+        var TotalPrice = Number($("#TotalPrice").val());
+        var PlatformCommission = Number($("#PlatformCommission").val());
+        var PlatformCommissionVal = Number($("#PlatformCommissionVal").val());
+        if (PlatformCommission > 0) {
+            PlatformCommissionVal = TotalPrice * PlatformCommission / 100;
+        }
+        var Discount = Number($("#Discount").val());
+        var Total = TotalPrice - PlatformCommissionVal - Discount;
+        $("#Total").val(Total);
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

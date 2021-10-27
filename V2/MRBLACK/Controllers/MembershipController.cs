@@ -38,9 +38,9 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Memberships
-        public IActionResult Index(int pageNumber = 1)
+        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber).Result);
+            return View(GetPagedListItems("", pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -199,7 +199,7 @@ namespace MRBLACK.Controllers
 
 
         #region PAGINATION METHODS
-        public async Task<PagedList<Membership>> GetPagedListItems(string searchStr, int pageNumber)
+        public async Task<PagedList<Membership>> GetPagedListItems(string searchStr, int pageNumber, int pageSize = 5)
         {
             Expression<Func<Membership, bool>> filter = null;
             Func<IQueryable<Membership>, IOrderedQueryable<Membership>> orderBy = o => o.OrderByDescending(c => c.ArName);
@@ -210,9 +210,9 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-
+            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             return await PagedList<Membership>.CreateAsync(_Membership.GetAllAsIQueryable(filter, orderBy),
-                pageNumber, PageSize);
+                pageNumber, pageSize);
         }
 
         public IActionResult GetItems(string searchStr, int pageNumber = 1)

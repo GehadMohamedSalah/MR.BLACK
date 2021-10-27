@@ -310,15 +310,11 @@ namespace MRBLACK.Models.Database
                     .HasForeignKey(d => d.DepartmentId)
                     .HasConstraintName("FK_ServiceCategoryRequest_Department");
 
-                entity.HasOne(d => d.ProviderIdSelectedFromStudentNavigation)
+                entity.HasOne(d => d.Provider)
                     .WithMany(p => p.ServiceCategoryRequests)
-                    .HasForeignKey(d => d.ProviderIdSelectedFromStudent)
+                    .HasForeignKey(d => d.ProviderId)
                     .HasConstraintName("FK_ServiceCategoryRequest_ServiceProvider");
 
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.ServiceCategoryRequests)
-                    .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK_ServiceCategoryRequest_Student");
 
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.ServiceCategoryRequests)
@@ -351,15 +347,6 @@ namespace MRBLACK.Models.Database
 
             modelBuilder.Entity<ServiceRequest>(entity =>
             {
-                entity.HasOne(d => d.Service)
-                    .WithMany(p => p.ServiceRequests)
-                    .HasForeignKey(d => d.ServiceId)
-                    .HasConstraintName("FK_ServiceRequest_Service");
-
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.ServiceRequests)
-                    .HasForeignKey(d => d.StudentId)
-                    .HasConstraintName("FK_ServiceRequest_Student");
             });
 
             modelBuilder.Entity<ServicesInServicesPurchaseInvoice>(entity =>
@@ -368,11 +355,6 @@ namespace MRBLACK.Models.Database
                     .WithMany(p => p.ServicesInServicesPurchaseInvoices)
                     .HasForeignKey(d => d.InvId)
                     .HasConstraintName("FK_ServicesInServicesPurchaseInvoice_ServicesPurchaseInvoice");
-
-                entity.HasOne(d => d.ServiceRequest)
-                    .WithMany(p => p.ServicesInServicesPurchaseInvoices)
-                    .HasForeignKey(d => d.ServiceRequestId)
-                    .HasConstraintName("FK_ServicesInServicesPurchaseInvoice_ServiceRequest");
             });
 
             modelBuilder.Entity<ServicesPurchaseInvoice>(entity =>

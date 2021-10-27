@@ -164,7 +164,8 @@ namespace MRBLACK.Areas.Identity.Pages.Account
         {
             appDb.Students.Add(new Student()
             {
-                UserId = userId
+                UserId = userId,
+                CountryId = Input.CountryId
             });
             appDb.SaveChanges();
         }

@@ -1,0 +1,51 @@
+﻿@model MRBLACK.Models.Database.SystemSetting
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="SaveSystemSetting" method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h1 class="text-center">صفحة نسب مكملات خدمة البحث</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="col-sm-12">
+                            <label asp-for="ServiceMarginsPercentage" class="control-label">نسبة الهوامش من مبلغ الخدمة (%)</label>
+                            <input asp-for="ServiceMarginsPercentage" class="form-control" />
+                            <span asp-validation-for="ServiceMarginsPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="ServiceReferencePercentage" class="control-label">نسبة المصادر من مبلغ الخدمة (%)</label>
+                            <input asp-for="ServiceReferencePercentage" class="form-control" />
+                            <span asp-validation-for="ServiceReferencePercentage" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="ServiceSpellingPercentage" class="control-label">نسبة التدقيق و الاملاء من مبلغ الخدمة (%)</label>
+                            <input asp-for="ServiceSpellingPercentage" class="form-control" />
+                            <span asp-validation-for="ServiceSpellingPercentage" class="text-danger"></span>
+                        </div>
+                        <div class="col-sm-12">
+                            <label asp-for="ServiceIntroAndEndPercentage" class="control-label">نسبة المقدمة والخاتمة من مبلغ الخدمة (%)</label>
+                            <input asp-for="ServiceIntroAndEndPercentage" class="form-control" />
+                            <span asp-validation-for="ServiceIntroAndEndPercentage" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-sm-offset-5">
+                            <input type="submit" value="حفظ" class="btn btn-primary" style="width:100% !important;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

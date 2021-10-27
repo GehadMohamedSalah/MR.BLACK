@@ -470,7 +470,6 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\CurrencyType\EditCreate.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\CurrencyType\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\CurrencyType\_TableList.cshtml.g.cs
-D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Country\EditCreate.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Country\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Country\_TableList.cshtml.g.cs
@@ -499,3 +498,19 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\ServiceCategory\EditCreate.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\ServiceCategory\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\ServiceCategory\_TableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Service\EditCreate.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Service\Index.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Service\_TableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\ProviderHomePage.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\StudentHomePage.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Request\EditCreate.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Request\Index.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Request\_TableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Request\_ServiceRequestCollection.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Request\Details.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\ServicePurchaseInvoice\Create.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Copun\EditCreate.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Copun\Index.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Copun\_TableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\SystemSetting\Index.cshtml.g.cs

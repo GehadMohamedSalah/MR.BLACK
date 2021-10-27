@@ -19,7 +19,7 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم" />
+                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -31,7 +31,7 @@
                     <span asp-validation-for="FormFile" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
-                    <select asp-for="MembershipType" class="form-control">
+                    <select asp-for="MembershipType" class="form-control" data-live-search="true">
                         <option selected disabled value="-1">اختر نوع العضوية</option>
                         <option value="1">طالب</option>
                         <option value="2">مقدم خدمة</option>

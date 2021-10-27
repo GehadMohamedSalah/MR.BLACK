@@ -1,0 +1,204 @@
+﻿@model MRBLACK.Models.Database.SystemSetting
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var divId = ViewBag.divId;
+}
+
+@if (divId == "setting")
+{
+    <style>
+        #percentage, #fees {
+            display: none;
+        }
+
+        #setting {
+            display: inherit;
+        }
+    </style>
+}
+else if (divId == "percentage")
+{
+    <style>
+        #setting, #fees {
+            display: none;
+        }
+
+        #percentage {
+            display: inherit;
+        }
+    </style>
+}
+else
+{
+    <style>
+        #setting, #percentage {
+            display: none;
+        }
+
+        #fees {
+            display: inherit;
+        }
+    </style>
+}
+<form action="/SystemSetting/SaveSystemSetting" method="post">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h1 class="text-center">اعدادت النظام</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" value="@ViewBag.returnActionName" name="returnActionName" id="returnActionName"/>
+                        <div id="setting">
+
+                            <div class="col-sm-12">
+                                <label asp-for="SiteName" class="control-label">اسم الموقع</label>
+                                <input asp-for="SiteName" class="form-control" />
+                                <span asp-validation-for="SiteName" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="SiteDesc" class="control-label">وصف meta</label>
+                                <input asp-for="SiteDesc" class="form-control" />
+                                <span asp-validation-for="SiteDesc" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="KeyWords" class="control-label">كلمات مفتاحية</label>
+                                <input asp-for="KeyWords" class="form-control" />
+                                <span asp-validation-for="KeyWords" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ForbiddenWords" class="control-label">كلمات ممنوعة</label>
+                                <input asp-for="ForbiddenWords" class="form-control" />
+                                <span asp-validation-for="ForbiddenWords" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="SupportMail" class="control-label">البريد الالكتروني للدعم الفني</label>
+                                <input asp-for="SupportMail" class="form-control" />
+                                <span asp-validation-for="SupportMail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="SupportMail" class="control-label">البريد الالكتروني للاستفسارات</label>
+                                <input asp-for="InquiriesMail" class="form-control" />
+                                <span asp-validation-for="InquiriesMail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="InquiriesMail" class="control-label">البريد الالكتروني لقسم الموراد البشرية</label>
+                                <input asp-for="HrDeptMail" class="form-control" />
+                                <span asp-validation-for="HrDeptMail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="HrDeptMail" class="control-label">البريد الالكتروني للمدير المالي</label>
+                                <input asp-for="FinancialManagerMail" class="form-control" />
+                                <span asp-validation-for="FinancialManagerMail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="FinancialManagerMail" class="control-label">البريد الالكتروني للرئيس التنفيذي</label>
+                                <input asp-for="Ceomail" class="form-control" />
+                                <span asp-validation-for="Ceomail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-6">
+                                <label asp-for="Ceomail" class="control-label">البريد الالكتروني لمدير التسويق</label>
+                                <input asp-for="Ceomail" class="form-control" />
+                                <span asp-validation-for="MarketingMail" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="MarketingMail" class="control-label">الحد الادنى لطلب السحب</label>
+                                <input asp-for="MarketingMail" class="form-control" />
+                                <span asp-validation-for="MinWithdrawalRequest" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="MinWithdrawalRequest" class="control-label">رسالة اغلاق الموقع</label>
+                                <textarea asp-for="MinWithdrawalRequest" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="SiteClosureMsg" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="SiteClosureMsg" class="control-label">الشروط والاحكام</label>
+                                <textarea asp-for="SiteClosureMsg" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="TermsAndConditions" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="TermsAndConditions" class="control-label">سياسة الخصوصية</label>
+                                <textarea asp-for="TermsAndConditions" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="PrivacyPolicy" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="PrivacyPolicy" class="control-label">ضمان اموالك ومستحقاتك</label>
+                                <textarea asp-for="PrivacyPolicy" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="GuaranteeOfMoneyAndEntitlements" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="GuaranteeOfMoneyAndEntitlements" class="control-label">كيف يعمل الموقع</label>
+                                <textarea asp-for="GuaranteeOfMoneyAndEntitlements" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="HowDealWithSite" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="HowDealWithSite" class="control-label">من نحن</label>
+                                <textarea asp-for="HowDealWithSite" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="AboutUs" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="AboutUs" class="control-label">نص صفحة التواصل</label>
+                                <textarea asp-for="AboutUs" class="form-control" rows="10"></textarea>
+                                <span asp-validation-for="TextOfContact" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div id="fees">
+                            <div class="col-sm-12">
+                                <label asp-for="TextOfContact" class="control-label">رسوم تحسين المنصة على الطالب</label>
+                                <input asp-for="TextOfContact" class="form-control" />
+                                <span asp-validation-for="ImprovementFeesForStudent" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ImprovementFeesForStudent" class="control-label">رسوم تحسين منصة على مقدم الخدمة</label>
+                                <input asp-for="ImprovementFeesForStudent" class="form-control" />
+                                <span asp-validation-for="ImprovementFeesForServiceProvider" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ImprovementFeesForServiceProvider" class="control-label">رسوم شراء على الطالب</label>
+                                <input asp-for="ImprovementFeesForServiceProvider" class="form-control" />
+                                <span asp-validation-for="SellingFeesForStudent" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="SellingFeesForStudent" class="control-label">رسوم بيع على المقدم</label>
+                                <input asp-for="SellingFeesForStudent" class="form-control" />
+                                <span asp-validation-for="SellingFeesForServiceProvider" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div id="percentage">
+                            <div class="col-sm-12">
+                                <label asp-for="SellingFeesForServiceProvider" class="control-label">نسبة الهوامش من مبلغ الخدمة (%)</label>
+                                <input asp-for="SellingFeesForServiceProvider" class="form-control" />
+                                <span asp-validation-for="ServiceMarginsPercentage" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ServiceMarginsPercentage" class="control-label">نسبة المصادر من مبلغ الخدمة (%)</label>
+                                <input asp-for="ServiceMarginsPercentage" class="form-control" />
+                                <span asp-validation-for="ServiceReferencePercentage" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ServiceReferencePercentage" class="control-label">نسبة التدقيق و الاملاء من مبلغ الخدمة (%)</label>
+                                <input asp-for="ServiceReferencePercentage" class="form-control" />
+                                <span asp-validation-for="ServiceSpellingPercentage" class="text-danger"></span>
+                            </div>
+                            <div class="col-sm-12">
+                                <label asp-for="ServiceSpellingPercentage" class="control-label">نسبة المقدمة والخاتمة من مبلغ الخدمة (%)</label>
+                                <input asp-for="ServiceSpellingPercentage" class="form-control" />
+                                <span asp-validation-for="ServiceIntroAndEndPercentage" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 col-sm-offset-5">
+                            <input type="submit" value="حفظ" class="btn btn-primary" style="width:100% !important;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
