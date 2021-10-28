@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <UserSecretsId>2537e798-4f1a-4b9e-8b73-5c9d9d0839f0</UserSecretsId>
-	  <AspNetCoreHostingModel>OutOfProccess</AspNetCoreHostingModel>
+	  <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
   <ItemGroup>

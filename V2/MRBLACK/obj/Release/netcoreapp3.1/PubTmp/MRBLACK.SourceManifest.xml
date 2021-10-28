@@ -1,6 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <sitemanifest>
   <IisApp path="D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\" />
-  <dbfullsql path="D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\EFSQLScripts\MRBLACK.Data.IdentitySetupContext.sql" />
-  <dbfullsql path="D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\EFSQLScripts\MRBLACK.Models.Database.ApplicationDbContext.sql" />
 </sitemanifest>
