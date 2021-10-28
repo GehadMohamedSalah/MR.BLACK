@@ -207,7 +207,8 @@ namespace MRBLACK.Controllers
                 var deletedItems = new List<UcdsEductionManagement>();
                 foreach (var x in oldsuc)
                 {
-                    if(model.UcdsEductionManagement.Where(c => c.UniversityId == x.UniversityId).Count() == 0)
+                    var m = Universities.Where(c => c == x.UniversityId).Count();
+                    if (m == 0)
                     {
                         deletedItems.Add(x);
                     }

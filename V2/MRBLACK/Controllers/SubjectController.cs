@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Helper;
@@ -17,11 +19,16 @@ namespace MRBLACK.Controllers
     public class SubjectController : Controller
     {
         private readonly Repository<Subject> _Subject;
-        //private readonly int PageSize;
-        public SubjectController(IRepository<Subject> Subject)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly Repository<UcdsEductionManagement> _ucds;
+
+        public SubjectController(IRepository<Subject> Subject
+            , IWebHostEnvironment webHostEnvironment
+            , IRepository<UcdsEductionManagement> ucds)
         {
             _Subject = (Repository<Subject>)Subject;
-          //  PageSize = 5;
+            _webHostEnvironment = webHostEnvironment;
+            _ucds = (Repository<UcdsEductionManagement>)ucds;
         }
 
         #region CRUD OPERTIONS
@@ -37,18 +44,25 @@ namespace MRBLACK.Controllers
         public IActionResult Create()
         {
             ViewBag.ActionName = nameof(Create);
+            FillDropdownLists();
             return View("EditCreate", new Subject());
         }
 
         [HttpPost]
-        public IActionResult Create(Subject model)
+        public IActionResult Create(Subject model, IFormFile img,List<int> UCDS)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Subjects");
+                }
                 _Subject.Add(model);
+                AddDelSubjectsFromUCDS(model, UCDS);
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Create);
+            FillDropdownLists();
             return View("EditCreate", model);
         }
         #endregion
@@ -57,19 +71,26 @@ namespace MRBLACK.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.ActionName = nameof(Edit);
-            var model = _Subject.GetElement(id);
+            FillDropdownLists();
+            var model = _Subject.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country");
             return View("EditCreate", model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Subject model)
+        public IActionResult Edit(Subject model, IFormFile img,List<int> UCDS)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Subjects");
+                }
                 _Subject.Update(model);
+                AddDelSubjectsFromUCDS(model, UCDS);
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Edit);
+            FillDropdownLists();
             return View("EditCreate", model);
         }
         #endregion
@@ -122,7 +143,7 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy),
+            return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
                 pageNumber, pageSize);
         }
 
@@ -141,5 +162,70 @@ namespace MRBLACK.Controllers
         }
 
         #endregion
+
+
+        private void FillDropdownLists()
+        {
+            var ucds = _ucds.GetAll(null, null, "University,College,Department,University.Country").ToList();
+            var lst = new List<UcdsEductionManagement>();
+            if (ucds != null && ucds.Count() > 0)
+            {
+                foreach (var item in ucds)
+                {
+                    if (lst.Where(c => c.University.CountryId == item.University.CountryId
+                     && c.UniversityId == item.UniversityId
+                     && c.CollegeId == item.CollegeId
+                     && c.DepartmentId == item.DepartmentId).Count() == 0)
+                    {
+                        lst.Add(item);
+                    }
+                }
+            }
+
+            ViewBag.DepartmentCollegeUniversityCountryList = lst;
+        }
+
+        private void AddDelSubjectsFromUCDS(Subject model, List<int> UCDS)
+        {
+            try
+            {
+                var oldUCDS = new List<UcdsEductionManagement>();
+                oldUCDS = _ucds.GetAll(c => c.SubjectId == model.Id).ToList();
+                if (oldUCDS != null && oldUCDS.Count() > 0)
+                {
+                    oldUCDS.ForEach(c =>
+                    {
+                        c.SubjectId = null;
+                        _ucds.Update(c);
+                    });
+                }
+
+                foreach (var item in UCDS)
+                {
+                    var ucds = _ucds.GetElement(item);
+                    if (ucds.SubjectId == null)
+                    {
+                        ucds.SubjectId = model.Id;
+                        _ucds.Update(ucds);
+                    }
+                    else
+                    {
+                        var newUcds = new UcdsEductionManagement()
+                        {
+                            UniversityId = ucds.UniversityId,
+                            CollegeId = ucds.CollegeId,
+                            DepartmentId = ucds.DepartmentId,
+                            SubjectId = model.Id
+                        };
+                        _ucds.Add(newUcds);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                var x = e.Message;
+            }
+        }
+
     }
 }

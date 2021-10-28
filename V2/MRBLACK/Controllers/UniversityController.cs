@@ -144,7 +144,7 @@ namespace MRBLACK.Controllers
                 || f.Country.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<University>.CreateAsync(_University.GetAllAsIQueryable(filter, orderBy, "Country"),
+            return await PagedList<University>.CreateAsync(_University.GetAllAsIQueryable(filter, orderBy, "Country,UcdsEductionManagement"),
                 pageNumber, pageSize);
         }
 

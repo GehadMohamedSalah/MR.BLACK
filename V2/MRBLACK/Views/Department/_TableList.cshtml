@@ -15,6 +15,27 @@
         @Html.DisplayFor(modelItem => item.ArName)
     </td>
     <td>
+        @if(item.UcdsEductionManagement!= null)
+        {
+            <p>@item.UcdsEductionManagement.Select(c => c.SubjectId).Distinct().Count()</p>
+        }
+    </td>
+    <td>
+        @if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+        {
+            foreach(var uc in item.UcdsEductionManagement)
+            {
+                <p>@uc.College.ArName - @uc.University.ArName - @uc.University.Country.ArName</p>
+            }
+        }
+    </td>
+    <td>
+        @if (item.ImgPath != null)
+        {
+            <img src="~/Uploads/Images/Departments/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+        }
+    </td>
+    <td>
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Edit/@item.Id')">
             <i class="fa fa-edit"></i><span>  تعديل</span>
         </button>

@@ -3,12 +3,15 @@
 @{
     Layout = null;
 }
+<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
+<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+
 <!-- ClientSide Validation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
-<form asp-action="@ViewBag.ActionName" method="post">
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -21,13 +24,35 @@
                 <div class="panel-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImgPath" />
                     <div class="form-group row">
-                        <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                        <label class="col-lg-3"></label>
+                        <input asp-for="EnName" class="col-lg-9 form-control" placeholder="الاسم بالانجليزية" />
                         <span asp-validation-for="EnName" class="text-danger"></span>
                     </div>
                     <div class="form-group row">
-                        <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                        <label class="col-lg-3"></label>
+                        <input asp-for="ArName" class="col-lg-9 form-control" placeholder="الاسم بالعربية" />
                         <span asp-validation-for="ArName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3">الاقسام</label>
+                        <select class="col-lg-9 form-control chosen-select" multiple id="UCDS" name="UCDS">
+                            @foreach (MRBLACK.Models.Database.UcdsEductionManagement item in ViewBag.DepartmentCollegeUniversityCountryList)
+                            {
+                                if (Model.UcdsEductionManagement.Where(c => c.Id == item.Id).Count() > 0)
+                                {
+                                    <option value="@item.Id" selected>@item.Department.ArName - @item.College.ArName - @item.University.ArName - @item.University.Country.ArName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Id">@item.Department.ArName - @item.College.ArName - @item.University.ArName - @item.University.Country.ArName</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <input name="img" id="img" class="form-control" type="file" />
                     </div>
                 </div>
             </div>
@@ -39,6 +64,11 @@
     </div>
 </form>
 
+@*<script>
+    $(".chosen-select").chosen({
+        no_results_text: "Oops, nothing found!"
+    })
+</script>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

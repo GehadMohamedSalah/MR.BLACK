@@ -14,8 +14,14 @@
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
-        
+
         <td>@Html.DisplayFor(modelItem => item.CurrencyType.ArName)</td>
+        <td>
+            @if (item.University != null)
+            {
+                <p>@item.University.Count()</p>
+            }
+        </td>
         <td>
             @if (item.ImgPath != null)
             {

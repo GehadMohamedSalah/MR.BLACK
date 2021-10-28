@@ -18,6 +18,13 @@
             @Html.DisplayFor(modelItem => item.Country.ArName)
         </td>
         <td>
+            @if (item.UcdsEductionManagement != null)
+            {
+                <p>@item.UcdsEductionManagement.Select(c => c.CollegeId).Distinct().Count()</p>
+            }
+        </td>
+        <td>0</td>
+        <td>
             @if (item.ImgPath != null)
             {
                 <img src="~/Uploads/Images/Universities/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Helper;
@@ -17,11 +19,15 @@ namespace MRBLACK.Controllers
     public class DepartmentController : Controller
     {
         private readonly Repository<Department> _Department;
-        private readonly int PageSize;
-        public DepartmentController(IRepository<Department> Department)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly Repository<UcdsEductionManagement> _ucds;
+        public DepartmentController(IRepository<Department> Department
+            , IWebHostEnvironment webHostEnvironment
+            ,IRepository<UcdsEductionManagement> ucds)
         {
             _Department = (Repository<Department>)Department;
-            PageSize = 5;
+            _webHostEnvironment = webHostEnvironment;
+            _ucds = (Repository<UcdsEductionManagement>)ucds;
         }
 
         #region CRUD OPERTIONS
@@ -37,18 +43,25 @@ namespace MRBLACK.Controllers
         public IActionResult Create()
         {
             ViewBag.ActionName = nameof(Create);
+            FillDropdownLists();
             return View("EditCreate", new Department());
         }
 
         [HttpPost]
-        public IActionResult Create(Department model)
+        public IActionResult Create(Department model, IFormFile img, List<int> UCDS)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Departments");
+                }
                 _Department.Add(model);
+                AddDelDepartmentsFromUCDS(model, UCDS);
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Create);
+            FillDropdownLists();
             return View("EditCreate", model);
         }
         #endregion
@@ -57,19 +70,26 @@ namespace MRBLACK.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.ActionName = nameof(Edit);
-            var model = _Department.GetElement(id);
+            FillDropdownLists();
+            var model = _Department.GetFirstOrDefault(c=>c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country");
             return View("EditCreate", model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Department model)
+        public IActionResult Edit(Department model, IFormFile img,List<int> UCDS)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Departments");
+                }
                 _Department.Update(model);
+                AddDelDepartmentsFromUCDS(model, UCDS);
                 return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Edit);
+            FillDropdownLists();
             return View("EditCreate", model);
         }
         #endregion
@@ -122,7 +142,7 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<Department>.CreateAsync(_Department.GetAllAsIQueryable(filter, orderBy),
+            return await PagedList<Department>.CreateAsync(_Department.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
                 pageNumber, pageSize);
         }
 
@@ -141,5 +161,67 @@ namespace MRBLACK.Controllers
         }
 
         #endregion
+
+
+        private void FillDropdownLists()
+        {
+            var ucds = _ucds.GetAll(null, null, "University,College,University.Country").ToList();
+            var lst = new List<UcdsEductionManagement>();
+            if(ucds != null && ucds.Count() > 0)
+            {
+                foreach(var item in ucds)
+                {
+                    if(lst.Where(c => c.University.CountryId == item.University.CountryId
+                    && c.UniversityId == item.UniversityId
+                    && c.CollegeId == item.CollegeId).Count() == 0)
+                    {
+                        lst.Add(item);
+                    }
+                }
+            }
+            
+            ViewBag.CollegeUniversityCountryList = lst;
+        }
+
+        private void AddDelDepartmentsFromUCDS(Department model, List<int> UCDS)
+        {
+            try
+            {
+                var oldUCDS = new List<UcdsEductionManagement>();
+                oldUCDS = _ucds.GetAll(c => c.DepartmentId == model.Id).ToList();
+                if (oldUCDS != null && oldUCDS.Count() > 0)
+                {
+                    oldUCDS.ForEach(c =>
+                    {
+                        c.DepartmentId = null;
+                        _ucds.Update(c);
+                    });
+                }
+
+                foreach (var item in UCDS)
+                {
+                    var ucds = _ucds.GetElement(item);
+                    if(ucds.DepartmentId == null)
+                    {
+                        ucds.DepartmentId = model.Id;
+                        _ucds.Update(ucds);
+                    }
+                    else
+                    {
+                        var newUcds = new UcdsEductionManagement()
+                        {
+                            UniversityId = ucds.UniversityId,
+                            CollegeId = ucds.CollegeId,
+                            DepartmentId = model.Id
+                        };
+                        _ucds.Add(newUcds);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                var x = e.Message;
+            }
+        }
     }
 }

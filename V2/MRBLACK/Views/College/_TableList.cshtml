@@ -15,13 +15,28 @@
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
+        <td>@item.Years</td>
+        <td>@item.Terms</td>
+        <td>
+            @if (item.UcdsEductionManagement != null)
+            {
+                <p>@item.UcdsEductionManagement.Select(c => c.DepartmentId).Distinct().Count()</p>
+            }
+        </td>
+        <td>
+            @if (item.UcdsEductionManagement != null)
+            {
+                <p>@item.UcdsEductionManagement.Select(c => c.SubjectId).Distinct().Count()</p>
+            }
+        </td>
+        <td>0</td>
         <td>
             @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
             {
-                foreach (var ucds in item.UcdsEductionManagement)
+                foreach (var ucds in item.UcdsEductionManagement.Select(c => c.University).Distinct())
                 {
-                    <span>@ucds.University.ArName - @ucds.University.Country.ArName</span>
-                    <br />
+                    <p>@ucds.ArName - @ucds.Country.ArName</p>
+
                 }
             }
         </td>

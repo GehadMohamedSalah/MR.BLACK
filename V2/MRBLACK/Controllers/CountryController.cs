@@ -142,7 +142,7 @@ namespace MRBLACK.Controllers
                 || f.CurrencyType.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<Country>.CreateAsync(_Country.GetAllAsIQueryable(filter, orderBy,"CurrencyType"),
+            return await PagedList<Country>.CreateAsync(_Country.GetAllAsIQueryable(filter, orderBy,"CurrencyType,University"),
                 pageNumber, pageSize);
         }
 
