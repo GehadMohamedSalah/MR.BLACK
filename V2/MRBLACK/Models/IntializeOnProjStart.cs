@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Data;
 using MRBLACK.Models.Database;
+using MRBLACK.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,7 +62,10 @@ namespace MRBLACK.Models
                     UserName = "Sameh",
                     Email = "sameh@gmail.com",
                     PhoneNumber = "01111111111",
-                    RedirectUrl = "/Home/Index"
+                    RedirectUrl = "/Home/Index",
+                    UserType = (int)UserType.Admin,
+                    Gender = 1,
+                    CountryId = 1
                 };
                 await _userManager.CreateAsync(admin, "123456");
             }

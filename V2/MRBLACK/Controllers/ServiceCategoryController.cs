@@ -16,6 +16,8 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using MRBLACK.Data;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MRBLACK.Controllers
 {
@@ -25,15 +27,16 @@ namespace MRBLACK.Controllers
         private readonly Repository<ServiceCategory> _ServiceCategory;
         private readonly Repository<CurrencyType> _CurrencyType;
         private readonly IdentitySetupContext _context;
-        private readonly int PageSize;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         public ServiceCategoryController(IRepository<ServiceCategory> ServiceCategory,
             IRepository<CurrencyType> CurrencyType,
-            IdentitySetupContext context)
+            IdentitySetupContext context
+             , IWebHostEnvironment webHostEnvironment)
         {
             _ServiceCategory = (Repository<ServiceCategory>)ServiceCategory;
             _CurrencyType = (Repository<CurrencyType>)CurrencyType;
             _context = context;
-            PageSize = 5;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         #region CRUD OPERTIONS
@@ -54,10 +57,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(ServiceCategory model)
+        public IActionResult Create(ServiceCategory model,IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Categories");
+                }
                 if (GeneralHelper.GetLoggedUserRole(User.FindFirstValue(ClaimTypes.NameIdentifier),_context) == "ADMIN")
                     model.IsAccepted = true;
                 _ServiceCategory.Add(model);
@@ -85,10 +92,14 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(ServiceCategory model)
+        public IActionResult Edit(ServiceCategory model, IFormFile img)
         {
             if (ModelState.IsValid)
             {
+                if (img != null)
+                {
+                    model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Categories");
+                }
                 _ServiceCategory.Update(model);
                 //var childern = new List<ServiceCategory>();
                 //GeneralHelper.GetSpecificChildernCategories(_ServiceCategory, model.Id, childern);
@@ -162,7 +173,7 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<ServiceCategory>.CreateAsync(_ServiceCategory.GetAllAsIQueryable(filter, orderBy, "ParentCategory"),
+            return await PagedList<ServiceCategory>.CreateAsync(_ServiceCategory.GetAllAsIQueryable(filter, orderBy, "ParentCategory,InverseParentCategory,Service"),
                 pageNumber, pageSize);
         }
 

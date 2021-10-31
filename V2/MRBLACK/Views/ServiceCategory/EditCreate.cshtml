@@ -35,9 +35,10 @@
         <div class="panel-body">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImgPath" />
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <label asp-for="EnName">الاسم</label>
+                    <label asp-for="EnName">الاسم بالانجليزية</label>
                     <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
@@ -91,6 +92,11 @@
                         <option selected disabled value="-1">اختر نوع العملة</option>
                     </select>
                     <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label for="img">صورة التصنيف</label>
+                    <input id="img" class="form-control" type="file" name="img"/>
+                    <span for="img" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 mt-40">
                     <input type="checkbox" asp-for="AutoAcceptedService" />

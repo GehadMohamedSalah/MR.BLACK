@@ -9,7 +9,16 @@
     <tr>
         <td>@i</td>
         <td>
+            @if (item.ImgPath != null)
+            {
+                <img src="~/Uploads/Images/Categories/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+            }
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ParentCategory.ArName)
@@ -27,7 +36,18 @@
                 <p class="text-success">نسبة المنصة من سعر الخدمة : @item.CommissionPercentage</p>
             }
         </td>
-        <td>@item.RevenueFromThisCatgoryToPlatform</td>
+        <td>
+            @if (item.Service != null)
+            {
+                <span>@item.Service.Count()</span>
+            }
+        </td>
+        <td>
+            @if (item.InverseParentCategory != null)
+            {
+                <span>@item.InverseParentCategory.Count()</span>
+            }
+        </td>
         <td>
             <a class="btn btn-info" href="/ServiceCategory/Edit/@item.Id">
                 <i class="fa fa-edit"></i><span>  تعديل</span>

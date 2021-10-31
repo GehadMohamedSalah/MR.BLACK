@@ -108,7 +108,9 @@ namespace MRBLACK.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     ArName = Input.ArName,
                     EnName = Input.EnName,
-                    PhoneNumber = Input.Phone
+                    PhoneNumber = Input.Phone,
+                    CountryId = Input.CountryId,
+                    UserType = (int)UserType.Member
                 };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

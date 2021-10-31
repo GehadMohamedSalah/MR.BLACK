@@ -18,6 +18,9 @@ namespace MRBLACK.Areas.Identity.Data
         public string EnName { get; set; }
         public int? Gender { get; set; }
         public string RedirectUrl { get; set; }
+        public int? CountryId { get; set; }
+        public bool IsDeleted { get; set; }
+        public int? UserType { get; set; }
     }
 
     public class IdentitySetupRole : IdentityRole

@@ -1,4 +1,4 @@
-﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.Database.ServiceCategory>
+﻿@model MRBLACK.Helper.PagedList<MRBLACK.Areas.Identity.Data.IdentitySetupUser>
 @using MRBLACK.Models.ViewModels;
 @{
     ViewData["Title"] = "Index";
@@ -9,20 +9,20 @@
         TotalPages = Model.TotalPages,
         PreviousPage = Model.PreviousPage,
         NextPage = Model.NextPage,
-        GetItemsUrl = "/ServiceCategory/GetItems",
-        GetPaginationUrl = "/ServiceCategory/GetPagination",
+        GetItemsUrl = "/Supervisor/GetItems",
+        GetPaginationUrl = "/Supervisor/GetPagination",
         ItemsCount = Model.ItemsCount,
         StartIndex = Model.StartIndex,
         EndIndex = Model.EndIndex
     };
 }
 
-<h1 class="text-center">شاشة تصنيفات الخدمات</h1>
+<h1 class="text-center">شاشة المشرفين</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-8">
-                <a class="btn btn-success" href="/ServiceCategory/Create">
+                <a class="btn btn-success" href="/Supervisor/Create">
                     <i class="fa fa-plus"></i><span>  اضافة جديد</span>
                 </a>
                 
@@ -60,13 +60,11 @@
             <thead class="bg-blue">
                 <tr>
                     <td>#</td>
-                    <td>الصورة</td>
-                    <td>الاسم بالعربية</td>
-                    <td>الاسم بالانجليزية</td>
-                    <td>الصنف الرئيسي</td>
-                    <td>نوع التسعير</td>
-                    <td>عدد الخدمات</td>
-                    <td>عدد التصنيفات الفرعية</td>
+                    <td>الاسم</td>
+                    <td>البريد الالكتروني</td>
+                    <td>رقم الهاتف</td>
+                    <td>الجنس</td>
+                    <td>الدولة</td>
                     <td>الاجراءات</td>
                 </tr>
             </thead>

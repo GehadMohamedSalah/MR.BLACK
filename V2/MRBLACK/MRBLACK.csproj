@@ -50,6 +50,7 @@
     <Folder Include="wwwroot\Uploads\Images\Countries\" />
     <Folder Include="wwwroot\Uploads\Images\Colleges\" />
     <Folder Include="wwwroot\Uploads\Images\Departments\" />
+    <Folder Include="wwwroot\Uploads\Images\Categories\" />
     <Folder Include="wwwroot\Uploads\Images\Subjects\" />
     <Folder Include="wwwroot\Uploads\Images\Universities\" />
   </ItemGroup>
