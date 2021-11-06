@@ -1,0 +1,53 @@
+﻿@model MRBLACK.Models.Database.Gallery
+
+@{
+    Layout = null;
+}
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="modalLabel">اضافة/تعديل صورة معرض</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel">
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImgPath" />
+                    <input type="hidden" asp-for="CreatedOn" />
+                    <div class="form-group row">
+                        <label class="col-lg-3">التصنيف</label>
+                        <select class="col-lg-9 form-control" asp-for="GalleryCategoryId">
+                            <option value="1">التعليم الالكتروني (مستر بلاك بورد)</option>
+                            <option value="2">اعداد بحوث ورسائل علمية</option>
+                            <option value="3">ملخصات ومراجعات نهائية للمواد الجامعية</option>
+                            <option value="4">كتابة ابداعية وتفريغ نصي وكتابة محتوى</option>
+                            <option value="5">مشاريع التخرج</option>
+                        </select>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-12">الصورة</label>
+                        <input name="img" id="img" class="form-control" type="file" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">اغلاق</button>
+            <input type="submit" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

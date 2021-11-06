@@ -11,8 +11,16 @@ namespace MRBLACK.Models.Database
 {
     public partial class Gallery
     {
+        public Gallery()
+        {
+            SlideShow = new HashSet<SlideShow>();
+        }
         [Key]
         public int Id { get; set; }
         public string ImgPath { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public int? GalleryCategoryId { get; set; }
+        [InverseProperty("Gallery")]
+        public virtual ICollection<SlideShow> SlideShow { get; set; }
     }
 }

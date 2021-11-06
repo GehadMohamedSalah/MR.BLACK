@@ -1,0 +1,58 @@
+﻿@model List<MRBLACK.Models.Database.Gallery>
+@using MRBLACK.Models.Enums 
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @item.CreatedOn.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @if (item.GalleryCategoryId == (int)GalleryCategory.OnlineEducation)
+            {
+                <span>التعليم الالكتروني (مستر بلاك بورد)</span>
+            }
+            else if (item.GalleryCategoryId == (int)GalleryCategory.PreparingResearchPapersAndScientificMessages)
+            {
+                <span>اعداد بحوث ورسائل علمية</span>
+            }
+            else if (item.GalleryCategoryId == (int)GalleryCategory.SummariesAndFinalReview)
+            {
+                <span>ملخصات ومراجعات نهائية للمواد الجامعية</span>
+            }
+            else if (item.GalleryCategoryId == (int)GalleryCategory.CreativeWritingAndTranscriptionAndContentCreation)
+            {
+                <span>كتابة ابداعية وتفريغ نصي وكتابة محتوى</span>
+            }
+            else if (item.GalleryCategoryId == (int)GalleryCategory.GraduationProjects)
+            {
+                <span>مشاريع التخرج</span>
+            }
+        </td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <a href="~/Uploads/Images/Gallery/@item.ImgPath" target="_blank">
+                    <img src="~/Uploads/Images/Gallery/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+                </a>
+            }
+        </td>
+        <td>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Gallery/AddToSlideShow/@item.Id')">
+                <i class="fa fa-plus-circle"></i><span>  اضافة للاسليدشو</span>
+            </button>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Gallery/Edit/@item.Id')">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Gallery/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
+    i++;
+}

@@ -113,10 +113,22 @@
                     </li>
                 </ul>
             </li>
-            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") ? "active" : "")">
-                <a href="@Url.Action("Index", "Membership")">
-                    <i class="fa fa-id-card"></i> <span>العضويات</span>
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") || Context.Request.Path.ToString().ToLower().Contains("advertisingpackage") ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-id-card"></i> <span>ادارة الباقات</span>
                 </a>
+                <ul class="treeview-menu">
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") ? "active" : "")">
+                        <a href="@Url.Action("Index","Membership")">
+                            <i class="fa fa-address-card"></i> <span>باقات العضوية</span>
+                        </a>
+                    </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("advertisingpackage") ? "active" : "")">
+                        <a href="#">
+                            <i class="fas fa-ad"></i> <span>باقات اعلانية</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("servicecategory") ? "active" : "")">
                 <a href="@Url.Action("Index", "ServiceCategory")">
@@ -133,125 +145,58 @@
                     <i class="fa fa-users"></i> <span>المشرفين</span>
                 </a>
             </li>
-            @*
 
-
-        <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("storeorders") ? "active" : "")">
-            <a href="@Url.Action("Index", "StoreOrders")">
-                <i class="fa fa-shopping-cart"></i> <span>طلبات المتاجر والمطاعم</span>
-            </a>
-        </li>
-
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("otlobay7aga") ? "active" : "")">
-            <a href="@Url.Action("Index", "OtlobAy7aga")">
-                <i class="fa fa-shopping-cart"></i> <span>طلبات اطلب اى حاجه</span>
-            </a>
-        </li>
-
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("appjobs/orders") ? "active" : "")">
-            <a href="@Url.Action("Orders", "AppJobs")">
-                <i class="fa fa-shopping-cart"></i> <span>طلبات المهن الحرفيين</span>
-            </a>
-        </li>
-
-
-
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("stores") ? "active" : "")">
-            <a href="#">
-                <i class="fa fa-shopping-bag"></i>
-                <span>المتاجر</span>
-                <i class="fa fa-angle-left pull-left"></i>
-            </a>
-
-            <ul class="treeview-menu  @(Context.Request.Path.ToString().ToLower().Contains("stores") ? "menuopen" : "")">
-                <li>
-                    <a href="@Url.Action("Create", "Stores")">
-                        <i class="fa fa-plus"></i> اضافه متجر
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "Stores")">
-                        <i class="fa fa-circle-o"></i> جميع المتاجر
-                    </a>
-                </li>
-            </ul>
-        </li>
-
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("jobs") ? "active" : "")">
-            <a href="#">
-                <i class="fa fa-briefcase"></i>
-                <span>المهن والحرفيين</span>
-                <i class="fa fa-angle-left pull-left"></i>
-            </a>
-
-            <ul class="treeview-menu  @(Context.Request.Path.ToString().ToLower().Contains("jobs") ? "menuopen" : "")">
-                <li class=" @(Context.Request.Path.ToString().ToLower().Contains("index") ? "active" : "")"><a href="@Url.Action("Index", "AppJobs")"><i class="fa fa-briefcase"></i> المهن والوظائف</a></li>
-                <li class=" @(Context.Request.Path.ToString().ToLower().Contains("create") ? "active" : "")"><a href="@Url.Action("CreateWorker", "AppJobs")"><i class="fa fa-user-plus"></i> اضافه عامل</a></li>
-                <li class=" @(Context.Request.Path.ToString().ToLower().Contains("workers") ? "active" : "")"><a href="@Url.Action("Workers", "AppJobs")"><i class="fa fa-users"></i> جميع العمال</a></li>
-            </ul>
-        </li>
-
-            *@
-            @* <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("department") ? "active" : "")">
-            <a href="@Url.Action("Index", "Department")">
-                <i class="fa fa-boxes"></i> <span>الاقسام</span>
-            </a>
-        </li>
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("slider") ? "active" : "")">
-            <a href="#">
-                <i class="fa fa-shopping-bag"></i>
-                <span>الاعلانات</span>
-                <i class="fa fa-angle-left pull-left"></i>
-            </a>
-
-            <ul class="treeview-menu  @(Context.Request.Path.ToString().ToLower().Contains("slider") ? "menuopen" : "")">
-                <li>
-                    <a href="@Url.Action("Index", "Slider")">
-                        <i class="fa fa-flag"></i> اعلانات الرئيسية
-                    </a>
-                </li>
-                <li>
-                    <a href="@Url.Action("Index", "WorkerAds")">
-                        <i class="fa fa-user"></i> اعلانات الصنايعية
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("country") ? "active" : "")  @(Context.Request.Path.ToString().ToLower().Contains("city") ? "active" : "")  @(Context.Request.Path.ToString().ToLower().Contains("cities") ? "active" : "")">
-            <a href="#">
-                <i class="fa fa-map-marker"></i>
-                <span>البلاد والمدن</span>
-                <i class="fa fa-angle-left pull-left"></i>
-            </a>
-
-            <ul class="treeview-menu  @(Context.Request.Path.ToString().ToLower().Contains("country") ? "menuopen" : "")">
-                <li><a href="@Url.Action("Index", "Country")"><i class="fa fa-circle-o"></i> إدارة البلاد</a></li>
-            </ul>
-
-            <ul class="treeview-menu  @(Context.Request.Path.ToString().ToLower().Contains("city") ? "menuopen" : "")">
-                <li><a href="@Url.Action("Index", "City")"><i class="fa fa-circle-o"></i> إدارة المدن</a></li>
-            </ul>
-        </li>
-
-
-        <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("metadata") ? "active" : "")">
-            <a href="@Url.Action("Index", "MetaData")">
-                <i class="fa fa-database"></i> <span>إداره البيانات والمعلومات</span>
-            </a>
-        </li>*@
-            @* <li class="treeview  @(Context.Request.Path.ToString().ToLower().Contains("complaints") ? "active" : "")">
-            <a href="@Url.Action("Index", "Complaints")">
-                <i class="fa fa-envelope-open-text"></i> <span>
-                    الشكاوى
-                    @if (Model.Complaints > 0)
-                    {
-                        <span class="badge bg-orange">@Model.Complaints</span>
-                    }
-                </span>
-            </a>
-        </li>
-
-            *@
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("article/")
+                || Context.Request.Path.ToString().ToLower().Contains("articlecategory/") ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-pen"></i> <span>المدونة</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("articlecategory/") ? "active" : "")">
+                        <a href="/ArticleCategory/Index">
+                            <i class="fa fa-list-ul"></i> <span>تصنيفات المقالات</span>
+                        </a>
+                    </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("article/") ? "active" : "")">
+                        <a href="/Article/Index">
+                            <i class="fa fa-edit"></i> <span>المقالات</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("gallery") ? "active" : "")">
+                <a href="@Url.Action("Index", "Gallery")">
+                    <i class="fa fa-image"></i> <span>معرض الصور</span>
+                </a>
+            </li>
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("slideshow") ? "active" : "")">
+                <a href="@Url.Action("Index", "SlideShow")">
+                    <i class="fa fa-images"></i> <span>ادارة الاسليدشو</span>
+                </a>
+            </li>
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("book/")
+                || Context.Request.Path.ToString().ToLower().Contains("bookcategory/") ? "active" : "")">
+                <a href="#">
+                    <i class="fa fa-address-book"></i> <span>ادارة الكتب</span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("bookcategory/") ? "active" : "")">
+                        <a href="/BookCategory/Index">
+                            <i class="fa fa-book"></i> <span>تصنيفات الكتب</span>
+                        </a>
+                    </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("bookstore/") ? "active" : "")">
+                        <a href="/BookStore/Index">
+                            <i class="fa fa-book-open"></i> <span>الكتب</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("member/") ? "active" : "")">
+                <a href="/Member/Index">
+                    <i class="fa fa-users"></i> <span>الاعضاء</span>
+                </a>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->

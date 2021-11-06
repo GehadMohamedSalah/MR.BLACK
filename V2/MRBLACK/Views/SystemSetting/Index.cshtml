@@ -53,7 +53,7 @@ else
                     <div class="form-group row">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
-                        <input type="hidden" value="@ViewBag.returnActionName" name="returnActionName" id="returnActionName"/>
+                        <input type="hidden" value="@ViewBag.returnActionName" name="returnActionName" id="returnActionName" />
                         <div id="setting">
 
                             <div class="col-sm-12">
@@ -113,22 +113,22 @@ else
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="MinWithdrawalRequest" class="control-label">رسالة اغلاق الموقع</label>
-                                <textarea asp-for="MinWithdrawalRequest" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="MinWithdrawalRequest" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="SiteClosureMsg" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="SiteClosureMsg" class="control-label">الشروط والاحكام</label>
-                                <textarea asp-for="SiteClosureMsg" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="SiteClosureMsg" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="TermsAndConditions" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="TermsAndConditions" class="control-label">سياسة الخصوصية</label>
-                                <textarea asp-for="TermsAndConditions" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="TermsAndConditions" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="PrivacyPolicy" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="PrivacyPolicy" class="control-label">ضمان اموالك ومستحقاتك</label>
-                                <textarea asp-for="PrivacyPolicy" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="PrivacyPolicy" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="GuaranteeOfMoneyAndEntitlements" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
@@ -138,12 +138,12 @@ else
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="HowDealWithSite" class="control-label">من نحن</label>
-                                <textarea asp-for="HowDealWithSite" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="HowDealWithSite" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="AboutUs" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="AboutUs" class="control-label">نص صفحة التواصل</label>
-                                <textarea asp-for="AboutUs" class="form-control" rows="10"></textarea>
+                                <textarea asp-for="AboutUs" class="form-control" rows="15"></textarea>
                                 <span asp-validation-for="TextOfContact" class="text-danger"></span>
                             </div>
                         </div>
@@ -202,3 +202,10 @@ else
         </div>
     </div>
 </form>
+
+<script src="~/Content/assets/tinymce/tinymce.js"></script>
+<script>
+    tinymce.init({
+        selector: "textarea"
+    });
+</script>

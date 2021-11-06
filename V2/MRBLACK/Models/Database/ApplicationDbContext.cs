@@ -67,6 +67,7 @@ namespace MRBLACK.Models.Database
         public virtual DbSet<University> University { get; set; }
         public virtual DbSet<UserBookGift> UserBookGift { get; set; }
         public virtual DbSet<UserVisit> UserVisit { get; set; }
+        public virtual DbSet<SlideShow> SlideShow { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -451,6 +452,14 @@ namespace MRBLACK.Models.Database
                     .WithMany(p => p.UserBookGift)
                     .HasForeignKey(d => d.CurrencyTypeId)
                     .HasConstraintName("FK_UserBookGift_CurrencyType");
+            });
+
+            modelBuilder.Entity<SlideShow>(entity =>
+            {
+                entity.HasOne(d => d.Gallery)
+                    .WithMany(p => p.SlideShow)
+                    .HasForeignKey(d => d.GalleryImgId)
+                    .HasConstraintName("FK_SlideShow_Gallery");
             });
 
             OnModelCreatingPartial(modelBuilder);

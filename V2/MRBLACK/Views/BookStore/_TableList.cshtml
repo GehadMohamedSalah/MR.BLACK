@@ -1,0 +1,43 @@
+﻿@model List<MRBLACK.Models.Database.BookStore>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+<tr>
+    <td>@i</td>
+    <td>@item.ArName</td>
+    <td>@item.ArAuthoreName</td>
+    <td>@item.BookCategory.ArName</td>
+    <td>@item.Price</td>
+    <td>
+        @if (item.BookCoverImgPath != null)
+        {
+            <a href="~/Uploads/Books/@item.EnName/@item.BookCoverImgPath" target="_blank"><img src="~/Uploads/Books/@item.EnName/@item.BookCoverImgPath" width="50" height="50" style="border-radius:100%;" /></a>
+        }
+    </td>
+    <td>
+        @if (item.BookPdfPath != null)
+        {
+            <a href="~/Uploads/Books/@item.EnName/@item.BookPdfPath" target="_blank">عرض الكتاب</a>
+        }
+    </td>
+    <td>
+        @if (item.BookVoicePath != null)
+        {
+            <a href="~/Uploads/Books/@item.EnName/@item.BookVoicePath" target="_blank">الملف الصوتي</a>
+        }
+    </td>
+    <td>
+        <a class="btn btn-info" href="/BookStore/Edit/@item.Id">
+            <i class="fa fa-edit"></i><span>  تعديل</span>
+        </a>
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/BookStore/Delete/@item.Id')">
+            <i class="fa fa-trash"></i><span>  حذف</span>
+        </button>
+    </td>
+</tr>
+    i++;
+}

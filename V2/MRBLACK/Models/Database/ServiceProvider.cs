@@ -32,6 +32,8 @@ namespace MRBLACK.Models.Database
         [Column(TypeName = "decimal(18, 3)")]
         public decimal WithdrawnBalances { get; set; }
 
+        public int? MembershipId { get; set; }
+
         [ForeignKey(nameof(CountryId))]
         [InverseProperty("ServiceProvider")]
         public virtual Country Country { get; set; }

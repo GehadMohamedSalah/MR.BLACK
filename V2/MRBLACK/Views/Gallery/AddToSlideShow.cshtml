@@ -1,0 +1,52 @@
+﻿@model MRBLACK.Models.Database.SlideShow
+
+@{
+    Layout = null;
+}
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<form asp-action="AddToSlideShow" method="post" enctype="multipart/form-data">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title" id="modalLabel">اضافة الصورة من المعرض للاسليدشو</h4>
+        </div>
+        <div class="modal-body">
+            <div class="panel">
+                <div class="panel-body">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="GalleryImgId" />
+                    <div class="form-group row">
+                        <label class="col-lg-3">النص</label>
+                        <input asp-for="Text" class="col-lg-9 form-control" />
+                        <span asp-validation-for="Text" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3">الرابط</label>
+                        <input asp-for="Link" class="col-lg-9 form-control" />
+                        <span asp-validation-for="Link" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-lg-3">الصورة</label>
+                        <a href="~/Uploads/Images/Gallery/@Model.Gallery.ImgPath" target="_blank"><img src="~/Uploads/Images/Gallery/@Model.Gallery.ImgPath" width="100" height="100" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info" data-dismiss="modal">اغلاق</button>
+            <input type="submit" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

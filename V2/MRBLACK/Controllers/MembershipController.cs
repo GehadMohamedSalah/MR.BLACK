@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 
 namespace MRBLACK.Controllers
 {
@@ -21,18 +22,22 @@ namespace MRBLACK.Controllers
         private readonly Repository<Membership> _Membership;
         private readonly Repository<MembershipLink> _MembershipLink;
         private readonly IdentitySetupContext _context;
-        private readonly int PageSize;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly Repository<Student> _student;
+        private readonly Repository<ServiceProvider> _provider;
         public MembershipController(IRepository<Membership> Membership,
             IdentitySetupContext context,
             IRepository<MembershipLink> MembershipLink,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment
+            ,IRepository<Student> student
+            ,IRepository<ServiceProvider> provider)
         {
             _Membership = (Repository<Membership>)Membership;
             _context = context;
             _MembershipLink = (Repository<MembershipLink>)MembershipLink;
             _webHostEnvironment = webHostEnvironment;
-            PageSize = 5;
+            _student = (Repository<Student>)student;
+            _provider = (Repository<ServiceProvider>)provider;
         }
 
         #region CRUD OPERTIONS
@@ -211,6 +216,14 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+            var memUsers = new Dictionary<int, int>();
+            foreach(var item in _Membership.GetAll(filter, orderBy))
+            {
+                var usersInMem = _student.GetAll(c => c.MembershipId == item.Id).Count()
+                    + _provider.GetAll(c => c.MembershipId == item.Id).Count();
+                memUsers.Add(item.Id,usersInMem);
+            }
+            ViewBag.MembershipUsers = memUsers;
             return await PagedList<Membership>.CreateAsync(_Membership.GetAllAsIQueryable(filter, orderBy),
                 pageNumber, pageSize);
         }

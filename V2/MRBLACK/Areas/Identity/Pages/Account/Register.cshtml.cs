@@ -158,6 +158,7 @@ namespace MRBLACK.Areas.Identity.Pages.Account
             {
                 UserId = userId,
                 CountryId = Input.CountryId,
+                MembershipId = Input.MembershipId
             });
             appDb.SaveChanges();
         }
@@ -167,7 +168,8 @@ namespace MRBLACK.Areas.Identity.Pages.Account
             appDb.Student.Add(new Student()
             {
                 UserId = userId,
-                CountryId = Input.CountryId
+                CountryId = Input.CountryId,
+                MembershipId = Input.MembershipId
             });
             appDb.SaveChanges();
         }

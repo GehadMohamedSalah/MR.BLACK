@@ -1,0 +1,109 @@
+﻿@model MRBLACK.Models.Database.BookStore
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+<form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
+    <div class="panel">
+        <div class="panel-heading">
+            <h2 class="text-center">اضافة/تعديل كتاب</h2>
+        </div>
+        <div class="panel-body">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="BookCoverImgPath" />
+            <input type="hidden" asp-for="BookPdfPath" />
+            <input type="hidden" asp-for="BookVoicePath" />
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label asp-for="EnName">الاسم بالانجليزية</label>
+                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <span asp-validation-for="EnName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="ArName">الاسم بالعربية</label>
+                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <span asp-validation-for="ArName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="EnAuthoreName">اسم الكاتب بالانجليزية</label>
+                    <input asp-for="EnAuthoreName" class="form-control" placeholder="اسم الكاتب بالانجليزية" />
+                    <span asp-validation-for="EnAuthoreName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="ArAuthoreName">اسم الكاتب بالعربية</label>
+                    <input asp-for="ArAuthoreName" class="form-control" placeholder="اسم الكاتب بالعربية" />
+                    <span asp-validation-for="ArAuthoreName" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <label asp-for="Price">السعر</label>
+                    <input asp-for="Price" class="form-control" placeholder="السعر" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <label asp-for="BookCategoryId">التصنيف</label>
+                    <select class="form-control" asp-for="BookCategoryId" asp-items="@ViewBag.BookCategoryList"></select>
+                    <span asp-validation-for="BookCategoryId" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <label asp-for="PaperNum">عدد صفحات المعينة</label>
+                    <input asp-for="PaperNum" class="form-control" placeholder="عدد صفحات المعينة" />
+                    <span asp-validation-for="PaperNum" class="text-danger"></span>
+                </div>
+                <div class="col-sm-4">
+                    <label for="pdf">الكتاب pdf</label>
+                    <input type="file" name="pdf" id="pdf" class="form-control" />
+                    @if (Model.BookPdfPath != null)
+                    {
+                        <label>
+                            <a target="_blank" href="~/Uploads/Books/@Model.EnName/@Model.BookPdfPath"><i class="fa fa-eye"></i> عرض الكتاب</a>
+                        </label>
+                    }
+                </div>
+                <div class="col-sm-4">
+                    <label for="voice">الكتاب الصوتي</label>
+                    <input type="file" name="voice" id="voice" class="form-control" />
+                    @if (Model.BookVoicePath != null)
+                    {
+                        <label>
+                            <a target="_blank" href="~/Uploads/Books/@Model.EnName/@Model.BookVoicePath"> <i class="fa fa-eye"></i> عرض الملف الصوتي</a>
+                        </label>
+                    }
+                </div>
+                <div class="col-sm-4">
+                    <label for="cover">غلاف الكتاب</label>
+                    <input type="file" name="cover" id="cover" class="form-control" />
+                    @if (Model.BookCoverImgPath != null)
+                    {
+                        <label>
+                            <a target="_blank" href="~/Uploads/Books/@Model.EnName/@Model.BookCoverImgPath"><i class="fa fa-eye"></i> عرض غلاف الكتاب</a>
+                        </label>
+                    }
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="EnDesc">وصف الكتاب بالانجليزية</label>
+                    <textarea asp-for="EnDesc" class="form-control" placeholder="وصف الكتاب بالانجليزية" rows="15"></textarea>
+                    <span asp-validation-for="EnDesc" class="text-danger"></span>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="ArDesc">وصف الكتاب بالعربية</label>
+                    <textarea asp-for="ArDesc" class="form-control" placeholder="وصف الكتاب بالعربية" rows="15"></textarea>
+                    <span asp-validation-for="ArDesc" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-info" href="/BookStore/Index">عودة للقائمة</a>
+            <input type="submit" value="حفظ" class="btn btn-success" />
+        </div>
+    </div>
+
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

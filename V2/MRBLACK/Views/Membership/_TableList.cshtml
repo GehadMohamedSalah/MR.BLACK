@@ -3,6 +3,7 @@
 @{
     Layout = null;
     var i = ViewBag.PageStartRowNum;
+    var memUsers = ViewBag.MembershipUsers as Dictionary<int,int>;
 }
 
 @foreach (var item in Model)
@@ -33,6 +34,9 @@
             {
                 <span>معلن</span>
             }
+        </td>
+        <td>
+            @memUsers.FirstOrDefault(c => c.Key == item.Id).Value
         </td>
         <td>
             <a class="btn btn-info" href="/Membership/Edit/@item.Id">

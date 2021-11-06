@@ -139,7 +139,16 @@ namespace MRBLACK
             services.AddScoped<IRepository<PaymentWay>, Repository<PaymentWay>>();
             services.AddScoped<IRepository<SystemSetting>, Repository<SystemSetting>>();
             services.AddScoped<IRepository<Copun>, Repository<Copun>>();
+            services.AddScoped<IRepository<Article>, Repository<Article>>();
+            services.AddScoped<IRepository<ArticleCategory>, Repository<ArticleCategory>>();
+            services.AddScoped<IRepository<ArticleResource>, Repository<ArticleResource>>();
             services.AddScoped<IRepository<UcdsEductionManagement>, Repository<UcdsEductionManagement>>();
+            services.AddScoped<IRepository<SlideShow>, Repository<SlideShow>>();
+            services.AddScoped<IRepository<Gallery>, Repository<Gallery>>();
+            services.AddScoped<IRepository<BookStore>, Repository<BookStore>>();
+            services.AddScoped<IRepository<BookCategory>, Repository<BookCategory>>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

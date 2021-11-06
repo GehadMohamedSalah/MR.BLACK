@@ -1,0 +1,20 @@
+﻿@model List<MRBLACK.Models.ViewModels.MemberVM>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>@item.Name</td>
+        <td>@item.MembershipNumber</td>
+        <td>@item.Email</td>
+        <td>@item.Phone</td>
+        <td>@item.MembershipType</td>
+        <td>@item.Gender</td>
+        <td>@item.Balance</td>
+    </tr>
+    i++;
+}

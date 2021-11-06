@@ -29,6 +29,7 @@ namespace MRBLACK.Models.Database
         [Column(TypeName = "decimal(18, 3)")]
         public decimal WalletBalance { get; set; }
         public int? CountryId { get; set; }
+        public int? MembershipId { get; set; }
 
         [ForeignKey(nameof(AcademicYearId))]
         [InverseProperty("Student")]

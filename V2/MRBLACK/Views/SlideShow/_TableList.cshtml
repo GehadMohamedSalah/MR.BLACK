@@ -1,0 +1,43 @@
+﻿@model List<MRBLACK.Models.Database.SlideShow>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>
+            @item.CreatedOn.ToString("dd/MM/yyyy")
+        </td>
+        <td>@item.Text</td>
+        <td><a href="@item.Link" target="_blank">@item.Link</a></td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <a href="~/Uploads/Images/SlideShow/@item.ImgPath" target="_blank">
+                    <img src="~/Uploads/Images/SlideShow/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+                </a>
+            }
+            else
+            {
+                if (item.Gallery != null)
+                {
+                    <a href="~/Uploads/Images/Gallery/@item.Gallery.ImgPath" target="_blank">
+                        <img src="~/Uploads/Images/Gallery/@item.Gallery.ImgPath" width="50" height="50" style="border-radius:100%;" />
+                    </a>
+                }
+            }
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/SlideShow/Edit/@item.Id')">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/SlideShow/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
+    i++;
+}
