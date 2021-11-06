@@ -37,6 +37,8 @@ namespace MRBLACK.Models.Database
         public decimal Discount { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal PlatformRevenue { get; set; }
+        public string ImgPath { get; set; }
+        public int? FormTypeId { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]
         [InverseProperty(nameof(AcademicYear.Service))]

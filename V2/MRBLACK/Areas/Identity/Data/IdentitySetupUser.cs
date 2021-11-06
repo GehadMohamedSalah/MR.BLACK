@@ -21,6 +21,7 @@ namespace MRBLACK.Areas.Identity.Data
         public int? CountryId { get; set; }
         public bool IsDeleted { get; set; }
         public int? UserType { get; set; }
+        public string ImgPath { get; set; }
     }
 
     public class IdentitySetupRole : IdentityRole
