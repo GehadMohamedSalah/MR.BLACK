@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Models;
 using MRBLACK.Models.Database;
 using MRBLACK.Repository;
@@ -21,22 +23,26 @@ namespace MRBLACK.Controllers
         private readonly Repository<ServiceProvider> _Provider;
         private readonly Repository<Student> _Student;
         private readonly Repository<ServicesPurchaseInvoice> _Invoice;
+        private readonly UserManager<IdentitySetupUser> _userManager;
 
         public HomeController(ILogger<HomeController> logger,
             IRepository<ServiceProvider> Provider,
             IRepository<Student> Student,
-            IRepository<ServicesPurchaseInvoice> Invoice)
+            IRepository<ServicesPurchaseInvoice> Invoice
+            ,UserManager<IdentitySetupUser> userManager)
         {
             _logger = logger;
             _Provider = (Repository<ServiceProvider>)Provider;
             _Student = (Repository<Student>)Student;
             _Invoice = (Repository<ServicesPurchaseInvoice>)Invoice;
+            _userManager = userManager;
         }
         private ServiceProvider provider;
         private Student student;
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var appUser = await _userManager.GetUserAsync(User);
+            var currentUserId = appUser.Id;
             provider = _Provider.GetFirstOrDefault(c => c.UserId == currentUserId);
             student = _Student.GetFirstOrDefault(c => c.UserId == currentUserId);
             if (provider != null)

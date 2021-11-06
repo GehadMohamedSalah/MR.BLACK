@@ -53,6 +53,8 @@
     <Folder Include="wwwroot\Uploads\Images\Categories\" />
     <Folder Include="wwwroot\Uploads\Images\Articles\" />
     <Folder Include="wwwroot\Uploads\Images\Gallery\" />
+    <Folder Include="wwwroot\Uploads\Images\Users\" />
+    <Folder Include="wwwroot\Uploads\Images\Services\" />
     <Folder Include="wwwroot\Uploads\Images\SlideShow\" />
     <Folder Include="wwwroot\Uploads\Images\Subjects\" />
     <Folder Include="wwwroot\Uploads\Images\Universities\" />

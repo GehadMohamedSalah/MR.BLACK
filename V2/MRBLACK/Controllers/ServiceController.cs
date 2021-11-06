@@ -14,6 +14,8 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MRBLACK.Controllers
 {
@@ -32,6 +34,7 @@ namespace MRBLACK.Controllers
         private readonly Repository<ServiceCategory> _Category;
         private readonly Repository<CurrencyType> _CurrencyType;
         private readonly IdentitySetupContext _identitySetuoContext;
+        private readonly IWebHostEnvironment _webHostEnvironment;
         //private readonly int PageSize;
         public ServiceController(IRepository<Service> Service,
             IRepository<Country> Country,
@@ -44,7 +47,8 @@ namespace MRBLACK.Controllers
             IRepository<ServiceCategory> Category,
             IRepository<ServiceProvider> Provider,
             IRepository<CurrencyType> CurrencyType,
-            IdentitySetupContext identitySetuoContext)
+            IdentitySetupContext identitySetuoContext
+            , IWebHostEnvironment webHostEnvironment)
         {
             _Service = (Repository<Service>)Service;
             _Country = (Repository<Country>)Country;
@@ -58,6 +62,7 @@ namespace MRBLACK.Controllers
             _Provider = (Repository<ServiceProvider>)Provider;
             _CurrencyType = (Repository<CurrencyType>)CurrencyType;
             _identitySetuoContext = identitySetuoContext;
+            _webHostEnvironment = webHostEnvironment;
             //PageSize = 5;
         }
 
@@ -79,12 +84,21 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Service model)
+        public IActionResult Create(Service model,IFormFile img, IFormFile anotherImg)
         {
             if (ModelState.IsValid)
             {
                 if (!CheckServiceExisting(model))
                 {
+                    if(img != null)
+                    {
+                        model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Services");
+                    }
+                    if (anotherImg != null)
+                    {
+                        model.AnotherImgPath = FileHelper.UploadFile(anotherImg, _webHostEnvironment, "Uploads/Images/Services");
+                    }
+                    model.FormTypeId = _Category.GetElement((int)model.CategoryId).FormType;
                     _Service.Add(model);
                     return RedirectToAction(nameof(Index));
                 }
@@ -109,12 +123,21 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(Service model)
+        public IActionResult Edit(Service model, IFormFile img, IFormFile anotherImg)
         {
             if (ModelState.IsValid)
             {
                 if (!CheckServiceExisting(model))
-                {           
+                {
+                    if (img != null)
+                    {
+                        model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Services");
+                    }
+                    if (anotherImg != null)
+                    {
+                        model.AnotherImgPath = FileHelper.UploadFile(anotherImg, _webHostEnvironment, "Uploads/Images/Services");
+                    }
+                    model.FormTypeId = _Category.GetElement((int)model.CategoryId).FormType;
                     _Service.Update(model);
                     return RedirectToAction(nameof(Index));
                 }
@@ -291,6 +314,16 @@ namespace MRBLACK.Controllers
         {
             var category = _Category.GetElement(CategoryId);
             return Json(JsonConvert.SerializeObject(category));
+        }
+
+        public IActionResult GetUCDSByUniversity(int? universityId, int? collegeId, int? departmentId, int? subjectId)
+        {
+            Dictionary<string, List<SelectListItem>> result = new Dictionary<string, List<SelectListItem>>();
+            if(universityId != null)
+            {
+
+            }
+            return Json(result);
         }
 
         #endregion

@@ -34,6 +34,9 @@
         <div class="panel-body">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImgPath" />
+            <input type="hidden" asp-for="AnotherImgPath" />
+            <input type="hidden" asp-for="FormTypeId" />
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label asp-for="EnName">الاسم</label>
@@ -49,6 +52,27 @@
                     <label asp-for="Description">الوصف</label>
                     <textarea asp-for="Description" class="form-control" rows="10"></textarea>
                 </div>
+                <div class="col-sm-6">
+                    <label asp-for="ProviderId">مقدم الخدمة</label>
+                    <select asp-for="ProviderId" class="form-control" data-live-search="true" asp-items="@ViewBag.ProviderList">
+                        <option value="-1" selected disabled>اختر مقدم الخدمة</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label asp-for="CategoryId">التصنيف</label>
+                    <select asp-for="CategoryId" class="form-control" data-live-search="true" onchange="ChangeCategory(this);" asp-items="@ViewBag.CategoryList">
+                        <option value="-1" disabled selected>اختر التصنيف</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label for="img">الصورة الرئيسية للخدمة</label>
+                    <input type="file" class="form-control" id="img" name="img" />
+                </div>
+                <div class="col-sm-6">
+                    <label for="anotherImg">الصورة الفرعية للخدمة</label>
+                    <input type="file" class="form-control" id="anotherImg" name="anotherImg" />
+                </div>
+                @* Start Lists Of ( Country - Universit - College - Departments - Years - Terms - Subjects ) *@
                 <div class="col-sm-6">
                     <label for="CountryId">الدولة</label>
                     <select id="CountryId" class="form-control" data-live-search="true" onchange="ChangeCountry(this);">
@@ -109,18 +133,7 @@
                         <option value="-1" disabled selected>اختر المادة</option>
                     </select>
                 </div>
-                <div class="col-sm-6">
-                    <label asp-for="ProviderId">مقدم الخدمة</label>
-                    <select asp-for="ProviderId" class="form-control" data-live-search="true" asp-items="@ViewBag.ProviderList">
-                        <option value="-1" selected disabled>اختر مقدم الخدمة</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="CategoryId">التصنيف</label>
-                    <select asp-for="CategoryId" class="form-control" data-live-search="true" onchange="ChangeCategory(this);" asp-items="@ViewBag.CategoryList">
-                        <option value="-1" disabled selected>اختر التصنيف</option>
-                    </select>
-                </div>
+                @* End Lists Of ( Country - Universit - College - Departments - Years - Terms - Subjects ) *@
                 <div class="col-sm-6">
                     <label asp-for="TotalPrice">السعر</label>
                     <input asp-for="TotalPrice" class="form-control" />
@@ -277,6 +290,24 @@
         var Total = TotalPrice - PlatformCommissionVal - Discount;
         $("#Total").val(Total);
     }
+
+    $("#UniversityId").change(function () {
+        var UniversityId = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/GetUCDSByUniversity",
+            data: { universityId: UniversityId },
+            success: function (result) {
+                //debugger;
+                //$("#UniversityId").empty();
+                //$("#UniversityId").append("<option value='-1' selected disabled>اختر الجامعة</option>");
+
+                //for (var i = 0; i < result.length; i++) {
+                //    $("#UniversityId").append('<option value="' + result[i].value + '">' + result[i].text + '</option>');
+                //}
+            }
+        });
+    });
 </script>
 
 @section Scripts {

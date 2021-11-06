@@ -4,14 +4,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var display1 = "none";
     var display2 = "none";
-    if (Model.PricingMethod == 1) {
-        display1 = "";
-        display2 = "none";
-    }
-    else if(Model.PricingMethod == 2)
+    if(Model.Id > 0)
     {
-        display1 = "none";
-        display2 = "";
+        if (Model.PricingMethod == 1)
+        {
+            display1 = "";
+            display2 = "none";
+        }
+        else if (Model.PricingMethod == 2)
+        {
+            display1 = "none";
+            display2 = "";
+        }
     }
 }
 
@@ -64,7 +68,7 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="PricingMethod">نوع التسعير</label>
-                    <select asp-for="PricingMethod" class="form-control" data-live-search="true" onchange="ChangePricingMethod(this)">
+                    <select asp-for="PricingMethod" class="form-control" data-live-search="true" onchange="ChangePricingMethod()">
                         <option selected value="-1" disabled>اختر نوع التسعر</option>
                         <option value="1">جبري</option>
                         <option value="2">عمولة</option>
@@ -86,13 +90,13 @@
                     <input asp-for="CommissionPercentage" class="form-control" placeholder="عمولة المنصة" />
                     <span asp-validation-for="CommissionPercentage" class="text-danger"></span>
                 </div>
-                <div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
+                @*<div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
                     <label asp-for="CurrencyTypeId">نوع العملة</label>
                     <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control" data-live-search="true">
                         <option selected disabled value="-1">اختر نوع العملة</option>
                     </select>
                     <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
-                </div>
+                </div>*@
                 <div class="col-sm-6">
                     <label for="img">صورة التصنيف</label>
                     <input id="img" class="form-control" type="file" name="img"/>
@@ -114,54 +118,55 @@
 
 
 <script type="text/javascript">
-    function ChangePricingMethod(elementval) {
+    function ChangePricingMethod() {
+        var elementval = $("#PricingMethod").val();
         if (elementval == 1) {
             document.getElementById("dvServicePrice").style.display = "";
             document.getElementById("dvPlatformRevenueFromServPrice").style.display = "";
-            document.getElementById("dvCurrencyTypeId").style.display = "";
+            //document.getElementById("dvCurrencyTypeId").style.display = "";
             document.getElementById("dvCommissionPercentage").style.display = "none";
         }
         else {
             document.getElementById("dvServicePrice").style.display = "none";
             document.getElementById("dvPlatformRevenueFromServPrice").style.display = "none";
-            document.getElementById("dvCurrencyTypeId").style.display = "none";
+            //document.getElementById("dvCurrencyTypeId").style.display = "none";
             document.getElementById("dvCommissionPercentage").style.display = "";
         }
     }
    
     $("#ParentCategoryId").change(function () {
         var categoryId = $(this).val();
-        ChangePricingMethod(categoryId);
-        //$.ajax({
-        //    url: "/ServiceCategory/GetParentCategoryDetails",
-        //    type: "get",
-        //    data: { categoryId: categoryId },
-        //    success: function (result) {
-        //        debugger;
-        //        var jsonResult = JSON.parse(result);
-        //        $("#FormType").val(jsonResult.FormType);
-        //        $("#FormType").css("pointer-events", "none");
-        //        $("#PricingMethod").val(jsonResult.PricingMethod);
-        //        $("#PricingMethod").css("pointer-events", "none");
-        //        $("#ServicePrice").val(jsonResult.ServicePrice);
-        //        $("#ServicePrice").css("pointer-events", "none");
-        //        $("#PlatformRevenueFromServPrice").val(jsonResult.PlatformRevenueFromServPrice);
-        //        $("#PlatformRevenueFromServPrice").css("pointer-events", "none");
-        //        $("#CommissionPercentage").val(jsonResult.CommissionPercentage);
-        //        $("#CommissionPercentage").css("pointer-events", "none");
-        //        $("#CurrencyTypeId").val(jsonResult.CurrencyTypeId);
-        //        $("#CurrencyTypeId").css("pointer-events", "none");
-        //        $("#AutoAcceptedService").val(jsonResult.AutoAcceptedService);
-        //        if (jsonResult.AutoAcceptedService == false) {
-        //            $("#AutoAcceptedService").removeAttr("checked");
-        //        }
-        //        else {
-        //            $("#AutoAcceptedService").prop("checked",true);
-        //        }
-        //        $("#AutoAcceptedService").css("pointer-events", "none");
+        
+        $.ajax({
+            url: "/ServiceCategory/GetParentCategoryDetails",
+            type: "get",
+            data: { categoryId: categoryId },
+            success: function (result) {
+                var jsonResult = JSON.parse(result);
+                $("#FormType").val(jsonResult.FormType);
+                $("#FormType").css("pointer-events", "none");
+                $("#PricingMethod").val(jsonResult.PricingMethod);
+                $("#PricingMethod").css("pointer-events", "none");
+                $("#ServicePrice").val(jsonResult.ServicePrice);
+                $("#ServicePrice").css("pointer-events", "none");
+                $("#PlatformRevenueFromServPrice").val(jsonResult.PlatformRevenueFromServPrice);
+                $("#PlatformRevenueFromServPrice").css("pointer-events", "none");
+                $("#CommissionPercentage").val(jsonResult.CommissionPercentage);
+                $("#CommissionPercentage").css("pointer-events", "none");
+                //$("#CurrencyTypeId").val(jsonResult.CurrencyTypeId);
+                //$("#CurrencyTypeId").css("pointer-events", "none");
+                $("#AutoAcceptedService").val(jsonResult.AutoAcceptedService);
+                if (jsonResult.AutoAcceptedService == false) {
+                    $("#AutoAcceptedService").removeAttr("checked");
+                }
+                else {
+                    $("#AutoAcceptedService").prop("checked",true);
+                }
+                $("#AutoAcceptedService").css("pointer-events", "none");
 
-        //    }
-        //});
+                ChangePricingMethod();
+            }
+        });
     });
 </script>
 
