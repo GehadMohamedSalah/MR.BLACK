@@ -537,7 +537,6 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\SlideShow\EditCreate.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\SlideShow\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\SlideShow\_TableList.cshtml.g.cs
-D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\bin\Debug\netcoreapp3.1\appsettings.Development.json
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\bin\Debug\netcoreapp3.1\appsettings.json
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\bin\Debug\netcoreapp3.1\MRBLACK.StaticWebAssets.xml

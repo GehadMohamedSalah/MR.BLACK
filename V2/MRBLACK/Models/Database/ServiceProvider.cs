@@ -33,6 +33,7 @@ namespace MRBLACK.Models.Database
         public decimal WithdrawnBalances { get; set; }
 
         public int? MembershipId { get; set; }
+        public bool IsSponsered { get; set; }
 
         [ForeignKey(nameof(CountryId))]
         [InverseProperty("ServiceProvider")]
