@@ -50,7 +50,10 @@ namespace MRBLACK.Controllers
              }*/
             return PartialView(headerVM);
         }
-
+        public IActionResult WebsiteFooter()
+        {
+            return PartialView();
+        }
         public ActionResult AdminSideMenu()
         {
             SideMenuVM sideMenuVM = new SideMenuVM()
