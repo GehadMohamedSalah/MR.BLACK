@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Models.Database;
 using MRBLACK.Models.ViewModels;
 using MRBLACK.Repository;
@@ -14,9 +16,12 @@ namespace MRBLACK.Controllers
     public class PartialsController : Controller
     {
         private readonly Repository<ServiceProvider> _Provider;
-        public PartialsController(IRepository<ServiceProvider> Provider)
+        private readonly UserManager<IdentitySetupUser> _userManager;
+        public PartialsController(IRepository<ServiceProvider> Provider
+            , UserManager<IdentitySetupUser> userManager)
         {
             _Provider = (Repository<ServiceProvider>)Provider;
+            _userManager = userManager;
         }
         public ActionResult Header()
         {
@@ -59,14 +64,16 @@ namespace MRBLACK.Controllers
             return PartialView(sideMenuVM);
         }
 
-        public ActionResult UserHeader()
+        public async Task<ActionResult> UserHeader()
         {
             HeaderVM headerVM = new HeaderVM()
             {
                 Name = "User Mr Black",
             };
             headerVM.NavItems = new List<NavItem>();
-            Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var appUser = await _userManager.GetUserAsync(User);
+            Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == appUser.Id;
 
             if(_Provider.GetAll(filter1) != null && _Provider.GetAll(filter1).Count() > 0)
             {

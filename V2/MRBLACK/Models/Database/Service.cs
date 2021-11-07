@@ -38,6 +38,7 @@ namespace MRBLACK.Models.Database
         [Column(TypeName = "decimal(18, 3)")]
         public decimal PlatformRevenue { get; set; }
         public string ImgPath { get; set; }
+        public string AnotherImgPath { get; set; }
         public int? FormTypeId { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]
