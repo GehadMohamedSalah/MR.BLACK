@@ -1,10 +1,296 @@
-﻿@{
+﻿@model MRBLACK.Models.ViewModels.IndexPageVm
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "_WebsiteLayout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section id="hero" class="">
+    <div class="" data-aos="zoom-in" data-aos-delay="100">
+        <div>
+            <div class="owl-slider" id="owl-slider-hero">
+                <!-- slide 01 -->
+                @for (int i = 0; i < Model.SlideShow.Count; i++)
+                {
+                    <div class="slide">
+                        <div class="owl-slide" style="background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('/Uploads/Images/SlideShow/@Model.SlideShow[i].ImageUrl');">
+                            <div class="owl-text text-center">
+                                <h2>@Model.SlideShow[i].Caption</h2>
+                                <a href="@Model.SlideShow[i].Link" class="btn-get-started">Get Started</a>
+                            </div>
+                        </div>
+                    </div>
+                }              
+            </div>
+        </div>
+    </div>
+</section><!-- End Hero -->
 
-<h1>@ViewBag.currentUserId</h1>
+<main id="main">
+
+
+    <section class="advertising">
+        <div class="container" data-aos="fade-up">
+            <div class="img">
+                <img src="~/assets/img/advertising.jpg" class="img-fluid" alt="">
+            </div>
+
+        </div>
+    </section>
+    <!-- ======= Popular Courses Section ======= -->
+    @foreach(var category in Model.categoryWithServices)
+    {
+        if (category.Services.Count > 0)
+        {
+            <section id="popular-courses" class="courses">
+        <div class="container" data-aos="fade-up">
+            <div class="section-title">
+                <div class="title">
+                    <h2>@category.CategoryName</h2>
+                    <p>@category.CategoryName</p>
+                </div>
+                <div class="btn-title">
+                    <a href="" class="title-btn">
+                        see-more
+                    </a>
+                </div>
+            </div>
+
+
+            <div class="owl-carousel courses-carousel" data-aos="zoom-in" data-aos-delay="100">
+                @foreach (var service in category.Services)
+                {
+
+                <div class="course-item">
+                    <a href="course-details.html">
+                        <img src="~/assets/img/course-1.jpg" class="img-fluid" alt="...">
+                        <div class="course-content">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h4>@service.LeefCategoryName</h4>
+                                <p class="price">$@service.TotalPrice</p>
+                            </div>
+
+                            <h3><a href="course-details.html">@service.Name</a></h3>
+                            <p>
+                                @service.Description
+                            </p>
+                            <div class="trainer d-flex justify-content-between align-items-center">
+                                <div class="trainer-profile d-flex align-items-center">
+                                    <img src="~/assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">
+                                    <span>@service.ProviderName</span>
+                                </div>
+                                <div class="trainer-rank d-flex align-items-center">
+                                    <i class='bx bxs-star'></i><span>@service.ProviderRate</span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                }        
+            </div>
+        </div>
+    </section><!-- End Popular Courses Section -->
+        }
+    }
+
+    <section class="advertising">
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="img">
+                        <img src="~/assets/img/advertising.jpg" class="img-fluid" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+
+                    <div class="img">
+                        <img src="~/assets/img/advertising.jpg" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>professor</h2>
+                <p>Our Professional professor</p>
+            </div>
+
+            <div class="owl-carousel trainers-carousel" data-aos="zoom-in" data-aos-delay="100">
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Walter White</h4>
+                        <span>Web Development</span>
+                        <p>
+                            Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut
+                            aut aut
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>3.5</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-2.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Sarah Jhinson</h4>
+                        <span>Marketing</span>
+                        <p>
+                            Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum
+                            temporibus
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>5</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-3.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>William Anderson</h4>
+                        <span>Content</span>
+                        <p>
+                            Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>4.5</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Walter White</h4>
+                        <span>Web Development</span>
+                        <p>
+                            Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut
+                            aut aut
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>5</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-2.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Sarah Jhinson</h4>
+                        <span>Marketing</span>
+                        <p>
+                            Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum
+                            temporibus
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>4.5</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-3.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>William Anderson</h4>
+                        <span>Content</span>
+                        <p>
+                            Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>5</span>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Walter White</h4>
+                        <span>Web Development</span>
+                        <p>
+                            Magni qui quod omnis unde et eos fuga et exercitationem. Odio veritatis perspiciatis quaerat qui aut
+                            aut aut
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>4</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-2.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>Sarah Jhinson</h4>
+                        <span>Marketing</span>
+                        <p>
+                            Repellat fugiat adipisci nemo illum nesciunt voluptas repellendus. In architecto rerum rerum
+                            temporibus
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>5</span>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <img src="assets/img/trainers/trainer-3.jpg" class="img-fluid" alt="">
+                    <div class="member-content">
+                        <h4>William Anderson</h4>
+                        <span>Content</span>
+                        <p>
+                            Voluptas necessitatibus occaecati quia. Earum totam consequuntur qui porro et laborum toro des clara
+                        </p>
+                        <div class="trainer-rank d-flex align-items-center">
+                            <i class='bx bxs-star'></i><span>5</span>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- End Trainers Section -->
+    <!-- ======= Counts Section ======= -->
+    <section id="counts" class="counts section-bg">
+        <div class="container">
+
+            <div class="row counters">
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">1232</span>
+                    <p>Students</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">64</span>
+                    <p>cases</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">42</span>
+                    <p>Events</p>
+                </div>
+
+                <div class="col-lg-3 col-6 text-center">
+                    <span data-toggle="counter-up">15</span>
+                    <p>professor</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section><!-- End Counts Section -->
+
+</main><!-- End #main -->
