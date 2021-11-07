@@ -10,6 +10,8 @@ namespace MRBLACK.Models.ViewModels
         public List<SlideShowVm> SlideShow { get; set; } = new List<SlideShowVm>();
         public List<CategoryWithServiceIndex> categoryWithServices { get; set; }
         = new List<CategoryWithServiceIndex>();
+        public List<ProvidersInIndexVm> Providers { get; set; }
+        = new List<ProvidersInIndexVm>();
 
     }
 }
