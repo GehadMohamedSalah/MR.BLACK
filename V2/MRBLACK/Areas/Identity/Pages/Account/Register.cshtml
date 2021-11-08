@@ -11,7 +11,7 @@
     <div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
         <div class="container">
             <h2>Registration</h2>
-            <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+            @*<p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>*@
         </div>
     </div><!-- End Breadcrumbs -->
 
@@ -25,8 +25,11 @@
 
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input asp-for="Input.EnName" type="text" placeholder="Enter your name">
+                <input asp-for="Input.EnName" type="text" placeholder="Enter your english name">
                 <span asp-validation-for="Input.EnName" class="text-danger"></span>
+
+                <input asp-for="Input.ArName" type="text" placeholder="Enter your arabic name">
+                <span asp-validation-for="Input.ArName" class="text-danger"></span>
 
                 <input asp-for="Input.Phone" type="text" placeholder="mobile number">
                 <span asp-validation-for="Input.Phone" class="text-danger"></span>
