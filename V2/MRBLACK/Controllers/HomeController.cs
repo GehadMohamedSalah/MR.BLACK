@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Data;
@@ -34,7 +35,8 @@ namespace MRBLACK.Controllers
         private readonly IRepository<University> _university;
         private readonly Repository<ServicesPurchaseInvoice> _Invoice;
         private readonly UserManager<IdentitySetupUser> _userManager;
-
+        private readonly Repository<BookStore> _book;
+        private readonly Repository<BookCategory> _bookCategory;
         public HomeController(ILogger<HomeController> logger,
             IRepository<ServiceProvider> Provider,
             IRepository<Student> Student,
@@ -44,7 +46,9 @@ namespace MRBLACK.Controllers
             IRepository<SlideShow> slideShow,
             IRepository<University> university,
             IRepository<Country> country,
-            IRepository<ServicesPurchaseInvoice> Invoice)
+            IRepository<ServicesPurchaseInvoice> Invoice
+            ,IRepository<BookStore> book
+            ,IRepository<BookCategory> bookCategory)
         {
             _logger = logger;
             _context = context;
@@ -56,6 +60,8 @@ namespace MRBLACK.Controllers
             _Provider = (Repository<ServiceProvider>)Provider;
             _Student = (Repository<Student>)Student;
             _Invoice = (Repository<ServicesPurchaseInvoice>)Invoice;
+            _book = (Repository<BookStore>)book;
+            _bookCategory = (Repository<BookCategory>)bookCategory;
         }
         private ServiceProvider provider;
         private Student student;
@@ -114,6 +120,10 @@ namespace MRBLACK.Controllers
                     Rate = 0
                 });
             }
+            vm.Students = _Student.GetAll().Count();
+            vm.CountProviders = _Provider.GetAll().Count();
+            vm.Books = _book.GetAll().Count();
+            vm.Services = _service.GetAll().Count();
             return View(vm);
         }
         public async Task<IActionResult> Services(int CategoryId = -1, int UniversityId=-1
@@ -230,5 +240,26 @@ namespace MRBLACK.Controllers
             return PartialView("_ServicePagination", model);
         }
         #endregion
+
+        public IActionResult Books(int id = 0)
+        {
+            ViewBag.SelectedCategory = id;
+            ViewBag.BookCategoryList = new SelectList(_bookCategory.GetAll(), "Id", "EnName");
+            var books = new List<BookStore>();
+            if(id != 0)
+            {
+                books = _book.GetAll(c => c.BookCategoryId == id, null, "BookCategory").ToList();
+            }
+            else
+            {
+                books = _book.GetAll(null, null, "BookCategory").ToList();
+            }
+            return View(books);
+        }
+
+        public IActionResult Contact()
+        {
+            return View();
+        }
     }
 }

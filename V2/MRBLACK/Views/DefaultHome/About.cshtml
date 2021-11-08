@@ -1,6 +1,6 @@
 ﻿@model MRBLACK.Models.ViewModels.AboutUsVM
 @{
-    Layout = "~/Views/Shared/_WebsiteLayout.cshtml";
+    Layout = "~/Views/_WebsiteLayout.cshtml";
 }
 @*<script src="~/Content/assets/tinymce/tinymce.js"></script>*@
 
@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" id="aboutus">
                     <h3 class="text-center">About Us</h3>
-                    <tiny-editor>@Model.AboutUs</tiny-editor>
+                    @Html.Raw(Model.AboutUs)
                 </div>
             </div>
             <br />
@@ -30,7 +30,7 @@
             <br />
             <div class="row">
                 <h3 class="text-center">How To Use Our Website</h3>
-                <tiny-editor>@Model.AppWorking</tiny-editor>
+                @Html.Raw(Model.AppWorking)
                 <div class="col-lg-6 order-1 order-lg-2 aos-init aos-animate" data-aos="fade-left" data-aos-delay="100">
 
                 </div>

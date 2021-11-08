@@ -12,6 +12,10 @@ namespace MRBLACK.Models.ViewModels
         = new List<CategoryWithServiceIndex>();
         public List<ProvidersInIndexVm> Providers { get; set; }
         = new List<ProvidersInIndexVm>();
+        public int Students { get; set; }
+        public int CountProviders { get; set; }
+        public int Books { get; set; }
+        public int Services { get; set; }
 
     }
 }

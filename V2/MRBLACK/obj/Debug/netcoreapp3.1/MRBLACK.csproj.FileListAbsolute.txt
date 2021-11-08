@@ -1077,7 +1077,6 @@ F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csp
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.dll
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.pdb
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.genruntimeconfig.cache
-D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\ProviderHomePage.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\StudentHomePage.cshtml.g.cs
@@ -1088,3 +1087,4 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ProviderTableList.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServicePagination.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServiceTableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
