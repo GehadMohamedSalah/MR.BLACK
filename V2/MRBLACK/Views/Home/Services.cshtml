@@ -1,0 +1,121 @@
+﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.ViewModels.ServiceInIndexVm>
+@using MRBLACK.Models.ViewModels;
+@{
+    ViewData["Title"] = "Services";
+    Layout = "_WebsiteLayout";
+    var paginationVM = new PaginationVM()
+    {
+        PageIndex = Model.PageIndex,
+        TotalPages = Model.TotalPages,
+        PreviousPage = Model.PreviousPage,
+        NextPage = Model.NextPage,
+        GetItemsUrl = "/Home/GetItems",
+        GetPaginationUrl = "/Home/GetPagination",
+        ItemsCount = Model.ItemsCount,
+        StartIndex = Model.StartIndex,
+        EndIndex = Model.EndIndex
+    };
+    var categories = ViewBag.Categories as List<MRBLACK.Models.Database.ServiceCategory>;
+    var Universities = ViewBag.University as List<MRBLACK.Models.Database.University>;
+}
+<main id="main" data-aos="fade-in">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <h2>Services</h2>
+            <p>
+                Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit
+                quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium.
+            </p>
+        </div>
+    </div><!-- End Breadcrumbs -->
+    <section class="advertising">
+        <div class="container" data-aos="fade-up">
+            <div class="img">
+                <img src="~/assets/img/advertising.jpg" class="img-fluid" alt="">
+            </div>
+
+        </div>
+    </section>
+    <!-- ======= Courses Section ======= -->
+    <section id="courses" class="courses">
+        <div class="container" data-aos="fade-up">
+            <div class="select-section">
+                <div class="select">
+                    <select onchange="ReloadPagination(@Model.PageIndex)" name="format" id="category">
+                        <option value="-1" selected disabled>Choose Category</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.Id">@category.EnName</option>
+                        }
+                    </select>
+                </div>
+                <div class="select">
+                    <select name="format" onchange="ReloadPagination(@Model.PageIndex)" id="university">
+                        <option value="-1" selected disabled>Choose University</option>
+                        @foreach (var university in Universities)
+                        {
+                            <option value="@university.Id">@university.EnName</option>
+                        }
+                    </select>
+                </div>
+                @* <div class="select">
+                <select name="format" id="format">
+                    <option selected disabled>Choose research</option>
+                    <option value="pdf">PDF</option>
+                    <option value="txt">txt</option>
+                    <option value="epub">ePub</option>
+                    <option value="fb2">fb2</option>
+                    <option value="mobi">mobi</option>
+                </select>
+            </div>
+            <div class="select">
+                <select name="format" id="format">
+                    <option selected disabled>best offer</option>
+                    <option value="pdf">PDF</option>
+                    <option value="txt">txt</option>
+                    <option value="epub">ePub</option>
+                    <option value="fb2">fb2</option>
+                    <option value="mobi">mobi</option>
+                </select>
+            </div>*@
+            </div>
+            <div class="row" id="tbBody" data-aos="zoom-in" data-aos-delay="100">
+                <partial name="_ServiceTableList" model="@Model.ToList()" />
+            </div>
+            <br />
+            <div id="dvPagination">
+                <partial name="_ServicePagination" model="@paginationVM" />
+            </div>
+        </div>
+    </section><!-- End Courses Section -->
+</main><!-- End #main --><!-- End #main -->
+<script type="text/javascript">
+    function ReloadPagination(pageNum) {
+        var category = document.getElementById("category").value;
+        var uninversity = document.getElementById("university").value;
+        var pageSize = 12;
+        if ($("#entires") != null || $("#entires") != undefined) {
+            pageSize = $("#entires").val();
+        }
+        $.ajax({
+            url: "@paginationVM.GetItemsUrl",
+            type: "GET",
+            data: { categoryId: category, universityId: uninversity, pageNumber: pageNum, pageSize: pageSize },
+            success: function (results) {
+                $("#tbBody").empty();
+                $("#tbBody").html(results);
+                 $.ajax({
+                    url: "@paginationVM.GetPaginationUrl",
+                    type: "GET",
+                     data: { categoryId: category, universityId: uninversity, pageNumber: pageNum, pageSize: pageSize },
+                    success: function (results) {
+                        $("#dvPagination").empty();
+                        $("#dvPagination").html(results);
+                    }
+                });
+            }
+        });
+    }
+</script>

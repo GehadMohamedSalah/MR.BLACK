@@ -1,0 +1,82 @@
+﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.ViewModels.ProvidersInIndexVm>
+@using MRBLACK.Models.ViewModels;
+@{
+    ViewData["Title"] = "Services";
+    Layout = "_WebsiteLayout";
+    var paginationVM = new PaginationVM()
+    {
+        PageIndex = Model.PageIndex,
+        TotalPages = Model.TotalPages,
+        PreviousPage = Model.PreviousPage,
+        NextPage = Model.NextPage,
+        GetItemsUrl = "/Home/GetProvidersItems",
+        GetPaginationUrl = "/Home/GetProvidersPagination",
+        ItemsCount = Model.ItemsCount,
+        StartIndex = Model.StartIndex,
+        EndIndex = Model.EndIndex
+    };
+    var countries = ViewBag.Countries as List<MRBLACK.Models.Database.Country>;
+}
+
+  <main id="main" data-aos="fade-in">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <div class="breadcrumbs">
+      <div class="container">
+        <h2>professor</h2>
+        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+      </div>
+    </div><!-- End Breadcrumbs -->
+
+    <!-- ======= Trainers Section ======= -->
+    <section id="trainers" class="trainers">
+      <div class="container" data-aos="fade-up">
+        <div class="select-section">
+          <div class="select">
+              <select onchange="ReloadPagination(@Model.PageIndex)" name="format" id="country">
+                  <option selected disabled>Choose the</option>
+                  @foreach (var country in countries)
+                  {
+                      <option value="@country.Id">@country.EnName</option>
+                  }
+              </select>
+         </div>
+        </div>
+        <div id="tbBody" class="row" data-aos="zoom-in" data-aos-delay="100">
+            <partial name="_ProviderTableList" model="@Model.ToList()" />
+        </div>
+          <br />
+            <div id="dvPagination">
+                <partial name="_ProviderPagination" model="@paginationVM" />
+            </div>
+      </div>
+    </section><!-- End Trainers Section -->
+
+  </main>
+<script type="text/javascript">
+    function ReloadPagination(pageNum) {
+        var country = document.getElementById("country").value;
+        var pageSize = 12;
+        if ($("#entires") != null || $("#entires") != undefined) {
+            pageSize = $("#entires").val();
+        }
+        $.ajax({
+            url: "@paginationVM.GetItemsUrl",
+            type: "GET",
+            data: { countruId: country, pageNumber: pageNum, pageSize: pageSize },
+            success: function (results) {
+                $("#tbBody").empty();
+                $("#tbBody").html(results);
+                 $.ajax({
+                    url: "@paginationVM.GetPaginationUrl",
+                    type: "GET",
+                     data: { countruId: country, pageNumber: pageNum, pageSize: pageSize },
+                    success: function (results) {
+                        $("#dvPagination").empty();
+                        $("#dvPagination").html(results);
+                    }
+                });
+            }
+        });
+    }
+</script>

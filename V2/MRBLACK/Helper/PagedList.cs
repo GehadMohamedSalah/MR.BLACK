@@ -50,7 +50,12 @@ namespace MRBLACK.Helper
             var items = await source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageIndex, pageSize);
         }
-
+        public static PagedList<T> CreateAsync(List<T> source, int pageIndex, int pageSize)
+        {
+            var count =  source.Count;
+            var items = source.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+            return new PagedList<T>(items, count, pageIndex, pageSize);
+        }
         public static PagedList<T> Create(List<T> source, int pageIndex, int pageSize)
         {
             var count = source.Count();

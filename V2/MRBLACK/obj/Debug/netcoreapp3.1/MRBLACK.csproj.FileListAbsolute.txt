@@ -1077,3 +1077,9 @@ F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.csp
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.dll
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.pdb
 F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\MRBLACK.genruntimeconfig.cache
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\Services.cshtml.g.cs
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServiceTableList.cshtml.g.cs
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServicePagination.cshtml.g.cs
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\Providers.cshtml.g.cs
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ProviderPagination.cshtml.g.cs
+F:\EngMohamed\BlackBoard\MR.BLACK\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ProviderTableList.cshtml.g.cs
