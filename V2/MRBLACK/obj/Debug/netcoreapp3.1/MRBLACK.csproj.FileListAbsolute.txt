@@ -1082,3 +1082,9 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\ProviderHomePage.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\StudentHomePage.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\DefaultHome\About.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\Providers.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\Services.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ProviderPagination.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ProviderTableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServicePagination.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Home\_ServiceTableList.cshtml.g.cs
