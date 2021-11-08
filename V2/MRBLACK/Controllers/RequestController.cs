@@ -244,7 +244,7 @@ namespace MRBLACK.Controllers
             searchStr = searchStr.ToLower();
             IQueryable<ServiceCategoryRequest> requests = _ServiceCategoryRequest.GetAllAsIQueryable(null, o => o.OrderByDescending(c => c.RequestCode), "");
             var stu = _Student.GetFirstOrDefault(f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var prov = _Provider.GetFirstOrDefault(f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier), "Services,Services.Category");
+            var prov = _Provider.GetFirstOrDefault(f => f.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier), "Service,Service.Category");
             List<ServiceCategoryRequest> filteredRequests = new List<ServiceCategoryRequest>();
             filteredRequests = requests.ToList();
 
