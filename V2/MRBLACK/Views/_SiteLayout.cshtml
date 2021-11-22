@@ -1,14 +1,13 @@
 ﻿@using MRBLACK.Helper
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Mr.black</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    
 
     <!-- Favicons -->
     <link href="~/assets/img/favicon.png" rel="icon">
@@ -31,7 +30,6 @@
     <link href="~/assets/css/style.css" rel="stylesheet">
 
 </head>
-
 <body>
 
     <!-- ======= Header ======= -->
@@ -50,7 +48,14 @@
                     <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/providers") ? "active" : "")"><a href="/Home/Providers">Service Providers</a></li>
                     <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/books") ? "active" : "")"><a href="/Home/Books">The books</a></li>
                     <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/contact") ? "active" : "")"><a href="/Home/Contact">Contact</a></li>
-                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("identity/account") ? "active" : "")"><a href="/Identity/Account/Login">Login</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="@(Context.Request.Path.ToString().ToLower().Contains("identity/account") ? "active" : "")"><a href="/Identity/Account/Login">Login</a></li>
+                    }
+                    else
+                    {
+                        @Html.RenderAction("SiteNavItems", "Partials")
+                    }
                 </ul>
             </nav><!-- .nav-menu -->
 
@@ -59,9 +64,10 @@
         </div>
     </header><!-- End Header -->
     @RenderBody()
-    @Html.RenderAction("WebsiteFooter", "Partials")
-
-
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @Html.RenderAction("SiteFooter", "Partials")
+    }
     <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
     <div id="preloader"></div>
 
@@ -79,5 +85,4 @@
     <script src="~/assets/js/main.js"></script>
 
 </body>
-
 </html>

@@ -6,38 +6,55 @@
 
 @foreach (var item in Model)
 {
-<tr>
-    <td>@i</td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EnName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArName)
-    </td>
-    <td>
-        @if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
-        {
-            foreach(var uc in item.UcdsEductionManagement)
+    <tr>
+        <td>@i</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
             {
-                <p>@uc.Department.ArName - @uc.College.ArName - @uc.University.ArName - @uc.University.Country.ArName</p>
+                foreach (var uc in item.UcdsEductionManagement)
+                {
+                    <p>
+                        @if (uc.Department != null)
+                        {
+                            <span>@uc.Department.ArName - </span>
+                        }
+                        @if (uc.College != null)
+                        {
+                            <span>@uc.College.ArName - </span>
+                        }
+                        @if (uc.University != null)
+                        {
+                            <span>@uc.University.ArName - </span>
+                            if (uc.University.Country != null)
+                            {
+                                <span>@uc.University.Country.ArName</span>
+                            }
+                        }
+                    </p>
+                }
             }
-        }
-    </td>
-    <td>0</td>
-    <td>
-        @if (item.ImgPath != null)
-        {
-            <img src="~/Uploads/Images/Subjects/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
-        }
-    </td>
-    <td>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Edit/@item.Id')">
-            <i class="fa fa-edit"></i><span>  تعديل</span>
-        </button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Delete/@item.Id')">
-            <i class="fa fa-trash"></i><span>  حذف</span>
-        </button>
-    </td>
-</tr>
+        </td>
+        <td>0</td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <img src="~/Uploads/Images/Subjects/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+            }
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Edit/@item.Id')">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
     i++;
 }

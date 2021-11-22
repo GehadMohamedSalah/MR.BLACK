@@ -19,16 +19,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Areas\Identity\Pages\_WebsiteLayout.cshtml" />
+    <Content Remove="Areas\Identity\WebsiteFooter.cshtml" />
     <Content Remove="Views\Partials\UserHeader.cshtml" />
     <Content Remove="Views\Partials\WebsiteFooter.cshtml" />
     <Content Remove="Views\Shared\_UserLayout.cshtml" />
     <Content Remove="Views\Shared\_WebsiteLayout.cshtml" />
     <Content Remove="Views\SystemSetting\ResearchAdditionRatio.cshtml" />
     <Content Remove="Views\SystemSetting\SystemFees.cshtml" />
-    <Content Remove="Views\UserHeader.cshtml" />
-    <Content Remove="Views\WebsiteFooter.cshtml" />
-    <Content Remove="Views\_UserLayout.cshtml" />
-    <Content Remove="Views\_WebsiteLayout.cshtml" />
+    <Content Remove="Views\_SiteLayout.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -71,15 +70,13 @@
     <None Include="Views\Partials\Header.cshtml" />
     <None Include="Views\Shared\Error.cshtml" />
     <None Include="Views\Shared\_DefaultLayout.cshtml" />
+    <None Include="Views\Shared\_SiteLayout.cshtml" />
     <None Include="Views\Shared\_WebsiteLayout.cshtml" />
     <None Include="Views\Shared\_UserLayout.cshtml" />
     <None Include="Views\Shared\_Layout.cshtml" />
     <None Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
-    <None Include="Views\UserHeader.cshtml" />
-    <None Include="Views\WebsiteFooter.cshtml" />
-    <None Include="Views\_UserLayout.cshtml" />
-    <None Include="Views\_WebsiteLayout.cshtml" />
+    <None Include="Views\_SiteLayout.cshtml" />
     <None Include="wwwroot\assets\js\main.js" />
     <None Include="wwwroot\assets\vendor\aos\aos.js" />
     <None Include="wwwroot\assets\vendor\bootstrap\css\bootstrap-grid.css.map" />

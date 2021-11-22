@@ -21,6 +21,7 @@ namespace MRBLACK.Controllers
         {
             ViewBag.divId = "setting";
             ViewBag.returnActionName = nameof(Index);
+            ViewBag.PageHeader = "اعدادات النظام";
             return View("Index", GetSettingDetails());
         }
 
@@ -28,6 +29,7 @@ namespace MRBLACK.Controllers
         {
             ViewBag.divId = "fees";
             ViewBag.returnActionName = nameof(SystemFees);
+            ViewBag.PageHeader = "الرسوم";
             return View("Index", GetSettingDetails());
         }
 
@@ -35,6 +37,7 @@ namespace MRBLACK.Controllers
         {
             ViewBag.divId = "percentage";
             ViewBag.returnActionName = nameof(ResearchAdditionRatio);
+            ViewBag.PageHeader = "نسب مكملات البحث";
             return View("Index", GetSettingDetails());
         }
 

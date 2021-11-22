@@ -1,0 +1,19 @@
+﻿@model MRBLACK.Models.ViewModels.HeaderVM
+
+@foreach (var item in Model.NavItems)
+{
+    <li class="@(Context.Request.Path.ToString().ToLower().Contains(item.ItemUrl.ToString()) ? "active" : "")">
+        <a href="@item.ItemUrl"><i class="fa fa-tasks"></i> @item.ItemName</a>
+    </li>
+}
+<li>
+    <form action="/Identity/Account/Logout" id="logoutForm">
+        <a href="#" onclick="Logout();">Logout</a>
+    </form>
+</li>
+
+<script>
+    function Logout() {
+        $("#logoutForm").submit();
+    }
+</script>

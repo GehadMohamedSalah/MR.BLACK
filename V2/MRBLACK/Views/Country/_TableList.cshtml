@@ -19,7 +19,9 @@
         <td>
             @if (item.University != null)
             {
-                <p>@item.University.Count()</p>
+                <a href="@(item.University.Count() == 0 ? "#" : "/University/Index?searchStr="+item.ArName)">
+                    <span class="@(item.University.Count() == 0 ? "text-gray" : "font-weight-bold")">@item.University.Count()</span>
+                </a>
             }
         </td>
         <td>

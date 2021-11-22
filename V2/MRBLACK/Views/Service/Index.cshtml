@@ -2,7 +2,14 @@
 @using MRBLACK.Models.ViewModels;
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    if (User.IsInRole("ADMIN"))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    }
     var paginationVM = new PaginationVM()
     {
         PageIndex = Model.PageIndex,
@@ -56,24 +63,27 @@
         
     </div>
     <div class="panel-body">
-        <table class="table table-striped table-hover table-bordered">
-            <thead class="bg-blue">
-                <tr>
-                    <td>#</td>
-                    <td>الاسم بالانجليزية</td>
-                    <td>الاسم بالعربية</td>
-                    <td>سعر الخدمة</td>
-                    <td>التصنيف</td>
-                    <td>الاجراءات</td>
-                </tr>
-            </thead>
-            <tbody id="tbBody">
-                <partial name="_TableList" model="@Model.ToList()" />
-            </tbody>
-        </table>
-        <div id="dvPagination">
-            <partial name="_Pagination" model="@paginationVM" />
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="bg-blue">
+                    <tr>
+                        <td>#</td>
+                        <td>الاسم بالانجليزية</td>
+                        <td>الاسم بالعربية</td>
+                        <td>سعر الخدمة</td>
+                        <td>التصنيف</td>
+                        <td>الاجراءات</td>
+                    </tr>
+                </thead>
+                <tbody id="tbBody">
+                    <partial name="_TableList" model="@Model.ToList()" />
+                </tbody>
+            </table>
+            <div id="dvPagination">
+                <partial name="_Pagination" model="@paginationVM" />
+            </div>
         </div>
+        
     </div>
 </div>
 

@@ -1,5 +1,4 @@
 ﻿@using MRBLACK.Helper
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -44,13 +43,20 @@
 
             <nav class="nav-menu d-none d-lg-block">
                 <ul>
-                    <li class="active"><a href="/Home/Index">Home</a></li>
-                    <li><a href="/DefaultHome/About">About</a></li>
-                    <li><a href="/Home/Services">Services</a></li>
-                    <li><a href="/Home/Providers">Service Providers</a></li>
-                    <li><a href="#">The books</a></li>
-                    <li><a href="#">Contact</a></li>
-                    <li><a href="/Identity/Account/Login">Login</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/index") ? "active" : "")"><a href="/Home/Index">Home</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("defaulthome/about") ? "active" : "")"><a href="/DefaultHome/About">About</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/services") ? "active" : "")"><a href="/Home/Services">Services</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/providers") ? "active" : "")"><a href="/Home/Providers">Service Providers</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/books") ? "active" : "")"><a href="/Home/Books">The books</a></li>
+                    <li class="@(Context.Request.Path.ToString().ToLower().Contains("home/contact") ? "active" : "")"><a href="/Home/Contact">Contact</a></li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="@(Context.Request.Path.ToString().ToLower().Contains("identity/account") ? "active" : "")"><a href="/Identity/Account/Login">Login</a></li>
+                    }
+                    else
+                    {
+                        @Html.RenderAction("UserNavItems", "Partials")
+                    }
                 </ul>
             </nav><!-- .nav-menu -->
 
@@ -59,9 +65,10 @@
         </div>
     </header><!-- End Header -->
     @RenderBody()
-    @Html.RenderAction("WebsiteFooter", "Partials")
-
-
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @Html.RenderAction("WebsiteFooter", "Partials")
+    }
     <a href="#" class="back-to-top"><i class="bx bx-up-arrow-alt"></i></a>
     <div id="preloader"></div>
 

@@ -60,4 +60,10 @@
             }
         });
     }
+
+    $("#inpSearch").keyup(function (event) {
+        if (event.keyCode === 13) {
+            ReloadPagination(1);
+        }
+    });
 </script>

@@ -1,5 +1,5 @@
 ﻿@model MRBLACK.Models.ViewModels.SideMenuVM
-<aside class="main-sidebar">
+<aside class="main-sidebar" style="position: fixed; overflow: auto; height: 300px;">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
         <!-- Sidebar user panel -->
@@ -97,17 +97,17 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/index") ? "active" : "")">
-                        <a href="@Url.Action("Index", "SystemSetting")">
+                        <a href="/SystemSetting/Index">
                             <i class="fa fa-cog"></i> <span>اعدادات النظام</span>
                         </a>
                     </li>
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/systemfees") ? "active" : "")">
-                        <a href="@Url.Action("SystemFees", "SystemSetting")">
+                        <a href="/SystemSetting/SystemFees">
                             <i class="fa fa-money-bill-wave"></i> <span>الرسوم</span>
                         </a>
                     </li>
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/researchadditionratio") ? "active" : "")">
-                        <a href="@Url.Action("ResearchAdditionRatio", "SystemSetting")">
+                        <a href="/SystemSetting/ResearchAdditionRatio">
                             <i class="fa fa-percent"></i> <span>نسب مكملات البحث</span>
                         </a>
                     </li>

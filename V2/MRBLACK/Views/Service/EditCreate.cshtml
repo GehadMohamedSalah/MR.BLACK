@@ -1,7 +1,13 @@
 ﻿@model MRBLACK.Models.Database.Service
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
+    if (User.IsInRole("ADMIN"))
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_SiteLayout.cshtml";
+    }
 }
 <style>
     #dvResearch {
@@ -310,6 +316,3 @@
     });
 </script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

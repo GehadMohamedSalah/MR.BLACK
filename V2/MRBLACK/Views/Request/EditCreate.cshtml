@@ -1,7 +1,7 @@
 ﻿@model MRBLACK.Models.ViewModels.RequestVM
 
 @{
-    Layout = "~/Views/_UserLayout.cshtml";
+    Layout = "~/Views/Shared/_SiteLayout.cshtml";
 }
 <!-- ClientSide Validation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -222,6 +222,3 @@
 
 </script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

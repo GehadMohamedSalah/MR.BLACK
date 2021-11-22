@@ -50,10 +50,6 @@ namespace MRBLACK.Controllers
              }*/
             return PartialView(headerVM);
         }
-        public IActionResult WebsiteFooter()
-        {
-            return PartialView();
-        }
         public ActionResult AdminSideMenu()
         {
             SideMenuVM sideMenuVM = new SideMenuVM()
@@ -101,5 +97,88 @@ namespace MRBLACK.Controllers
             return PartialView(headerVM);
         }
 
+        public async Task<ActionResult> UserNavItems()
+        {
+            HeaderVM headerVM = new HeaderVM()
+            {
+                Name = User.Identity.Name,
+            };
+            headerVM.NavItems = new List<NavItem>();
+
+            var appUser = await _userManager.GetUserAsync(User);
+            Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == appUser.Id;
+
+            if (_Provider.GetAll(filter1) != null && _Provider.GetAll(filter1).Count() > 0)
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Services",
+                    ItemUrl = "/Service/Index"
+                });
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Requests",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+            else
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Requests",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+
+            headerVM.NotificationsNumber = 0;
+            return PartialView("UserNavItems", headerVM);
+        }
+
+        public IActionResult WebsiteFooter()
+        {
+            return PartialView();
+        }
+
+        public async Task<ActionResult> SiteNavItems()
+        {
+            HeaderVM headerVM = new HeaderVM()
+            {
+                Name = User.Identity.Name,
+            };
+            headerVM.NavItems = new List<NavItem>();
+
+            var appUser = await _userManager.GetUserAsync(User);
+            Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == appUser.Id;
+
+            if (_Provider.GetAll(filter1) != null && _Provider.GetAll(filter1).Count() > 0)
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Services",
+                    ItemUrl = "/Service/Index"
+                });
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Requests",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+            else
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "My Requests",
+                    ItemUrl = "/Request/Index"
+                });
+            }
+
+            headerVM.NotificationsNumber = 0;
+            return PartialView("UserNavItems", headerVM);
+        }
+
+        public IActionResult SiteFooter()
+        {
+            return PartialView();
+        }
     }
 }

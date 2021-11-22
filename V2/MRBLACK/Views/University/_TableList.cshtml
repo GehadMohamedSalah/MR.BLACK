@@ -20,10 +20,13 @@
         <td>
             @if (item.UcdsEductionManagement != null)
             {
-                <p>@item.UcdsEductionManagement.Select(c => c.CollegeId).Distinct().Count()</p>
+                var colleges = item.UcdsEductionManagement.Where(c => c.CollegeId != null).Select(c => c.CollegeId).Distinct().Count();
+                <a href="@(colleges == 0 ? "#" : "/College/Index?searchStr="+item.ArName)">
+                    <span class="@(colleges == 0 ? "text-gray" : "font-weight-bold")">@colleges</span>
+                </a>
             }
         </td>
-        <td>0</td>
+        <td><span class="text-gray">0</span></td>
         <td>
             @if (item.ImgPath != null)
             {

@@ -54,7 +54,7 @@ namespace MRBLACK
                 options.Password.RequiredUniqueChars = 0;
 
                 // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
@@ -72,7 +72,7 @@ namespace MRBLACK
             //session
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(15);
+                options.IdleTimeout = TimeSpan.FromHours(1);
                 options.Cookie.IsEssential = true;
             });
 

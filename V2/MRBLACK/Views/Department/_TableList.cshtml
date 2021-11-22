@@ -17,7 +17,10 @@
     <td>
         @if(item.UcdsEductionManagement!= null)
         {
-            <p>@item.UcdsEductionManagement.Select(c => c.SubjectId).Distinct().Count()</p>
+            var subjects = item.UcdsEductionManagement.Where(c => c.SubjectId != null).Select(c => c.SubjectId).Distinct().Count();
+            <a href="@(subjects == 0 ? "#" : "/Subject/Index?searchStr="+item.ArName)">
+                <span class="@(subjects == 0 ? "text-gray" : "font-weight-bold")">@subjects</span>
+            </a>
         }
     </td>
     <td>

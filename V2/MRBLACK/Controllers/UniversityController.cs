@@ -36,9 +36,10 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Universities
-        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
+        public IActionResult Index(string searchStr = "" ,int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            ViewBag.searchStr = searchStr;
+            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
         }
         #endregion
 

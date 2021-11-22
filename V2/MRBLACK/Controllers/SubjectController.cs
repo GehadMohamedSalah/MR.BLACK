@@ -34,9 +34,10 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Subjects
-        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
+        public IActionResult Index(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            ViewBag.searchStr = searchStr;
+            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
         }
         #endregion
 
@@ -140,7 +141,11 @@ namespace MRBLACK.Controllers
             {
                 searchStr = searchStr.ToLower();
                 filter = f => f.EnName.ToLower().Contains(searchStr)
-                || f.ArName.Contains(searchStr);
+                || f.ArName.Contains(searchStr)
+                || f.UcdsEductionManagement.Any(c => c.Department.ArName.ToLower().Contains(searchStr))
+                || f.UcdsEductionManagement.Any(c => c.College.ArName.ToLower().Contains(searchStr))
+                || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
+                || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr));
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),

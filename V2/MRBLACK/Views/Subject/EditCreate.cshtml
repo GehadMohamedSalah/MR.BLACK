@@ -42,11 +42,45 @@
                             {
                                 if (Model.UcdsEductionManagement.Where(c => c.Id == item.Id).Count() > 0)
                                 {
-                                    <option value="@item.Id" selected>@item.Department.ArName - @item.College.ArName - @item.University.ArName - @item.University.Country.ArName</option>
+                                    <option value="@item.Id" selected>
+                                        @if (item.Department != null)
+                                        {
+                                            @(item.Department.ArName + " - ")
+                                        }
+                                        @if (item.College != null)
+                                        {
+                                            @(item.College.ArName + " - ")
+                                        }
+                                        @if (item.University != null)
+                                        {
+                                            @(item.University.ArName + " - ")
+                                            if (item.University.Country != null)
+                                            {
+                                                @item.University.Country.ArName
+                                            }
+                                        }
+                                    </option>
                                 }
                                 else
                                 {
-                                    <option value="@item.Id">@item.Department.ArName - @item.College.ArName - @item.University.ArName - @item.University.Country.ArName</option>
+                                    <option value="@item.Id">
+                                        @if (item.Department != null)
+                                        {
+                                            @(item.Department.ArName + " - ")
+                                        }
+                                        @if (item.College != null)
+                                        {
+                                            @(item.College.ArName + " - ")
+                                        }
+                                        @if (item.University != null)
+                                        {
+                                            @(item.University.ArName + " - ")
+                                            if (item.University.Country != null)
+                                            {
+                                                @item.University.Country.ArName
+                                            }
+                                        }
+                                    </option>
                                 }
                             }
                         </select>
@@ -65,10 +99,10 @@
 </form>
 
 @*<script>
-    $(".chosen-select").chosen({
-        no_results_text: "Oops, nothing found!"
-    })
-</script>*@
+        $(".chosen-select").chosen({
+            no_results_text: "Oops, nothing found!"
+        })
+    </script>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
