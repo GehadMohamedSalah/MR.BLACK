@@ -18,9 +18,11 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string ArName { get; set; }
         public string ArDesc { get; set; }
         public string ArContent { get; set; }
+        [Required]
         public string EnName { get; set; }
         public string EnDesc { get; set; }
         public string EnContent { get; set; }
@@ -29,11 +31,13 @@ namespace MRBLACK.Models.Database
         public string ImgPath { get; set; }
         public string ArKeywords { get; set; }
         public string EnKeywords { get; set; }
+        [Required]
         public int? ArticleCategoryId { get; set; }
         public string Instructions { get; set; }
         public int? ViewsNum { get; set; }
         public int? Status { get; set; }
         public DateTime CreatedOn { get; set; }
+        [Required]
         public DateTime PublishOn { get; set; }
         [ForeignKey(nameof(ArticleCategoryId))]
         [InverseProperty("Article")]

@@ -55,8 +55,20 @@ namespace MRBLACK.Controllers
         [HttpPost]
         public IActionResult SaveSystemSetting(SystemSetting model,string returnActionName)
         {
-            _SysSetting.Update(model);
-            return RedirectToAction(returnActionName);
+            if (ModelState.IsValid)
+            {
+                _SysSetting.Update(model);
+                return RedirectToAction(returnActionName);
+            }
+
+            ViewBag.returnActionName = returnActionName;
+            if(returnActionName == nameof(Index))
+                 ViewBag.PageHeader = "اعدادات النظام";
+            else if(returnActionName == nameof(SystemFees))
+                ViewBag.PageHeader = "الرسوم";
+            else
+                ViewBag.PageHeader = "نسب مكملات البحث";
+            return View("Index", model);
         }
     }
 }

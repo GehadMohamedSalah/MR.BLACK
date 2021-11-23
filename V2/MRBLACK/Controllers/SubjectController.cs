@@ -148,7 +148,7 @@ namespace MRBLACK.Controllers
                 || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr));
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
+            return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country,ServiceCategoryRequest,Service"),
                 pageNumber, pageSize);
         }
 

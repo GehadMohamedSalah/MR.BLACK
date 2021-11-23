@@ -13,17 +13,27 @@ namespace MRBLACK.Models.Database
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string ArName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string EnName { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CategoryId { get; set; }
         public int? CurrencyTypeId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? ProviderId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? UniversityId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CollegeId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? DepartmentId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? AcademinYearId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? TermId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? SubjectId { get; set; }
         public int? MinNumOfPages { get; set; }
         public int? MaxNumOfPages { get; set; }

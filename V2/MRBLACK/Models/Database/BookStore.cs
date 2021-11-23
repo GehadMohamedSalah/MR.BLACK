@@ -18,12 +18,15 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required]
         public string ArName { get; set; }
         public string ArDesc { get; set; }
+        [Required]
         public string EnName { get; set; }
         public string EnDesc { get; set; }
         public string ArAuthoreName { get; set; }
         public string EnAuthoreName { get; set; }
+        [Required]
         public int? BookCategoryId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal Price { get; set; }

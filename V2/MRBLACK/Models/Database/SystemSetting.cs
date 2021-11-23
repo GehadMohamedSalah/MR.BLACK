@@ -17,12 +17,18 @@ namespace MRBLACK.Models.Database
         public string SiteDesc { get; set; }
         public string KeyWords { get; set; }
         public string ForbiddenWords { get; set; }
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string SupportMail { get; set; }
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string InquiriesMail { get; set; }
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string HrDeptMail { get; set; }
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string FinancialManagerMail { get; set; }
         [Column("CEOMail")]
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string Ceomail { get; set; }
+        [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         public string MarketingMail { get; set; }
         public string MinWithdrawalRequest { get; set; }
         public string MaxWorkBalance { get; set; }

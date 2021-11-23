@@ -169,7 +169,8 @@ namespace MRBLACK.Areas.Identity.Pages.Account
             {
                 UserId = userId,
                 CountryId = Input.CountryId,
-                MembershipId = Input.MembershipId
+                MembershipId = Input.MembershipId,
+                CreatedOn = DateTime.Now
             });
             appDb.SaveChanges();
         }

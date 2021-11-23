@@ -3,8 +3,7 @@
 @{
     Layout = null;
 }
-<link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet" />
-<script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+<link href="~/chosen_v1.8.7/chosen.min.css" rel="stylesheet" />
 <!-- ClientSide Validation -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
@@ -83,6 +82,8 @@
     </div>
 </form>
 
+<script src="~/chosen_v1.8.7/chosen.jquery.min.js"></script>
+<script src="~/chosen_v1.8.7/chosen.proto.min.js"></script>
 <script>
     $(".chosen-select").chosen({
         no_results_text: "Oops, nothing found!"

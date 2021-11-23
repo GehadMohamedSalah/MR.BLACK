@@ -30,6 +30,7 @@ namespace MRBLACK.Models.Database
         public decimal WalletBalance { get; set; }
         public int? CountryId { get; set; }
         public int? MembershipId { get; set; }
+        public DateTime CreatedOn { get; set; }
 
         [ForeignKey(nameof(AcademicYearId))]
         [InverseProperty("Student")]

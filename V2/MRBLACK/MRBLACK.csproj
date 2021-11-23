@@ -110,6 +110,17 @@
     <None Include="wwwroot\assets\vendor\remixicon\remixicon.symbol.svg" />
     <None Include="wwwroot\assets\vendor\remixicon\remixicon.woff2" />
     <None Include="wwwroot\assets\vendor\waypoints\jquery.waypoints.min.js" />
+    <None Include="wwwroot\chosen_v1.8.7\chosen.jquery.js" />
+    <None Include="wwwroot\chosen_v1.8.7\chosen.jquery.min.js" />
+    <None Include="wwwroot\chosen_v1.8.7\chosen.proto.js" />
+    <None Include="wwwroot\chosen_v1.8.7\chosen.proto.min.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\init.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\init.proto.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\jquery-1.12.4.min.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\prism.js" />
+    <None Include="wwwroot\chosen_v1.8.7\docsupport\prototype-1.7.0.0.js" />
+    <None Include="wwwroot\chosen_v1.8.7\LICENSE.md" />
     <None Include="wwwroot\Content\assets\bootstrap\css\bootstrap.css.map" />
     <None Include="wwwroot\Content\assets\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <None Include="wwwroot\Content\assets\bootstrap\fonts\glyphicons-halflings-regular.woff2" />

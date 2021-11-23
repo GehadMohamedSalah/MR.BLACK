@@ -21,8 +21,11 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string ArName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string EnName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CountryId { get; set; }
         public string ImgPath { get; set; }
 

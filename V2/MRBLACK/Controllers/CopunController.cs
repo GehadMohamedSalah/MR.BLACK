@@ -21,16 +21,13 @@ namespace MRBLACK.Controllers
         private readonly Repository<ServiceCategory> _ServiceCategory;
 
 
-        private readonly int PageSize;
         public CopunController(IRepository<Copun> Copun,
             IRepository<CurrencyType> CurrencyType,
             IRepository<ServiceCategory> ServiceCategory)
         {
             _Copun = (Repository<Copun>)Copun;
             _CurrencyType = (Repository<CurrencyType>)CurrencyType;
-            _ServiceCategory = (Repository<ServiceCategory>)ServiceCategory;
-            PageSize = 5;
-        }
+            _ServiceCategory = (Repository<ServiceCategory>)ServiceCategory;        }
 
         #region CRUD OPERTIONS
 
@@ -133,7 +130,7 @@ namespace MRBLACK.Controllers
                 filter = f => f.NameOrCode.ToLower().Contains(searchStr);
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
-            return await PagedList<Copun>.CreateAsync(_Copun.GetAllAsIQueryable(filter, orderBy),
+            return await PagedList<Copun>.CreateAsync(_Copun.GetAllAsIQueryable(filter, orderBy, "Category"),
                 pageNumber, pageSize);
         }
 

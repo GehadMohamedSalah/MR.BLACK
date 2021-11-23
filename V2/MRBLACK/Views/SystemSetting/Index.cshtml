@@ -108,7 +108,7 @@ else
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="MinWithdrawalRequest" class="control-label">الحد الادنى لطلب السحب</label>
-                                <input asp-for="MinWithdrawalRequest" class="form-control" />
+                                <input asp-for="MinWithdrawalRequest" class="form-control" type = "number"/>
                                 <span asp-validation-for="MinWithdrawalRequest" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
@@ -150,44 +150,44 @@ else
                         <div id="fees">
                             <div class="col-sm-12">
                                 <label asp-for="ImprovementFeesForStudent" class="control-label">رسوم تحسين المنصة على الطالب</label>
-                                <input asp-for="ImprovementFeesForStudent" class="form-control" />
+                                <input asp-for="ImprovementFeesForStudent" class="form-control" type="number" />
                                 <span asp-validation-for="ImprovementFeesForStudent" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ImprovementFeesForStudent" class="control-label">رسوم تحسين منصة على مقدم الخدمة</label>
-                                <input asp-for="ImprovementFeesForStudent" class="form-control" />
+                                <input asp-for="ImprovementFeesForStudent" class="form-control" type="number"/>
                                 <span asp-validation-for="ImprovementFeesForServiceProvider" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ImprovementFeesForServiceProvider" class="control-label">رسوم شراء على الطالب</label>
-                                <input asp-for="ImprovementFeesForServiceProvider" class="form-control" />
+                                <input asp-for="ImprovementFeesForServiceProvider" class="form-control" type="number"/>
                                 <span asp-validation-for="SellingFeesForStudent" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="SellingFeesForStudent" class="control-label">رسوم بيع على المقدم</label>
-                                <input asp-for="SellingFeesForStudent" class="form-control" />
+                                <input asp-for="SellingFeesForStudent" class="form-control" type="number"/>
                                 <span asp-validation-for="SellingFeesForServiceProvider" class="text-danger"></span>
                             </div>
                         </div>
                         <div id="percentage">
                             <div class="col-sm-12">
                                 <label asp-for="SellingFeesForServiceProvider" class="control-label">نسبة الهوامش من مبلغ الخدمة (%)</label>
-                                <input asp-for="SellingFeesForServiceProvider" class="form-control" />
+                                <input asp-for="SellingFeesForServiceProvider" class="form-control" type = "number"/>
                                 <span asp-validation-for="ServiceMarginsPercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceMarginsPercentage" class="control-label">نسبة المصادر من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceMarginsPercentage" class="form-control" />
+                                <input asp-for="ServiceMarginsPercentage" class="form-control" type = "number"/>
                                 <span asp-validation-for="ServiceReferencePercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceReferencePercentage" class="control-label">نسبة التدقيق و الاملاء من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceReferencePercentage" class="form-control" />
+                                <input asp-for="ServiceReferencePercentage" class="form-control" type = "number"/>
                                 <span asp-validation-for="ServiceSpellingPercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceSpellingPercentage" class="control-label">نسبة المقدمة والخاتمة من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceSpellingPercentage" class="form-control" />
+                                <input asp-for="ServiceSpellingPercentage" class="form-control" type = "number"/>
                                 <span asp-validation-for="ServiceIntroAndEndPercentage" class="text-danger"></span>
                             </div>
                         </div>

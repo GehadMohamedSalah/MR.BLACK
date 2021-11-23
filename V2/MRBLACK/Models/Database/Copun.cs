@@ -19,19 +19,26 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string NameOrCode { get; set; }
         public bool IsPublic { get; set; }
         public int? CategoryId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? DiscountPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal? MinInvoiceVal { get; set; }
         public int? CurrencyTypeId { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? DiscountOnWho { get; set; }
         [Column(TypeName = "datetime")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public DateTime? StartDate { get; set; }
         [Column(TypeName = "datetime")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public DateTime? EndDate { get; set; }
-
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        public DateTime? AccountStartDate { get; set; }
         [ForeignKey(nameof(CategoryId))]
         [InverseProperty(nameof(ServiceCategory.Copun))]
         public virtual ServiceCategory Category { get; set; }

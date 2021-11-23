@@ -13,8 +13,10 @@ namespace MRBLACK.Models.Database
     {
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string Title { get; set; }
         public string Description { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string Link { get; set; }
         public int? MembershipId { get; set; }
 

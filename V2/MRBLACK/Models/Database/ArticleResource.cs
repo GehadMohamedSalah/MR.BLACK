@@ -14,6 +14,7 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         public int? ArticleId { get; set; }
+        [Required]
         public string ResLink { get; set; }
 
         [ForeignKey(nameof(ArticleId))]

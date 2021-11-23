@@ -21,10 +21,14 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage ="هذا الحقل مطلوب ادخاله")]
         public string ArName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string EnName { get; set; }
         public string ImgPath { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? Years { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? Terms { get; set; }
 
         [InverseProperty("College")]

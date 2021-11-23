@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MRBLACK.Models.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,10 +12,13 @@ namespace MRBLACK.Models.ViewModels
     public class MembershipVM
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string EnName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string ArName { get; set; }
         public IFormFile FormFile { get; set; }
         public string ImgPath { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int MembershipType { get; set; }
         public List<MembershipLink> MembershipLinkList { get; set; }
         public List<int> DeletedLinks { get; set; }

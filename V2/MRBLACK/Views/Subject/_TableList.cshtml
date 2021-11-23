@@ -40,7 +40,26 @@
                 }
             }
         </td>
-        <td>0</td>
+        <td>
+            @if(item.Service != null)
+            {
+                <span>@item.Service.Count()</span>
+            }
+            else
+            {
+                <span>0</span>
+            }
+        </td>
+        <td>
+            @if(item.ServiceCategoryRequest != null)
+            {
+                <span>@item.ServiceCategoryRequest.Count()</span>
+            }
+            else
+            {
+                <span>0</span>
+            }
+        </td>
         <td>
             @if (item.ImgPath != null)
             {

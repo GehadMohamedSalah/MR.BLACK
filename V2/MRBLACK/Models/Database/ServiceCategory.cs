@@ -21,10 +21,13 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string ArName { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string EnName { get; set; }
         public int? ParentCategoryId { get; set; }
         public bool AutoAcceptedService { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? PricingMethod { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal ServicePrice { get; set; }
