@@ -156,12 +156,12 @@
                     <label asp-for="Discount">اضافة خصم</label>
                     <input asp-for="Discount" class="form-control" />
                 </div>
-                <div class="col-sm-6">
+                @*<div class="col-sm-6">
                     <label asp-for="CurrencyTypeId">نوع العملة</label>
                     <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
                         <option value="-1" selected disabled>اختر نوع العملة</option>
                     </select>
-                </div>
+                </div>*@
 
             </div>
 
@@ -179,21 +179,49 @@
                     <input asp-for="MaxNumOfPages" class="form-control" min="1" />
                 </div>
                 <div class="col-sm-12 mt-20">
-                    <div class="col-sm-3">
-                        <input asp-for="HasMargins" type="checkbox" />
-                        <label asp-for="HasMargins">يحتوي على هوامش</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input asp-for="HasMargins" type="checkbox" />
+                                <label asp-for="HasMargins">يحتوي على هوامش</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة"/>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input asp-for="HasReference" type="checkbox" />
-                        <label asp-for="HasReference">يحتوي على مراجع</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input asp-for="HasReference" type="checkbox" />
+                                <label asp-for="HasReference">يحتوي على مراجع</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="ReferencesPrice" class="form-control" placeholder="التكلفة" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input asp-for="HasSpelling" type="checkbox" />
-                        <label asp-for="HasSpelling">تدقيق املائي</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input asp-for="HasSpelling" type="checkbox" />
+                                <label asp-for="HasSpelling">تدقيق املائي</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="SpellingPrice" class="form-control" placeholder="التكلفة" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input asp-for="HasIntroAndEnd" type="checkbox" />
-                        <label asp-for="HasIntroAndEnd">يحتوي على مقدمة و خاتمة</label>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input asp-for="HasIntroAndEnd" type="checkbox" />
+                                <label asp-for="HasIntroAndEnd">يحتوي على مقدمة و خاتمة</label>
+                            </div>
+                            <div class="col-sm-6">
+                                <input asp-for="IntroAndEndPrice" class="form-control" placeholder="التكلفة" />
+                            </div>
+                        </div>                       
                     </div>
                 </div>
             </div>
@@ -281,7 +309,7 @@
         });
     }
 
-    $("#TotalPrice, #Discount").keyup(function () {
+    $("#TotalPrice, #Discount, #MarginsPrice, #ReferencesPrice, #SpellingPrice, #IntroAndEndPrice").keyup(function () {
         CalculatePrice();
     });
 
@@ -293,7 +321,11 @@
             PlatformCommissionVal = TotalPrice * PlatformCommission / 100;
         }
         var Discount = Number($("#Discount").val());
-        var Total = TotalPrice - PlatformCommissionVal - Discount;
+        var margins = Number($("#MarginsPrice").val());
+        var refernces = Number($("#ReferencesPrice").val());
+        var spelling = Number($("#SpellingPrice").val());
+        var introEnd = Number($("#IntroAndEndPrice").val());
+        var Total = TotalPrice + margins + refernces + spelling + introEnd - PlatformCommissionVal - Discount;
         $("#Total").val(Total);
     }
 

@@ -102,7 +102,7 @@ namespace MRBLACK.Controllers
             {
                 ControllerName = "Department",
                 ActionName = nameof(Delete),
-                Title = "حذف من شاشة الاقسام",
+                Title = "حذف من شاشة المجموعات",
                 PkFieldStrVal = null,
                 PkFieldIntVal = id
             };
@@ -119,7 +119,7 @@ namespace MRBLACK.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", "لا يمكن حذف هذا القسم");
+                ModelState.AddModelError("", "لا يمكن حذف هذه المجموعة");
                 return View("_DeleteView", model);
             }
 

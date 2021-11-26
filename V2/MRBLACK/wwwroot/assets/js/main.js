@@ -115,6 +115,7 @@
   });
 
   // Testimonials carousel (uses the Owl Carousel library)
+  
   $(".testimonials-carousel").owlCarousel({
     autoplay: true,
     dots: true,
@@ -133,17 +134,18 @@
   });
   $("#owl-slider-hero").owlCarousel({
     items: 1,
-    nav: false,
     dots: true,
     loop: true,
     autoplay: true,
     autoplayTimeout:6000,
+    // nav: true,
     responsive: {
       0: {
         items: 1
       }
     }
   });
+  
   $(".courses-carousel").owlCarousel({
     autoplay: true,
     dots: true,
