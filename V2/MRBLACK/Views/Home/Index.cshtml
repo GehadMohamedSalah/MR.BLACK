@@ -7,23 +7,26 @@
 <section id="hero" class="">
     <div class="" data-aos="zoom-in" data-aos-delay="100">
         <div>
+
             <div class="owl-slider" id="owl-slider-hero">
-                <!-- slide 01 -->
                 @for (int i = 0; i < Model.SlideShow.Count; i++)
                 {
                     <div class="slide">
-                        <div class="owl-slide" style="background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('/Uploads/Images/SlideShow/@Model.SlideShow[i].ImageUrl');">
+                        <div class="owl-slide-1" style="background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),url('/Uploads/Images/SlideShow/@Model.SlideShow[i].ImageUrl');">
                             <div class="owl-text text-center">
                                 <h2>@Model.SlideShow[i].Caption</h2>
                                 <a href="@Model.SlideShow[i].Link" class="btn-get-started">Get Started</a>
                             </div>
                         </div>
                     </div>
-                }              
+                }
             </div>
+            <span class="iconify" data-icon="flat-color-icons:next"></span>
+
         </div>
     </div>
-</section><!-- End Hero -->
+
+</section>
 
 <main id="main">
 

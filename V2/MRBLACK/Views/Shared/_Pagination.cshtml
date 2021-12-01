@@ -66,4 +66,9 @@
             ReloadPagination(1);
         }
     });
+
+    function RemoveTableSearch(pageIndex) {
+        $("#inpSearch").val("");
+        ReloadPagination(pageIndex);
+    }
 </script>

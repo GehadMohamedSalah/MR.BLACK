@@ -106,11 +106,11 @@
                             <i class="fa fa-money-bill-wave"></i> <span>الرسوم</span>
                         </a>
                     </li>
-                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/researchadditionratio") ? "active" : "")">
+                    @*<li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/researchadditionratio") ? "active" : "")">
                         <a href="/SystemSetting/ResearchAdditionRatio">
                             <i class="fa fa-percent"></i> <span>نسب مكملات البحث</span>
                         </a>
-                    </li>
+                    </li>*@
                 </ul>
             </li>
             <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") || Context.Request.Path.ToString().ToLower().Contains("advertisingpackage") ? "active" : "")">
