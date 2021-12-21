@@ -19,12 +19,18 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string ArName { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string ArDesc { get; set; }
         [Required]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string EnName { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string EnDesc { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string ArAuthoreName { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string EnAuthoreName { get; set; }
         [Required]
         public int? BookCategoryId { get; set; }

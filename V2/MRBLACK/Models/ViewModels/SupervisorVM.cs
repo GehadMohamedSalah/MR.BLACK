@@ -11,17 +11,19 @@ namespace MRBLACK.Models.ViewModels
     {
         public string Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string Name { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "رقم الهاتف يتكون من 11 رقم فقط")]
         public string Phone { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @ ")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(100, ErrorMessage = "كلمة المرور لا يجب ان تقل عن 6 احرف", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = " كلمة المرور لا يجب ان تقل عن 6 احرف ولا تزيد عن 50 حرف", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

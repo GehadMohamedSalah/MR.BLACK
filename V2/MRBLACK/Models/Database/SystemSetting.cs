@@ -13,31 +13,50 @@ namespace MRBLACK.Models.Database
     {
         [Key]
         public int Id { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string SiteName { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string SiteDesc { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string KeyWords { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string ForbiddenWords { get; set; }
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string SupportMail { get; set; }
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string InquiriesMail { get; set; }
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string HrDeptMail { get; set; }
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string FinancialManagerMail { get; set; }
         [Column("CEOMail")]
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string Ceomail { get; set; }
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string MarketingMail { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string MinWithdrawalRequest { get; set; }
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string MaxWorkBalance { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string SiteClosureMsg { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string TermsAndConditions { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string PrivacyPolicy { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string GuaranteeOfMoneyAndEntitlements { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string HowDealWithSite { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string AboutUs { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string TextOfContact { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal ImprovementFeesForStudent { get; set; }

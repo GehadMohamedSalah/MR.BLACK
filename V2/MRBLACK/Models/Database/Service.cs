@@ -14,9 +14,12 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string ArName { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
         public string EnName { get; set; }
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
         public string Description { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CategoryId { get; set; }

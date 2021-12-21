@@ -144,7 +144,7 @@
     function AddResource() {
         var rowsNum = Number($("dvResources tr").length) + 1;
         var removeFunc = "RemoveRow('row_" + rowsNum + "');";
-        $("#dvResources").append('<tr id="row_' + rowsNum + '"><td><input class="form-control ArticleResources" name="" /></td><td><button type="button" class="btn btn-danger" onclick="' + removeFunc + '"><i class="fa fa-trash"></i></button></td></tr>');
+        $("#dvResources").append('<tr id="row_' + rowsNum + '"><td><input maxlength="100" class="form-control ArticleResources" name="" /></td><td><button type="button" class="btn btn-danger" onclick="' + removeFunc + '"><i class="fa fa-trash"></i></button></td></tr>');
     }
 
 
