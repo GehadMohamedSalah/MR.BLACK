@@ -123,14 +123,21 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ConfirmDeleteVM model)
         {
-            var obj = await _context.Roles.FindAsync(model.PkFieldStrVal);
-            obj.IsDeleted = true;
-            obj.CanBeEditedOrDeleted = true;
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                var obj = await _context.Roles.FindAsync(model.PkFieldStrVal);
+                obj.IsDeleted = true;
+                obj.CanBeEditedOrDeleted = true;
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا الدور" });
+            }
+
+            return Json(new { IsSuccess = true, Msg = "تم الحذف بنجاح" });
         }
         #endregion
         #endregion

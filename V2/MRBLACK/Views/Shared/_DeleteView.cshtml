@@ -3,10 +3,9 @@
 @{
     Layout = null;
 }
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/0.0.3/sweetalert2.css" integrity="sha512-GEj+wHqkGIXS+MXGhZbhOqJYfFfUIw/ts1hP0xvCKACiCgHFWtaOXAhQEQCA2twc36+5dm/1xLw4LUdsP8sdug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/0.0.3/sweetalert2.min.css" integrity="sha512-m4A3doqdcj93BV2j9bMjN5P2s+tkcW4eKOmYCEg+6fF5hlf1lwcQtKM9PlbNjaKr535RSGI8bjBv9CUYEuvRHA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <form asp-action="@Model.ActionName" asp-controller="@Model.ControllerName">
     @if (Model.PkFieldIntVal != null)
@@ -34,10 +33,52 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-info" data-dismiss="modal">الغاء</button>
-            <input type="submit" value="تأكيد الحذف" class="btn btn-danger" />
+            <input type="button" onclick="SubmitForm()" value="تأكيد الحذف" class="btn btn-danger" />
         </div>
     </div>
 </form>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/0.0.3/sweetalert2.min.js" integrity="sha512-jvI/rBY1iVfdWDx3ecqMaRNYBI11mNYq0IYUKYtFkEzXt3ijdpAlPqeifoulqtCtjvpCRVRd+aRMCrN66HzCNg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script type="text/javascript">
+    function SubmitForm() {
+        var model = {
+            "ControllerName":"",
+            "ActionName":"",
+            "Title": "",
+            "PkFieldIntVal": Number("@Model.PkFieldIntVal"),
+            "PkFieldStrVal": "@Model.PkFieldStrVal"
+        };
+        $.ajax({
+            type: "post",
+            url: "/@Model.ControllerName/@Model.ActionName",
+            data: { model },
+            success: function (result) {
+                if (result.isSuccess == true) {
+                    swal({
+                        title: "تم",
+                        text: result.msg,
+                        type: "success"
+                    }, function () {
+                        window.location = "";
+                    });
+                }
+                else {
+                    swal({
+                        title: "خطأ",
+                        text: result.msg,
+                        type: "error"
+                    }, function () {
+                        window.location = "";
+                    });
+                }
+                
+            }
+        });
+    }
+</script>
 
 

@@ -110,7 +110,6 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(ConfirmDeleteVM model)
         {
             try
@@ -119,11 +118,10 @@ namespace MRBLACK.Controllers
             }
             catch
             {
-                ModelState.AddModelError("", "لا يمكن حذف هذه المجموعة");
-                return View("_DeleteView", model);
+                return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا القسم" });
             }
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { IsSuccess = true, Msg = "تم الحذف بنجاح" });
         }
         #endregion
 

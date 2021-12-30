@@ -74,17 +74,17 @@
                 </div>
                 <div class="col-sm-6" id="dvServicePrice" style="display:@display1">
                     <label asp-for="ServicePrice">سعر الخدمة</label>
-                    <input asp-for="ServicePrice" class="form-control" placeholder="سعر الخدمة" />
+                    <input asp-for="ServicePrice" class="form-control inpNumber" placeholder="سعر الخدمة" type="number"/>
                     <span asp-validation-for="ServicePrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvPlatformRevenueFromServPrice" style="display:@display1">
                     <label asp-for="PlatformRevenueFromServPrice">مبلغ المنصة من سعر الخدمة</label>
-                    <input asp-for="PlatformRevenueFromServPrice" class="form-control" placeholder="مبلغ المنصة من سعر الخدمة" />
+                    <input asp-for="PlatformRevenueFromServPrice" class="form-control inpNumber" placeholder="مبلغ المنصة من سعر الخدمة"  type="number"/>
                     <span asp-validation-for="PlatformRevenueFromServPrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvCommissionPercentage" style="display:@display2">
                     <label asp-for="CommissionPercentage">عمولة المنصة من سعر الخدمة</label>
-                    <input asp-for="CommissionPercentage" class="form-control" placeholder="عمولة المنصة" />
+                    <input asp-for="CommissionPercentage" class="form-control inpNumber" placeholder="عمولة المنصة"  type="number"/>
                     <span asp-validation-for="CommissionPercentage" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
@@ -164,6 +164,25 @@
                 ChangePricingMethod();
             }
         });
+    });
+
+
+    document.querySelector("#ServicePrice").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
+    });
+
+    document.querySelector("#PlatformRevenueFromServPrice").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
+    });
+
+    document.querySelector("#CommissionPercentage").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
     });
 </script>
 

@@ -182,21 +182,18 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(ConfirmDeleteVM model)
         {
             try
             {
                 _Membership.Delete((int)model.PkFieldIntVal);
             }
-            catch (Exception e)
+            catch
             {
-                var x = e.Message;
-                ModelState.AddModelError("", "لا يمكن حذف هذه العضوية");
-                return View("_DeleteView", model);
+                return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه العضوية" });
             }
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { IsSuccess = true, Msg = "تم الحذف بنجاح" });
         }
         #endregion
 

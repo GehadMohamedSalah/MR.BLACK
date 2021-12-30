@@ -210,7 +210,6 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(ConfirmDeleteVM model)
         {
             try
@@ -219,14 +218,12 @@ namespace MRBLACK.Controllers
                 user.IsDeleted = true;
                 await _userManager.UpdateAsync(user);
             }
-            catch (Exception e)
+            catch
             {
-                var x = e.Message;
-                ModelState.AddModelError("", "لا يمكن حذف هذا المشرف");
-                return View("_DeleteView", model);
+                return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا المشرف" });
             }
 
-            return RedirectToAction(nameof(Index));
+            return Json(new { IsSuccess = true, Msg = "تم الحذف بنجاح" });
         }
         #endregion
 

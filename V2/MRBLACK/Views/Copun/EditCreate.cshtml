@@ -58,7 +58,7 @@ else
 
                 <div class="col-sm-6">
                     <label asp-for="DiscountPercentage">نسبة الخصم (%)</label>
-                    <input asp-for="DiscountPercentage" class="form-control" placeholder="نسبة الخصم" />
+                    <input asp-for="DiscountPercentage" class="form-control inpNumber" placeholder="نسبة الخصم" />
                     <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
                 </div>
 
@@ -79,7 +79,7 @@ else
 
                 <div class="col-sm-6">
                     <label asp-for="MinInvoiceVal">اقل قيمة للفاتورة</label>
-                    <input asp-for="MinInvoiceVal" class="form-control" placeholder="اقل قيمة للفاتورة" type="number" />
+                    <input asp-for="MinInvoiceVal" class="form-control inpNumber" placeholder="اقل قيمة للفاتورة" type="number" />
                     <span asp-validation-for="MinInvoiceVal" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-12">

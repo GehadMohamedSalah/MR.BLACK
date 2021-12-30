@@ -60,15 +60,19 @@ namespace MRBLACK.Models.Database
         public string TextOfContact { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal ImprovementFeesForStudent { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal ImprovementFeesForServiceProvider { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal SellingFeesForStudent { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal SellingFeesForServiceProvider { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal CurrentBalaces { get; set; }

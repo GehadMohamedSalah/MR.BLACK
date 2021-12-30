@@ -25,6 +25,7 @@ namespace MRBLACK.Models.Database
         public bool IsPublic { get; set; }
         public int? CategoryId { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? DiscountPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]

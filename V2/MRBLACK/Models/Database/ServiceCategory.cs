@@ -32,11 +32,14 @@ namespace MRBLACK.Models.Database
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? PricingMethod { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal ServicePrice { get; set; }
         public int? CurrencyTypeId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal PlatformRevenueFromServPrice { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal CommissionPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal RevenueFromThisCatgoryToPlatform { get; set; }

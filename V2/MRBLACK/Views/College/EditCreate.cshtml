@@ -5,6 +5,13 @@
 }
 <link href="~/chosen_v1.8.7/chosen.min.css" rel="stylesheet" />
 
+
+<style>
+    .chosen-choices li {
+        width: 100%;
+    }
+</style>
+
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
     <div class="modal-content">
         <div class="modal-header">
@@ -32,13 +39,13 @@
 
                     <div class="form-group row">
                         <label class="col-lg-3">السنين الدراسية</label>
-                        <input asp-for="Years" class="col-lg-9 form-control" placeholder="السنين الدراسية" />
+                        <input asp-for="Years" class="col-lg-9 form-control inpNumber" placeholder="السنين الدراسية" />
                         <span asp-validation-for="Years" class="text-danger"></span>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-lg-3">الترمات</label>
-                        <input asp-for="Terms" class="col-lg-9 form-control" placeholder="الترمات" />
+                        <input asp-for="Terms" class="col-lg-9 form-control inpNumber" placeholder="الترمات"/>
                         <span asp-validation-for="Terms" class="text-danger"></span>
                     </div>
 
@@ -100,4 +107,11 @@
             $("#myForm").submit();
         }
     }
+
+    document.querySelector(".inpNumber").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
+    });
+
 </script>
