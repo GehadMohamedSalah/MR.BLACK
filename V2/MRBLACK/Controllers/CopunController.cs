@@ -51,8 +51,11 @@ namespace MRBLACK.Controllers
         {
             if (ModelState.IsValid)
             {
-                _Copun.Add(model);
-                return RedirectToAction(nameof(Index));
+                if(ValidateModel(model))
+                {
+                    _Copun.Add(model);
+                    return RedirectToAction(nameof(Index));
+                }
             }
             ViewBag.ActionName = nameof(Create);
             FillDropdownLists();
@@ -74,8 +77,11 @@ namespace MRBLACK.Controllers
         {
             if (ModelState.IsValid)
             {
-                _Copun.Update(model);
-                return RedirectToAction(nameof(Index));
+                if(ValidateModel(model))
+                {
+                    _Copun.Update(model);
+                    return RedirectToAction(nameof(Index));
+                }
             }
             ViewBag.ActionName = nameof(Edit);
             FillDropdownLists();
@@ -157,5 +163,46 @@ namespace MRBLACK.Controllers
             ViewBag.CategoryList = new SelectList(_ServiceCategory.GetAll(c => c.ParentCategoryId == null), "Id", "ArName");
         }
         #endregion
+
+        private bool ValidateModel(Copun model)
+        {
+            var check = 0;
+
+            if (model.Id > 0)
+            {
+                var copuns = _Copun.GetAll(c => c.NameOrCode.ToLower() == model.NameOrCode && c.Id != model.Id).ToList();
+                if (copuns != null && copuns.Count() > 0)
+                {
+                    ModelState.AddModelError("", "هذا الكود موجود مسبقا لا يمكن تكراره");
+                    check++;
+                }
+
+            }
+            else
+            {
+                var copuns = _Copun.GetAll(c => c.NameOrCode.ToLower() == model.NameOrCode).ToList();
+                if (copuns != null && copuns.Count() > 0)
+                {
+                    ModelState.AddModelError("", "هذا الكود موجود مسبقا لا يمكن تكراره");
+                    check++;
+                }
+            }
+
+            if (model.StartDate > model.EndDate)
+            {
+                ModelState.AddModelError("", "تاريخ البدء لا يمكن ان يكون قبل تاريخ الانتهاء");
+                check++;
+            }
+
+            if(model.AccountStartDate > model.StartDate)
+            {
+                ModelState.AddModelError("", "تاريخ انشاء الحساب يجب ان يكون قبل تاريخ البدء او في نفس تاريخه");
+                check++;
+            }
+            
+            if (check == 0)
+                return true;
+            return false;
+        }
     }
 }

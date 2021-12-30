@@ -36,6 +36,8 @@
         @if (item.ImgPath != null)
         {
             <img src="~/Uploads/Images/Departments/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+            <br />
+            <a href="/Department/RemoveImage/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الصورة</a>
         }
     </td>
     <td>

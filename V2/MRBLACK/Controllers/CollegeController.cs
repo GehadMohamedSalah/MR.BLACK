@@ -65,7 +65,7 @@ namespace MRBLACK.Controllers
                     model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Colleges");
                 }
 
-                AddDelUniversityFromUCDS(model, Universities);
+                model = AddDelUniversityFromUCDS(model, Universities);
 
                 _College.Add(model);
                 return RedirectToAction(nameof(Index));
@@ -95,7 +95,7 @@ namespace MRBLACK.Controllers
                     model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Colleges");
                 }
 
-                AddDelUniversityFromUCDS(model, Universities);
+                model = AddDelUniversityFromUCDS(model, Universities);
                 
                 _College.Update(model);
                 return RedirectToAction(nameof(Index));
@@ -184,7 +184,9 @@ namespace MRBLACK.Controllers
         {
             model.UcdsEductionManagement = new List<UcdsEductionManagement>();
             var oldsuc = new List<UcdsEductionManagement>();
-            if(model.Id>0)
+            var newsuc = new List<UcdsEductionManagement>();
+
+            if (model.Id>0)
                    oldsuc = _ucds.GetAll(c => c.CollegeId == model.Id).ToList();
 
             //add new universities to model
@@ -199,11 +201,15 @@ namespace MRBLACK.Controllers
                             UniversityId = item
                         });
                     }
+                    newsuc.Add(new UcdsEductionManagement()
+                    {
+                        UniversityId = item
+                    });
                 }
             }
 
             //delete old universities that is not exist in new one
-            if (model.UcdsEductionManagement != null && model.UcdsEductionManagement.Count() > 0
+            if (newsuc != null && newsuc.Count() > 0
                 && oldsuc != null && oldsuc.Count() > 0)
             {
                 var deletedItems = new List<UcdsEductionManagement>();
@@ -225,6 +231,14 @@ namespace MRBLACK.Controllers
                 }
             }
             return model;
+        }
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _College.GetElement(id);
+            item.ImgPath = null;
+            _College.Update(item);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

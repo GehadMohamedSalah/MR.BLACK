@@ -20,11 +20,11 @@ namespace MRBLACK.Models.Database
 
         [Key]
         public int Id { get; set; }
-        [Required]
-        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
-        [Required]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnName { get; set; }
 
         [InverseProperty("AcademinYear")]

@@ -14,12 +14,12 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnName { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string Description { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CategoryId { get; set; }
@@ -38,13 +38,17 @@ namespace MRBLACK.Models.Database
         public int? TermId { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? SubjectId { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? MinNumOfPages { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? MaxNumOfPages { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public bool HasMargins { get; set; }
         public bool HasReference { get; set; }
         public bool HasSpelling { get; set; }
         public bool HasIntroAndEnd { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal TotalPrice { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Discount { get; set; }
@@ -54,12 +58,16 @@ namespace MRBLACK.Models.Database
         public string AnotherImgPath { get; set; }
         public int? FormTypeId { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal? MarginsPrice { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal? ReferencesPrice { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal? SpellingPrice { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal? IntroAndEndPrice { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]

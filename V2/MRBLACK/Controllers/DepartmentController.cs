@@ -227,5 +227,13 @@ namespace MRBLACK.Controllers
                 var x = e.Message;
             }
         }
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _Department.GetElement(id);
+            item.ImgPath = null;
+            _Department.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

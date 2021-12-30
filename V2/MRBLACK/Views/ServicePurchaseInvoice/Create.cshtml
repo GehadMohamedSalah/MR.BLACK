@@ -7,11 +7,6 @@
     decimal totals = 0;
 }
 
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-
 @if (Model.RequestId != null)
 {
     <style>
@@ -30,8 +25,8 @@
                 </div>
                 <div class="panel-body">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <input type="hidden" asp-for="RequestId"/>
-                    <input type="hidden" asp-for="CopunId"/>
+                    <input type="hidden" asp-for="RequestId" />
+                    <input type="hidden" asp-for="CopunId" />
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label asp-for="InvCode">رقم الفاتورة</label>
@@ -59,7 +54,7 @@
                         </div>
 
                         <div class="dvServiceList">
-                            
+
                         </div>
 
                         @if (Model.RequestId != null)
@@ -91,7 +86,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @if (Model.RequestContent != null && Model.RequestContent.Count() > 0)
                                     {
                                         var i = 0;
@@ -118,16 +113,16 @@
                                                         <input readonly type="checkbox" asp-for="RequestContent[i].HasIntroAndEnd" disabled />
                                                     </td>
                                                     <td>
-                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasMargins"disabled />
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasMargins" disabled />
                                                     </td>
                                                     <td>
-                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasReference" disabled/>
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasReference" disabled />
                                                     </td>
                                                     <td>
-                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasSpelling"disabled />
+                                                        <input readonly type="checkbox" asp-for="RequestContent[i].HasSpelling" disabled />
                                                     </td>
                                                 }
-                                                <td >
+                                                <td>
                                                     @if (item.PricingMethod == (int)PricingMethod.Commission)
                                                     {
                                                         <span id="priceCol_@Model.RequestContent[i].Id" class="spprice">لم يحدد بعد</span>
@@ -168,7 +163,7 @@
                         <div class="col-sm-6">
                             <label asp-for="CurrencyTypeId">نوع العملة</label>
                             <select class="form-control" asp-for="CurrencyTypeId">
-                                @foreach(var item in Model.CurrencyTypeList)
+                                @foreach (var item in Model.CurrencyTypeList)
                                 {
                                     <option value="@item.Id" data-html="@item.ValueInPound">@item.ArName</option>
                                 }
@@ -305,3 +300,7 @@
         $("#totalInv").html(totalInv);
     }
 </script>
+
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

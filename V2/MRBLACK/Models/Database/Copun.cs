@@ -20,7 +20,7 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string NameOrCode { get; set; }
         public bool IsPublic { get; set; }
         public int? CategoryId { get; set; }
@@ -28,6 +28,7 @@ namespace MRBLACK.Models.Database
         public int? DiscountPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal? MinInvoiceVal { get; set; }
         public int? CurrencyTypeId { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]

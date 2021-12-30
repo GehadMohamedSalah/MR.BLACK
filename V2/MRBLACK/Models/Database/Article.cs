@@ -19,31 +19,31 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArDesc { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArContent { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnName { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnDesc { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnContent { get; set; }
-        [StringLength(100, ErrorMessage = "لا يمكن ادخال اكثر من 100 حرف")]
+        [StringLength(100, ErrorMessage = "لا يمكن ادخال اكثر من 100 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string Link { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string WriterName { get; set; }
         public string ImgPath { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArKeywords { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnKeywords { get; set; }
         [Required]
         public int? ArticleCategoryId { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string Instructions { get; set; }
         public int? ViewsNum { get; set; }
         public int? Status { get; set; }

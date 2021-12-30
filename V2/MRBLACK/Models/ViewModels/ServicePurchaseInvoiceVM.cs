@@ -11,15 +11,15 @@ namespace MRBLACK.Models.ViewModels
     public class ServicePurchaseInvoiceVM
     {
         public int Id { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string InvCode { get; set; }
         public DateTime InvDateTime { get; set; }
         public int? ProviderId { get; set; }
         public int? StudentId { get; set; }
         public int? RequestId { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string RequestCode { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string Copun { get; set; }
         public int? CurrencyTypeId { get; set; }
         public decimal PlatformFees { get; set; }

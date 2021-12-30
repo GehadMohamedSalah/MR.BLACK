@@ -33,7 +33,7 @@ namespace MRBLACK.Areas.Identity.Data
         { }
 
         [Required(ErrorMessage ="هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
 
 
@@ -42,7 +42,7 @@ namespace MRBLACK.Areas.Identity.Data
         public Membership Membership { get; set; }
 
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public override string Name { get => base.Name; set => base.Name = value; }
 
         public bool CanBeEditedOrDeleted { get; set; }

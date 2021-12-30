@@ -28,14 +28,15 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnName { get; set; }
         public bool IsMainCurrency { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [Range(0.0000001, Double.MaxValue, ErrorMessage = "قيمة العملة بالجنيه لا يمكن ان تقل عن 0.0000001")]
         public decimal ValueInPound { get; set; }
 
         [InverseProperty("CurrencyType")]

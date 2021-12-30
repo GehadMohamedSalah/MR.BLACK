@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var display1 = "none";
     var display2 = "none";
-    if(Model.Id > 0)
+    if (Model.Id > 0)
     {
         if (Model.PricingMethod == 1)
         {
@@ -19,18 +19,15 @@
     }
 }
 
-@if(Model.ParentCategoryId != null)
+@if (Model.ParentCategoryId != null)
 {
-<style>
-    #FormType, #PricingMethod, #ServicePrice, #PlatformRevenueFromServPrice, #CommissionPercentage, #CurrencyTypeId, #AutoAcceptedService{
-        pointer-events:none;
-    }
-</style>
+    <style>
+        #FormType, #PricingMethod, #ServicePrice, #PlatformRevenueFromServPrice, #CommissionPercentage, #CurrencyTypeId, #AutoAcceptedService {
+            pointer-events: none;
+        }
+    </style>
 }
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="panel">
         <div class="panel-heading">
@@ -91,15 +88,15 @@
                     <span asp-validation-for="CommissionPercentage" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
-                    <label asp-for="CurrencyTypeId">نوع العملة</label>
-                    <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control" data-live-search="true">
-                        <option selected disabled value="-1">اختر نوع العملة</option>
-                    </select>
-                    <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
-                </div>*@
+                        <label asp-for="CurrencyTypeId">نوع العملة</label>
+                        <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control" data-live-search="true">
+                            <option selected disabled value="-1">اختر نوع العملة</option>
+                        </select>
+                        <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
+                    </div>*@
                 <div class="col-sm-6">
                     <label for="img">صورة التصنيف</label>
-                    <input id="img" class="form-control" type="file" name="img"/>
+                    <input id="img" class="form-control" type="file" name="img" />
                     <span for="img" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 mt-40">
@@ -133,10 +130,10 @@
             document.getElementById("dvCommissionPercentage").style.display = "";
         }
     }
-   
+
     $("#ParentCategoryId").change(function () {
         var categoryId = $(this).val();
-        
+
         $.ajax({
             url: "/ServiceCategory/GetParentCategoryDetails",
             type: "get",
@@ -160,7 +157,7 @@
                     $("#AutoAcceptedService").removeAttr("checked");
                 }
                 else {
-                    $("#AutoAcceptedService").prop("checked",true);
+                    $("#AutoAcceptedService").prop("checked", true);
                 }
                 $("#AutoAcceptedService").css("pointer-events", "none");
 
@@ -170,6 +167,9 @@
     });
 </script>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

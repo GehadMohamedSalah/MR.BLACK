@@ -3,10 +3,6 @@
 @{
     Layout = null;
 }
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="modal-content">
@@ -35,8 +31,9 @@
                     <div class="form-group row">
                         <label class="col-lg-3">العملة</label>
                         <select class="col-lg-9 form-control" data-live-search="true" asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList">
-                            <option selected disabled value="-1">اختر عملة الدولة</option>
+                            <option selected disabled>اختر عملة الدولة</option>
                         </select>
+                        <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-3">العلم</label>
@@ -53,6 +50,9 @@
 </form>
 
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

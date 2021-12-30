@@ -26,11 +26,6 @@
     }
 }
 
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="panel">
@@ -157,11 +152,11 @@
                     <input asp-for="Discount" class="form-control" />
                 </div>
                 @*<div class="col-sm-6">
-                    <label asp-for="CurrencyTypeId">نوع العملة</label>
-                    <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
-                        <option value="-1" selected disabled>اختر نوع العملة</option>
-                    </select>
-                </div>*@
+                        <label asp-for="CurrencyTypeId">نوع العملة</label>
+                        <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
+                            <option value="-1" selected disabled>اختر نوع العملة</option>
+                        </select>
+                    </div>*@
 
             </div>
 
@@ -186,7 +181,7 @@
                                 <label asp-for="HasMargins">يحتوي على هوامش</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة"/>
+                                <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة" />
                             </div>
                         </div>
                     </div>
@@ -221,7 +216,7 @@
                             <div class="col-sm-6">
                                 <input asp-for="IntroAndEndPrice" class="form-control" placeholder="التكلفة" />
                             </div>
-                        </div>                       
+                        </div>
                     </div>
                 </div>
             </div>
@@ -348,3 +343,6 @@
     });
 </script>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

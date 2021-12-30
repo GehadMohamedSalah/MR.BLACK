@@ -53,7 +53,7 @@ namespace MRBLACK.Controllers
             var model = new SupervisorVM()
             {
                 CountryList = new SelectList(_country.GetAll(), "Id", "ArName"),
-                RoleList = _context.Roles.Where(c => c.MembershipId == null).Select(c => new SelectListItem()
+                RoleList = _context.Roles.Where(c => c.MembershipId == null && c.IsDeleted == false).Select(c => new SelectListItem()
                 {
                     Value = c.Id,
                     Text = c.ArName
@@ -100,7 +100,7 @@ namespace MRBLACK.Controllers
 
             ViewBag.ActionName = nameof(Create);
             model.CountryList = new SelectList(_country.GetAll(), "Id", "ArName");
-            model.RoleList = _context.Roles.Where(c => c.MembershipId == null).Select(c => new SelectListItem()
+            model.RoleList = _context.Roles.Where(c => c.MembershipId == null && c.IsDeleted == false).Select(c => new SelectListItem()
             {
                 Value = c.Id,
                 Text = c.ArName
@@ -124,7 +124,7 @@ namespace MRBLACK.Controllers
                 Email = user.Email,
                 Phone = user.PhoneNumber,
                 CountryList = new SelectList(_country.GetAll(), "Id", "ArName"),
-                RoleList = _context.Roles.Where(c => c.MembershipId == null).Select(c => new SelectListItem()
+                RoleList = _context.Roles.Where(c => c.MembershipId == null && c.IsDeleted == false).Select(c => new SelectListItem()
                 {
                     Value = c.Id,
                     Text = c.ArName
@@ -186,7 +186,7 @@ namespace MRBLACK.Controllers
             }
             ViewBag.ActionName = nameof(Edit);
             model.CountryList = new SelectList(_country.GetAll(), "Id", "ArName");
-            model.RoleList = _context.Roles.Where(c => c.MembershipId == null).Select(c => new SelectListItem()
+            model.RoleList = _context.Roles.Where(c => c.MembershipId == null && c.IsDeleted == false).Select(c => new SelectListItem()
             {
                 Value = c.Id,
                 Text = c.ArName

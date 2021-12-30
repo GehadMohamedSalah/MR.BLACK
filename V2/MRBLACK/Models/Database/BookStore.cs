@@ -19,27 +19,29 @@ namespace MRBLACK.Models.Database
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArName { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArDesc { get; set; }
         [Required]
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnName { get; set; }
-        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف")]
+        [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnDesc { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string ArAuthoreName { get; set; }
-        [StringLength(50, ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف")]
+        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string EnAuthoreName { get; set; }
         [Required]
         public int? BookCategoryId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal Price { get; set; }
         public int? CurrencyTypeId { get; set; }
         public string BookPdfPath { get; set; }
         public string BookVoicePath { get; set; }
         public string BookCoverImgPath { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? PaperNum { get; set; }
         [ForeignKey(nameof(BookCategoryId))]
         [InverseProperty("BookStore")]

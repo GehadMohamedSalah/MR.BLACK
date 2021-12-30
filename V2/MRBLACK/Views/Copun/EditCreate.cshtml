@@ -18,7 +18,7 @@
     {
         Model.IsPublic = false;
     }
-    if(Model.AccountStartDate != null)
+    if (Model.AccountStartDate != null)
     {
         AccountStartDate = ((DateTime)Model.AccountStartDate).ToString("yyyy-MM-dd");
     }
@@ -39,10 +39,6 @@ else
         }
     </style>
 }
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
 
@@ -87,12 +83,12 @@ else
                     <span asp-validation-for="MinInvoiceVal" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-12">
-                    <label asp-for="CurrencyTypeId">نوع العملة</label>
-                    <select class="form-control" asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList">
-                        <option value="-1" selected disabled>اختر نوع العملة</option>
-                    </select>
-                    <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
-                </div>*@
+                        <label asp-for="CurrencyTypeId">نوع العملة</label>
+                        <select class="form-control" asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList">
+                            <option value="-1" selected disabled>اختر نوع العملة</option>
+                        </select>
+                        <span asp-validation-for="CurrencyTypeId" class="text-danger"></span>
+                    </div>*@
                 <div class="col-sm-6">
                     <label asp-for="DiscountOnWho">على من سيكون الخصم؟</label>
                     <select class="form-control" asp-for="DiscountOnWho">
@@ -148,6 +144,9 @@ else
     });
 </script>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }

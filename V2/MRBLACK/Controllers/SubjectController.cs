@@ -171,7 +171,7 @@ namespace MRBLACK.Controllers
 
         private void FillDropdownLists()
         {
-            var ucds = _ucds.GetAll(null, null, "University,College,Department,University.Country").ToList();
+            var ucds = _ucds.GetAll(c=> c.UniversityId != null && c.CollegeId != null && c.DepartmentId != null, null, "University,College,Department,University.Country").ToList();
             var lst = new List<UcdsEductionManagement>();
             if (ucds != null && ucds.Count() > 0)
             {
@@ -230,6 +230,14 @@ namespace MRBLACK.Controllers
             {
                 var x = e.Message;
             }
+        }
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _Subject.GetElement(id);
+            item.ImgPath = null;
+            _Subject.Update(item);
+            return RedirectToAction(nameof(Index));
         }
 
     }

@@ -164,5 +164,13 @@ namespace MRBLACK.Controllers
         }
 
         #endregion
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _University.GetElement(id);
+            item.ImgPath = null;
+            _University.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

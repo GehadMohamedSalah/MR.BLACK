@@ -422,6 +422,7 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\bin\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.AssemblyInfoInputs.cache
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.AssemblyInfo.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.csproj.CoreCompileInputs.cache
@@ -555,4 +556,3 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.dll
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.pdb
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.genruntimeconfig.cache
-D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\MRBLACK.csprojAssemblyReference.cache

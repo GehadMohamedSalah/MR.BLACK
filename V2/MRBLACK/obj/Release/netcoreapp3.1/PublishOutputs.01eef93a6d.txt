@@ -37,6 +37,9 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\img\trainers\trainer-1.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\img\trainers\trainer-2.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\img\trainers\trainer-3.jpg
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\js\jquery_1.19.1.validate.min.js
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\js\jquery_3.2.11.validate.unobtrusive.min.js
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\js\jquery_3.4.1.min.js
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\js\main.js
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\vendor\animate.css\animate.compat.css
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\assets\vendor\animate.css\animate.css

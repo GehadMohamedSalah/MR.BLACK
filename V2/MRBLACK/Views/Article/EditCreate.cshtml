@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
     <div class="panel">
         <div class="panel-heading">
@@ -48,7 +44,7 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="WriterName">اسم الكاتب</label>
-                    <input asp-for="WriterName" class="form-control"  />
+                    <input asp-for="WriterName" class="form-control" />
                     <span asp-validation-for="WriterName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -86,11 +82,11 @@
                             </tr>
                         </thead>
                         <tbody id="dvResources">
-                            @if(Model.ArticleResource != null)
+                            @if (Model.ArticleResource != null)
                             {
                                 var rowNum = 1;
                                 var row = "";
-                                foreach(var item in Model.ArticleResource)
+                                foreach (var item in Model.ArticleResource)
                                 {
                                     row = "row_" + rowNum;
                                     <tr id="@row">
@@ -167,6 +163,10 @@
 
 </script>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }
+

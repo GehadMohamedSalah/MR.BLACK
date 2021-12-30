@@ -2,6 +2,7 @@
 using MRBLACK.Models.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,13 +32,17 @@ namespace MRBLACK.Models.ViewModels
         public int Id { get; set; }
         public int SubCategoryId { get; set; }
         public string SubCategoryName { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int TimesOfService { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int DeliveryPeriodInDays { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? PaperNum { get; set; }
         public bool HasMargins { get; set; }
         public bool HasSpelling { get; set; }
         public bool HasReference { get; set; }
         public bool HasIntroAndEnd { get; set; }
+        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public decimal Price { get; set; }
         public int PricingMethod { get; set; }
     }

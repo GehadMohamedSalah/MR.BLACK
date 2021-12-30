@@ -3,18 +3,14 @@
 @{
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
 }
-<!-- ClientSide Validation -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
-@*@if (ViewBag.ActionName == "Create") { 
-<style>
-    #ServiceCategoryRequest_CategoryId{
-        pointer-events:none;
-    }
-</style>
-}*@
+@*@if (ViewBag.ActionName == "Create") {
+    <style>
+        #ServiceCategoryRequest_CategoryId{
+            pointer-events:none;
+        }
+    </style>
+    }*@
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="row">
@@ -65,51 +61,51 @@
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.UniversityId">الجامعة</label>
-                            <select asp-for="ServiceCategoryRequest.UniversityId" 
+                            <select asp-for="ServiceCategoryRequest.UniversityId"
                                     class="form-control" data-live-search="true" asp-items="@Model.UniversityList">
                                 <option value="-1" disabled selected>اختر الجامعة</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.CollegeId">الكلية</label>
-                            <select asp-for="ServiceCategoryRequest.CollegeId" 
-                                    class="form-control" data-live-search="true" asp-items="@Model.CollegeList" >
+                            <select asp-for="ServiceCategoryRequest.CollegeId"
+                                    class="form-control" data-live-search="true" asp-items="@Model.CollegeList">
                                 <option value="-1" disabled selected>اختر الكلية</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.DepartmentId">القسم</label>
-                            <select asp-for="ServiceCategoryRequest.DepartmentId" 
-                                    class="form-control" data-live-search="true" asp-items="@Model.DepartmentList" >
+                            <select asp-for="ServiceCategoryRequest.DepartmentId"
+                                    class="form-control" data-live-search="true" asp-items="@Model.DepartmentList">
                                 <option value="-1" disabled selected>اختر القسم</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.AcademinYearId">السنة الدراسية</label>
-                            <select asp-for="ServiceCategoryRequest.AcademinYearId" class="form-control" 
-                                    data-live-search="true" asp-items="@Model.AcademicYearList" >
+                            <select asp-for="ServiceCategoryRequest.AcademinYearId" class="form-control"
+                                    data-live-search="true" asp-items="@Model.AcademicYearList">
                                 <option value="-1" disabled selected>اختر السنة الدراسية</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.TermId">الترم</label>
-                            <select asp-for="ServiceCategoryRequest.TermId" class="form-control" 
-                                    data-live-search="true" asp-items="@Model.TermList"  >
+                            <select asp-for="ServiceCategoryRequest.TermId" class="form-control"
+                                    data-live-search="true" asp-items="@Model.TermList">
                                 <option value="-1" disabled selected>اختر الترم</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.SubjectId">المادة</label>
-                            <select asp-for="ServiceCategoryRequest.SubjectId" class="form-control" 
-                                    data-live-search="true" asp-items="@Model.SubjectList"  >
+                            <select asp-for="ServiceCategoryRequest.SubjectId" class="form-control"
+                                    data-live-search="true" asp-items="@Model.SubjectList">
                                 <option value="-1" disabled selected>اختر المادة</option>
                             </select>
                         </div>
 
                         <div class="col-sm-6">
                             <label asp-for="ServiceCategoryRequest.CategoryId">التصنيف</label>
-                            <select asp-for="ServiceCategoryRequest.CategoryId" class="form-control" 
-                                    data-live-search="true" asp-items="@Model.MainCategoryList"  onchange="GetSubCategoriesForParentCategory()">
+                            <select asp-for="ServiceCategoryRequest.CategoryId" class="form-control"
+                                    data-live-search="true" asp-items="@Model.MainCategoryList" onchange="GetSubCategoriesForParentCategory()">
                                 <option value="-1" disabled selected>اختر التصنيف</option>
                             </select>
                         </div>
@@ -222,3 +218,6 @@
 
 </script>
 
+<!-- ClientSide Validation -->
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
