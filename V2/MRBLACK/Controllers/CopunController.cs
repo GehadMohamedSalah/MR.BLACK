@@ -188,7 +188,7 @@ namespace MRBLACK.Controllers
 
             if (model.StartDate > model.EndDate)
             {
-                ModelState.AddModelError("", "تاريخ البدء لا يمكن ان يكون قبل تاريخ الانتهاء");
+                ModelState.AddModelError("", "تاريخ البدء لا يمكن ان يكون بعد تاريخ الانتهاء");
                 check++;
             }
 

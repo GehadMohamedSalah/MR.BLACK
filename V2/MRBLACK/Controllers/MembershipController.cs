@@ -29,8 +29,8 @@ namespace MRBLACK.Controllers
             IdentitySetupContext context,
             IRepository<MembershipLink> MembershipLink,
             IWebHostEnvironment webHostEnvironment
-            ,IRepository<Student> student
-            ,IRepository<ServiceProvider> provider)
+            , IRepository<Student> student
+            , IRepository<ServiceProvider> provider)
         {
             _Membership = (Repository<Membership>)Membership;
             _context = context;
@@ -45,7 +45,7 @@ namespace MRBLACK.Controllers
         #region Get Memberships
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            return View(GetPagedListItems("", pageNumber, pageSize).Result);
         }
         #endregion
 
@@ -104,22 +104,19 @@ namespace MRBLACK.Controllers
 
             //get Membership obj with it's links
             Expression<Func<Membership, bool>> filter = f => f.Id == id;
-            var ms = _Membership.GetAll(filter, null, "MembershipLinks");
+            var ms = _Membership.GetFirstOrDefault(c => c.Id == id, "MembershipLink");
 
             //set Membership obj to MembershipVM
             var model = new MembershipVM();
             if (ms != null)
             {
-                model.Id = ms.First().Id;
-                model.EnName = ms.First().EnName;
-                model.ArName = ms.First().ArName;
-                model.ImgPath = ms.First().ImgPath;
-                model.MembershipType = (int)ms.First().MembershipType;
+                model.Id = ms.Id;
+                model.EnName = ms.EnName;
+                model.ArName = ms.ArName;
+                model.ImgPath = ms.ImgPath;
+                model.MembershipType = (int)ms.MembershipType;
                 model.MembershipLinkList = new List<MembershipLink>();
-                if (ms.First().MembershipLink != null)
-                {
-                    model.MembershipLinkList.AddRange(ms.First().MembershipLink);
-                }
+                model.MembershipLinkList.AddRange(ms.MembershipLink);
             }
             return View("EditCreate", model);
         }
@@ -214,11 +211,11 @@ namespace MRBLACK.Controllers
             }
             ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
             var memUsers = new Dictionary<int, int>();
-            foreach(var item in _Membership.GetAll(filter, orderBy))
+            foreach (var item in _Membership.GetAll(filter, orderBy))
             {
                 var usersInMem = _student.GetAll(c => c.MembershipId == item.Id).Count()
                     + _provider.GetAll(c => c.MembershipId == item.Id).Count();
-                memUsers.Add(item.Id,usersInMem);
+                memUsers.Add(item.Id, usersInMem);
             }
             ViewBag.MembershipUsers = memUsers;
             return await PagedList<Membership>.CreateAsync(_Membership.GetAllAsIQueryable(filter, orderBy),

@@ -64,9 +64,9 @@
         var rowId = "row_" + addedRowsNum;
         var delFuncName = "DeleteTableRow('" + rowId + "')";
         var trOpen = "<tr class='newRows' id='" + rowId + "'>",
-            td1 = "<td><input required type='text' name='' class='form-control MembershipLinkList_Title' placeholder='العنوان'/></td>",
-            td2 = "<td><input type='text' name='' class='form-control MembershipLinkList_Description' placeholder='الوصف'/></td>",
-            td3 = "<td><input required type='text' name='' class='form-control MembershipLinkList_Link' placeholder='الرابط'/></td>",
+            td1 = "<td><input required type='text' name='' class='form-control MembershipLinkList_Title' placeholder='العنوان' minLength='3' maxLength='50'/><span class='text-danger'></span></td>",
+            td2 = "<td><input type='text' name='' class='form-control MembershipLinkList_Description' placeholder='الوصف' maxLength='50'/><span class='text-danger'></span></td>",
+            td3 = "<td><input required type='text' name='' class='form-control MembershipLinkList_Link' placeholder='الرابط' minLength='3' maxLength='100'/><span class='text-danger'></span></td>",
             td4 = '<td><button type="button" class="btn btn-danger" onclick="' + delFuncName + '"><i class="fa fa-trash"></i></button></td>',
             trClose = "</tr>";
         var newRow = trOpen + td1 + td2 + td3 + td4 + trClose;

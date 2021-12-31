@@ -46,6 +46,7 @@
                 ||Context.Request.Path.ToString().ToLower().Contains("copun") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-cogs"></i> <span>الاعدادات العامة</span>
+                    <i class="myarrow fa fa-angle-up" style="float:left;"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("country") ? "active" : "")">
@@ -94,6 +95,7 @@
             <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-cogs"></i> <span>اعدادات النظام</span>
+                    <i class="myarrow fa fa-angle-up" style="float:left;"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("systemsetting/index") ? "active" : "")">
@@ -116,6 +118,7 @@
             <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") || Context.Request.Path.ToString().ToLower().Contains("advertisingpackage") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-id-card"></i> <span>ادارة الباقات</span>
+                    <i class="myarrow fa fa-angle-up" style="float:left;"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("membership") ? "active" : "")">
@@ -150,6 +153,7 @@
                 || Context.Request.Path.ToString().ToLower().Contains("articlecategory/") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-pen"></i> <span>المدونة</span>
+                    <i class="myarrow fa fa-angle-up" style="float:left;"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("articlecategory/") ? "active" : "")">
@@ -178,6 +182,7 @@
                 || Context.Request.Path.ToString().ToLower().Contains("bookcategory/") ? "active" : "")">
                 <a href="#">
                     <i class="fa fa-address-book"></i> <span>ادارة الكتب</span>
+                    <i class="myarrow fa fa-angle-up" style="float:left;"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("bookcategory/") ? "active" : "")">

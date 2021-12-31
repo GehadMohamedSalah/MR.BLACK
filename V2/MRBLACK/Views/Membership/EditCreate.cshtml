@@ -69,9 +69,34 @@
         var descs = document.getElementsByClassName("MembershipLinkList_Description");
         var links = document.getElementsByClassName("MembershipLinkList_Link");
         for (var i = 0; i < titles.length; i++) {
+            debugger;
+
+            ValidateTableInput(titles[i]);
+
+            if (descs[i].value.length > 0 && descs[i].value.length < 3) {
+                descs[i].parentElement.childNodes[1].innerHTML = "لا يمكن ادخال اقل من 3 احرف";
+            }
+            else {
+                descs[i].parentElement.childNodes[1].innerHTML = "";
+            }
+
+            ValidateTableInput(links[i]);
+
             titles[i].setAttribute("name", "MembershipLinkList[" + i + "].Title");
             descs[i].setAttribute("name", "MembershipLinkList[" + i + "].Description");
             links[i].setAttribute("name", "MembershipLinkList[" + i + "].Link");
+        }
+    }
+
+    function ValidateTableInput(element) {
+        if (element.value == null || element.value == "") {
+            element.parentElement.childNodes[1].innerHTML = "هذا الحقل مطلوب ادخاله";
+        }
+        else if (element.value.length < 3) {
+            element.parentElement.childNodes[1].innerHTML = "لا يمكن ادخال اقل من 3 احرف";
+        }
+        else {
+            element.parentElement.childNodes[1].innerHTML = "";
         }
     }
 
