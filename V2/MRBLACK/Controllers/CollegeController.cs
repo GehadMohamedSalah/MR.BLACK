@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class CollegeController : Controller
+    public class CollegeController : BaseController
     {
         private readonly Repository<College> _College;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -42,8 +42,8 @@ namespace MRBLACK.Controllers
         #region Get College
         public IActionResult Index(string searchStr = "", int pageNumber = 1, int pageSize = 5)
         {
-            ViewBag.searchStr = searchStr;
-            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("College");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -152,7 +152,15 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr));
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "College",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<College>.CreateAsync(_College.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
                 pageNumber, pageSize);
         }

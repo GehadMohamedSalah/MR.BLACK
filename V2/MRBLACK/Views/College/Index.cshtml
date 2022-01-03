@@ -20,20 +20,24 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-sm-8">
+            <div class="col-sm-6">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/College/Create')">
                     <i class="fa fa-plus"></i><span>  اضافة جديد</span>
                 </button>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <div class="input-group mt-5">
-                    <input class="form-control left-border-none" type="text" id="inpSearch" maxlength="20" placeholder="اكتب للبحث" value="@ViewBag.searchStr">
+                    <a class="input-group-addon transparent" href="/Base/BackToDefault?controllerName=@Context.Request.Path.Value.Split("/")[1]">
+                        <i class="fa fa-recycle" aria-hidden='true'></i> الوضع الافتراضي
+                    </a>
+                    <input class="form-control left-border-none" type="text" id="inpSearch" maxlength="20" placeholder="اكتب للبحث" value="@ViewBag.SearchStr">
                     <span class="input-group-addon transparent" onclick="ReloadPagination(@Model.PageIndex)">
                         <i class='fa fa-search' aria-hidden='true'></i>
                     </span>
                     <span class="input-group-addon transparent" onclick="RemoveTableSearch(@Model.PageIndex)">
                         <i class='fa fa-times' aria-hidden='true'></i>
                     </span>
+
                 </div>
             </div>
             <div class="col-sm-4">
@@ -42,11 +46,50 @@
                         <td><span>عرض </span></td>
                         <td>
                             <select class="form-control" onchange="ReloadPagination(@Model.PageIndex)" id="entires">
-                                <option value="5">5</option>
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
+                                @if (ViewBag.Entires == 5)
+                                {
+                                    <option value="5" selected>5</option>
+                                }
+                                else
+                                {
+                                    <option value="5">5</option>
+                                }
+
+                                @if (ViewBag.Entires == 10)
+                                {
+                                    <option value="10" selected>10</option>
+                                }
+                                else
+                                {
+                                    <option value="10">10</option>
+                                }
+
+                                @if (ViewBag.Entires == 25)
+                                {
+                                    <option value="25" selected>25</option>
+                                }
+                                else
+                                {
+                                    <option value="25">25</option>
+                                }
+
+                                @if (ViewBag.Entires == 50)
+                                {
+                                    <option value="50" selected>50</option>
+                                }
+                                else
+                                {
+                                    <option value="50">50</option>
+                                }
+
+                                @if (ViewBag.Entires == 100)
+                                {
+                                    <option value="100" selected>100</option>
+                                }
+                                else
+                                {
+                                    <option value="100">100</option>
+                                }
                             </select>
                         </td>
                         <td><span> من المدخلات</span></td>

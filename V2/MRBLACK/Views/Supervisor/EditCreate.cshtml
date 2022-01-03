@@ -29,7 +29,7 @@
                 <div class="col-sm-6">
                     <label asp-for="Gender">الجنس</label>
                     <select asp-for="Gender" class="form-control" data-live-search="true">
-                        <option selected disabled value="-1">اختر الجنس</option>
+                        <option selected disabled>اختر الجنس</option>
                         <option value="1" selected="@(Model.Gender == 1? true : false)">ذكر</option>
                         <option value="2" selected="@(Model.Gender == 2? true : false)">انثى</option>
                     </select>
@@ -78,3 +78,14 @@
 @section Scripts {
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }
+
+
+<script>
+
+    document.querySelector("#Phone").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+            evt.preventDefault();
+        }
+    });
+
+</script>

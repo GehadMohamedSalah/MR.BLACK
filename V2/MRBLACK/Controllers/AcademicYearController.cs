@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MRBLACK.Areas.Identity.Data;
 using MRBLACK.Helper;
@@ -10,11 +11,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+
 
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class AcademicYearController : Controller
+    public class AcademicYearController : BaseController
     {
         private readonly Repository<AcademicYear> _AcademicYear;
         private readonly int PageSize;
@@ -29,7 +32,8 @@ namespace MRBLACK.Controllers
         #region Get AcademicYears
         public IActionResult Index(int pageNumber = 1,int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("AcademicYear");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber,model.PageSize).Result);
         }
         #endregion
 
@@ -119,7 +123,15 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+            
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "AcademicYear",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<AcademicYear>.CreateAsync(_AcademicYear.GetAllAsIQueryable(filter, orderBy),
                 pageNumber, pageSize);
         }
@@ -139,5 +151,7 @@ namespace MRBLACK.Controllers
         }
 
         #endregion
+
+        
     }
 }

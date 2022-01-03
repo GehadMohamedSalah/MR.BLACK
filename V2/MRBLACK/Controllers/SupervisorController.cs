@@ -92,9 +92,24 @@ namespace MRBLACK.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
+                List<string> errorlist = new List<string>();
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    var x = error.Code;
+                    var errorMsg = "";
+                    if(error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
+                    {
+                        errorMsg = "هذ البريد مضاف مسبقا";
+                    }
+                    else
+                    {
+                        errorMsg = error.Description;
+                    }
+                    if (!errorlist.Contains(errorMsg))
+                    {
+                        errorlist.Add(errorMsg);
+                        ModelState.AddModelError(string.Empty, errorMsg);
+                    }
                 }
             }
 
