@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class SlideShowController : Controller
+    public class SlideShowController : BaseController
     {
         private readonly Repository<SlideShow> _SlideShow;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -33,7 +33,8 @@ namespace MRBLACK.Controllers
         #region Get SlideShow Images
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("SlideShow");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -133,7 +134,15 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 filter = f => f.CreatedOn.ToString().Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "SlideShow",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<SlideShow>.CreateAsync(_SlideShow.GetAllAsIQueryable(filter, orderBy,"Gallery"),
                 pageNumber, pageSize);
         }

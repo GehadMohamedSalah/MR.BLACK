@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MRBLACK.Controllers
 {
-    public class CopunController : Controller
+    public class CopunController : BaseController
     {
         private readonly Repository<Copun> _Copun;
         private readonly Repository<CurrencyType> _CurrencyType;
@@ -34,7 +34,8 @@ namespace MRBLACK.Controllers
         #region Get Copuns
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Copun");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -133,7 +134,15 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 filter = f => f.NameOrCode.ToLower().Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Copun",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Copun>.CreateAsync(_Copun.GetAllAsIQueryable(filter, orderBy, "Category"),
                 pageNumber, pageSize);
         }

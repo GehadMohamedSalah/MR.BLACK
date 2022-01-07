@@ -18,7 +18,7 @@ using MRBLACK.Models.Enums;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class GalleryController : Controller
+    public class GalleryController : BaseController
     {
         private readonly Repository<Gallery> _Gallery;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -37,7 +37,8 @@ namespace MRBLACK.Controllers
         #region Get Gallery Images
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Gallery");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -84,9 +85,9 @@ namespace MRBLACK.Controllers
                 {
                     model.CreatedOn = DateTime.Now;
                     model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Gallery");
-                    _Gallery.Update(model);
-                    return RedirectToAction(nameof(Index));
                 }
+                _Gallery.Update(model);
+                return RedirectToAction(nameof(Index));
             }
             ViewBag.ActionName = nameof(Edit);
             return View("EditCreate", model);
@@ -137,7 +138,15 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 filter = f => f.CreatedOn.ToString().Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Gallery",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Gallery>.CreateAsync(_Gallery.GetAllAsIQueryable(filter, orderBy, "SlideShow"),
                 pageNumber, pageSize);
         }

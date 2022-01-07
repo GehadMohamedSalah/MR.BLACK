@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class ArticleCategoryController : Controller
+    public class ArticleCategoryController : BaseController
     {
         private readonly Repository<ArticleCategory> _ArticleCategory;
         public ArticleCategoryController(IRepository<ArticleCategory> ArticleCategory)
@@ -30,7 +30,8 @@ namespace MRBLACK.Controllers
         #region Get Article Categories
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("ArticleCategory");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -120,7 +121,15 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr) 
                 || f.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "ArticleCategory",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<ArticleCategory>.CreateAsync(_ArticleCategory.GetAllAsIQueryable(filter, orderBy),
                 pageNumber, pageSize);
         }

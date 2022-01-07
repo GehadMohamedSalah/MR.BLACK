@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize]
-    public class RequestController : Controller
+    public class RequestController : BaseController
     {
         private readonly Repository<ServiceCategoryRequest> _ServiceCategoryRequest;
         private readonly Repository<ServiceRequest> _ServiceRequest;
@@ -80,7 +80,8 @@ namespace MRBLACK.Controllers
             ViewBag.IsStudent = false;
             if (stu != null)
                 ViewBag.IsStudent = true;
-            return View(GetPagedListItems("", pageNumber,pageSize));
+            var model = GetIndexPageDetails("Request");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize));
         }
         #endregion
 
@@ -318,7 +319,15 @@ namespace MRBLACK.Controllers
                 });
             }
             sentItems = sentItems.Where(c => c.Code.ToLower().Contains(searchStr)).ToList();
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Request",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return PagedList<RequestIndexVM>.Create(sentItems,
                 pageNumber, pageSize);
         }

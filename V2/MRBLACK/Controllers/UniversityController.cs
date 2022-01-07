@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class UniversityController : Controller
+    public class UniversityController : BaseController
     {
         private readonly Repository<University> _University;
         private readonly Repository<Country> _Country;
@@ -38,8 +38,10 @@ namespace MRBLACK.Controllers
         #region Get Universities
         public IActionResult Index(string searchStr = "" ,int pageNumber = 1, int pageSize = 5)
         {
-            ViewBag.searchStr = searchStr;
-            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("University");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -115,7 +117,15 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                _University.Delete((int)model.PkFieldIntVal);
+                var item = _University.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الجامعة" });
+                }
+                else
+                {
+                    _University.Delete((int)model.PkFieldIntVal);
+                }
             }
             catch
             {
@@ -142,7 +152,15 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.Country.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "University",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<University>.CreateAsync(_University.GetAllAsIQueryable(filter, orderBy, "Country,UcdsEductionManagement"),
                 pageNumber, pageSize);
         }

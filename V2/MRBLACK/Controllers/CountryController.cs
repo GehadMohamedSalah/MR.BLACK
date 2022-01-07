@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class CountryController : Controller
+    public class CountryController : BaseController
     {
         private readonly Repository<Country> _Country;
         private readonly Repository<CurrencyType> _CurrencyType;
@@ -36,7 +36,8 @@ namespace MRBLACK.Controllers
         #region Get Countries
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Country");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -112,7 +113,15 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                _Country.Delete((int)model.PkFieldIntVal);
+                var item = _Country.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "University");
+                if(item.University != null)
+                {
+                    return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الدولة" });
+                }
+                else
+                {
+                    _Country.Delete((int)model.PkFieldIntVal);
+                }
             }
             catch
             {
@@ -139,7 +148,15 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.CurrencyType.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Country",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Country>.CreateAsync(_Country.GetAllAsIQueryable(filter, orderBy,"CurrencyType,University"),
                 pageNumber, pageSize);
         }

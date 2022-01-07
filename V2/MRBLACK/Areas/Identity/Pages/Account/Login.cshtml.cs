@@ -86,7 +86,8 @@ namespace MRBLACK.Areas.Identity.Pages.Account
                 if(user != null)
                 {
                     var chkPass = await _userManager.CheckPasswordAsync(user, Input.Password);
-                    if (chkPass)
+                    
+                    if (chkPass == true && user.IsDeleted == false)
                     {
                         var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                         if (result.Succeeded)
@@ -108,7 +109,10 @@ namespace MRBLACK.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        ModelState.AddModelError(string.Empty, "Password wrong.");
+                        if(chkPass == false)
+                            ModelState.AddModelError(string.Empty, "Password wrong.");
+                        if(user.IsDeleted == true)
+                            ModelState.AddModelError(string.Empty, "User Is Deleted.");
                     }
                 }
                 else

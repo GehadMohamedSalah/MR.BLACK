@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class ArticleController : Controller
+    public class ArticleController : BaseController
     {
         private readonly Repository<Article> _Article;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -40,7 +40,8 @@ namespace MRBLACK.Controllers
         #region Get Articles
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber, pageSize).Result);
+            var model = GetIndexPageDetails("Article");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -49,7 +50,7 @@ namespace MRBLACK.Controllers
         {
             ViewBag.ActionName = nameof(Create);
             FillDropdownLists();
-            return View("EditCreate", new Article() { ArticleResource = new List<ArticleResource>() }) ;
+            return View("EditCreate", new Article() { ArticleResource = new List<ArticleResource>(),CreatedOn=DateTime.Now,PublishOn =DateTime.Now }) ;
         }
 
         [HttpPost]
@@ -153,7 +154,15 @@ namespace MRBLACK.Controllers
                 || f.ArticleCategory.ArName.ToLower().Contains(searchStr)
                 || f.CreatedOn.ToString().Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Article",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Article>.CreateAsync(_Article.GetAllAsIQueryable(filter, orderBy, "ArticleCategory"),
                 pageNumber, pageSize);
         }
@@ -177,6 +186,14 @@ namespace MRBLACK.Controllers
         private void FillDropdownLists()
         {
             ViewBag.ArticleCategoryList = new SelectList(_category.GetAll(), "Id", "ArName");
+        }
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _Article.GetElement(id);
+            item.ImgPath = null;
+            _Article.Update(item);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Identity;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class MembershipController : Controller
+    public class MembershipController : BaseController
     {
         private readonly Repository<Membership> _Membership;
         private readonly Repository<MembershipLink> _MembershipLink;
@@ -45,7 +45,8 @@ namespace MRBLACK.Controllers
         #region Get Memberships
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber, pageSize).Result);
+            var model = GetIndexPageDetails("Membership");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -209,7 +210,15 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Membership",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             var memUsers = new Dictionary<int, int>();
             foreach (var item in _Membership.GetAll(filter, orderBy))
             {

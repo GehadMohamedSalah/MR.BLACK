@@ -12,13 +12,15 @@
             @if (item.ImgPath != null)
             {
                 <img src="~/Uploads/Images/Articles/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+                <br />
+                <a href="/Article/RemoveImage/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الصورة</a>
             }
         </td>
         <td>@item.ArName</td>
         <td>@item.WriterName</td>
         <td>@item.ArticleCategory.ArName</td>
         <td>@item.ViewsNum</td>
-        <td>@item.CreatedOn.ToString("dd/MM/yyyy")</td>
+        <td>@item.PublishOn.ToString("dd/MM/yyyy")</td>
         <td>@item.Status</td>
         <td>
             <a class="btn btn-info" href="/Article/Edit/@item.Id">

@@ -15,26 +15,30 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using MRBLACK.Models.Enums;
+using System.Security.Claims;
 
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class SupervisorController : Controller
+    public class SupervisorController : BaseController
     {
         private readonly IdentitySetupContext _context;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly Repository<Country> _country;
         private readonly UserManager<IdentitySetupUser> _userManager;
+        private readonly SignInManager<IdentitySetupUser> _signInManager;
         public SupervisorController(
             IdentitySetupContext context,
             IWebHostEnvironment webHostEnvironment
             , IRepository<Country> country
-            ,UserManager<IdentitySetupUser> userManager)
+            ,UserManager<IdentitySetupUser> userManager
+            , SignInManager<IdentitySetupUser> signInManager)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
             _country = (Repository<Country>)country;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         #region CRUD OPERTIONS
@@ -42,7 +46,8 @@ namespace MRBLACK.Controllers
         #region Get Supervisors
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber, pageSize).Result);
+            var model = GetIndexPageDetails("Supervisor");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -59,7 +64,7 @@ namespace MRBLACK.Controllers
                     Text = c.ArName
                 }).ToList(),
             };
-            return View("EditCreate",model);
+            return View(model);
         }
 
         [HttpPost]
@@ -120,7 +125,7 @@ namespace MRBLACK.Controllers
                 Value = c.Id,
                 Text = c.ArName
             }).ToList();
-            return View("EditCreate", model);
+            return View(model);
         }
 
         #endregion
@@ -130,7 +135,7 @@ namespace MRBLACK.Controllers
         {
             ViewBag.ActionName = nameof(Edit);
             var user = _userManager.Users.FirstOrDefault(c => c.Id == id);
-            var model = new SupervisorVM()
+            var model = new SupervisorEditVM()
             {
                 Id=user.Id,
                 Name = user.ArName,
@@ -147,11 +152,11 @@ namespace MRBLACK.Controllers
                 RoleId = _context.UserRoles.FirstOrDefault(c => c.UserId == id).RoleId
             };
 
-            return View("EditCreate", model);
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(SupervisorVM model)
+        public async Task<IActionResult> Edit(SupervisorEditVM model)
         {
             if (ModelState.IsValid)
             {
@@ -167,10 +172,15 @@ namespace MRBLACK.Controllers
                 user.RedirectUrl = "/Home/Index";
 
                 var result = await _userManager.UpdateAsync(user);
-                var result1 = await _userManager.RemovePasswordAsync(user);
-                var result2 = await _userManager.AddPasswordAsync(user, model.Password);
+                var passRemoved = true;
+                var passAdded = true;
+                if(model.Password != null) 
+                {
+                    passRemoved = (await _userManager.RemovePasswordAsync(user)).Succeeded;
+                    passAdded = (await _userManager.AddPasswordAsync(user, model.Password)).Succeeded;
+                }
                
-                if (result.Succeeded && result1.Succeeded && result2.Succeeded)
+                if (result.Succeeded && passRemoved && passAdded)
                 {
                     var roles = _userManager.GetRolesAsync(user).Result;
                     var x = await _userManager.RemoveFromRolesAsync(user, roles);
@@ -186,18 +196,33 @@ namespace MRBLACK.Controllers
                     
                     return RedirectToAction(nameof(Index));
                 }
+                List<string> errorlist = new List<string>();
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    var x = error.Code;
+                    var errorMsg = "";
+                    if (error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
+                    {
+                        errorMsg = "هذ البريد مضاف مسبقا";
+                    }
+                    else
+                    {
+                        errorMsg = error.Description;
+                    }
+                    if (!errorlist.Contains(errorMsg))
+                    {
+                        errorlist.Add(errorMsg);
+                        ModelState.AddModelError(string.Empty, errorMsg);
+                    }
                 }
-                foreach (var error in result1.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-                foreach (var error in result2.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                //foreach (var error in result1.Errors)
+                //{
+                //    ModelState.AddModelError(string.Empty, error.Description);
+                //}
+                //foreach (var error in result2.Errors)
+                //{
+                //    ModelState.AddModelError(string.Empty, error.Description);
+                //}
             }
             ViewBag.ActionName = nameof(Edit);
             model.CountryList = new SelectList(_country.GetAll(), "Id", "ArName");
@@ -206,7 +231,7 @@ namespace MRBLACK.Controllers
                 Value = c.Id,
                 Text = c.ArName
             }).ToList();
-            return View("EditCreate", model);
+            return View(model);
         }
         #endregion
 
@@ -232,6 +257,10 @@ namespace MRBLACK.Controllers
                var user =  _userManager.Users.FirstOrDefault(c => c.Id == model.PkFieldStrVal);
                 user.IsDeleted = true;
                 await _userManager.UpdateAsync(user);
+                if(user.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                {
+                    await _signInManager.SignOutAsync();
+                }
             }
             catch
             {
@@ -257,7 +286,15 @@ namespace MRBLACK.Controllers
                 || c.PhoneNumber.Contains(searchStr));
             }
             ViewBag.CountryList = new SelectList(_country.GetAll(), "Id", "ArName");
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Supervisor",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<IdentitySetupUser>.CreateAsync(users,
                 pageNumber, pageSize);
 

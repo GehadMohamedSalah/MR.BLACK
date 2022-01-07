@@ -38,12 +38,19 @@
         }
     </td>
     <td>
-        <a class="btn btn-info" href="/Supervisor/Edit/@item.Id">
-            <i class="fa fa-edit"></i><span>  تعديل</span>
-        </a>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Supervisor/Delete/@item.Id')">
-            <i class="fa fa-trash"></i><span>  حذف</span>
-        </button>
+        @if (item.UserName.ToLower() == "admin@gmail.com")
+        {
+            <p class="text-danger">لا يمكن حذف او تعديل الادمن</p>
+        }
+        else
+        {
+            <a class="btn btn-info" href="/Supervisor/Edit/@item.Id">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </a>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Supervisor/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        }
     </td>
 </tr>
     i++;

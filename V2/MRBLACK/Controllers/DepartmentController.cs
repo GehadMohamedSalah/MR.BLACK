@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class DepartmentController : Controller
+    public class DepartmentController : BaseController
     {
         private readonly Repository<Department> _Department;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -35,8 +35,10 @@ namespace MRBLACK.Controllers
         #region Get Departments
         public IActionResult Index(string searchStr = "",int pageNumber = 1, int pageSize = 5)
         {
-            ViewBag.searchStr = searchStr;
-            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Department");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -114,7 +116,15 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                _Department.Delete((int)model.PkFieldIntVal);
+                var item = _Department.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
+                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا القسم" });
+                }
+                else
+                {
+                    _Department.Delete((int)model.PkFieldIntVal);
+                }
             }
             catch
             {
@@ -143,7 +153,15 @@ namespace MRBLACK.Controllers
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr));
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Department",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Department>.CreateAsync(_Department.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
                 pageNumber, pageSize);
         }

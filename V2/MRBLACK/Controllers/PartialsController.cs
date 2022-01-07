@@ -16,12 +16,15 @@ namespace MRBLACK.Controllers
     public class PartialsController : Controller
     {
         private readonly Repository<ServiceProvider> _Provider;
+        private readonly Repository<Student> _student;
         private readonly UserManager<IdentitySetupUser> _userManager;
         public PartialsController(IRepository<ServiceProvider> Provider
-            , UserManager<IdentitySetupUser> userManager)
+            , UserManager<IdentitySetupUser> userManager
+            ,IRepository<Student> student)
         {
             _Provider = (Repository<ServiceProvider>)Provider;
             _userManager = userManager;
+            _student = (Repository<Student>)student;
         }
         public ActionResult Header()
         {
@@ -149,8 +152,9 @@ namespace MRBLACK.Controllers
 
             var appUser = await _userManager.GetUserAsync(User);
             Expression<Func<ServiceProvider, bool>> filter1 = f => f.UserId == appUser.Id;
-
-            if (_Provider.GetAll(filter1) != null && _Provider.GetAll(filter1).Count() > 0)
+            var provider = _Provider.GetFirstOrDefault(c => c.UserId == appUser.Id);
+            var student = _student.GetFirstOrDefault(c => c.UserId == appUser.Id);
+            if (provider != null)
             {
                 headerVM.NavItems.Add(new NavItem()
                 {
@@ -163,12 +167,20 @@ namespace MRBLACK.Controllers
                     ItemUrl = "/Request/Index"
                 });
             }
-            else
+            else if(student != null)
             {
                 headerVM.NavItems.Add(new NavItem()
                 {
                     ItemName = "My Requests",
                     ItemUrl = "/Request/Index"
+                });
+            }
+            else
+            {
+                headerVM.NavItems.Add(new NavItem()
+                {
+                    ItemName = "Dashboard",
+                    ItemUrl = "/DefaultHome/Index"
                 });
             }
 

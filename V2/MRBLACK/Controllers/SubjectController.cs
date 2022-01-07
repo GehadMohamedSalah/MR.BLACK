@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class SubjectController : Controller
+    public class SubjectController : BaseController
     {
         private readonly Repository<Subject> _Subject;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -36,8 +36,10 @@ namespace MRBLACK.Controllers
         #region Get Subjects
         public IActionResult Index(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            ViewBag.searchStr = searchStr;
-            return View(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Subject");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -115,7 +117,15 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                _Subject.Delete((int)model.PkFieldIntVal);
+                var item = _Subject.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه المادة" });
+                }
+                else
+                {
+                    _Subject.Delete((int)model.PkFieldIntVal);
+                }
             }
             catch
             {
@@ -145,7 +155,15 @@ namespace MRBLACK.Controllers
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr));
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Subject",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Subject>.CreateAsync(_Subject.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country,ServiceCategoryRequest,Service"),
                 pageNumber, pageSize);
         }

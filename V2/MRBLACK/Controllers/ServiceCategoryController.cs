@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Hosting;
 namespace MRBLACK.Controllers
 {
     [Authorize]
-    public class ServiceCategoryController : Controller
+    public class ServiceCategoryController : BaseController
     {
         private readonly Repository<ServiceCategory> _ServiceCategory;
         private readonly Repository<CurrencyType> _CurrencyType;
@@ -44,7 +44,8 @@ namespace MRBLACK.Controllers
         #region Get ServiceCategorys
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("ServiceCategory");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -170,7 +171,15 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "ServiceCategory",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<ServiceCategory>.CreateAsync(_ServiceCategory.GetAllAsIQueryable(filter, orderBy, "ParentCategory,InverseParentCategory,Service"),
                 pageNumber, pageSize);
         }

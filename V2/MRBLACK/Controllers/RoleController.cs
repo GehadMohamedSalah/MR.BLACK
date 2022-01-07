@@ -14,7 +14,7 @@ using MRBLACK.Models.ViewModels;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class RoleController : Controller
+    public class RoleController : BaseController
     {
         private readonly IdentitySetupContext _context;
         private readonly int PageSize;
@@ -30,7 +30,8 @@ namespace MRBLACK.Controllers
         #region Get Roles
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("Role");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 
@@ -153,7 +154,15 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 model = model.Where(c => c.Name.ToLower().Contains(searchStr) || c.ArName.Contains(searchStr));
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Role",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<IdentitySetupRole>.CreateAsync(model, pageNumber, pageSize);
         }
 

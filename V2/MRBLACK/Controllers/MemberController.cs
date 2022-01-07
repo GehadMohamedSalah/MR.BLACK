@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace MRBLACK.Controllers
 {
     [Authorize(Roles = "ADMIN")]
-    public class MemberController : Controller
+    public class MemberController : BaseController
     {
         private readonly Repository<Student> _student;
         private readonly Repository<ServiceProvider> _provider;
@@ -41,7 +41,8 @@ namespace MRBLACK.Controllers
         #region Get Book Categories
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber, pageSize));
+            var model = GetIndexPageDetails("Member");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize));
         }
         #endregion
 
@@ -93,7 +94,14 @@ namespace MRBLACK.Controllers
                 || c.Balance.ToString().Contains(searchStr)).ToList();
             }
 
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Member",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return PagedList<MemberVM>.Create(members,
                 pageNumber, pageSize);
         }

@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Hosting;
 namespace MRBLACK.Controllers
 {
     [Authorize]
-    public class BookStoreController : Controller
+    public class BookStoreController : BaseController
     {
         private readonly Repository<BookStore> _BookStore;
         private readonly Repository<BookCategory> _BookCategory;
@@ -41,7 +41,8 @@ namespace MRBLACK.Controllers
         #region Get BookStores
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
-            return View(GetPagedListItems("", pageNumber,pageSize).Result);
+            var model = GetIndexPageDetails("BookStore");
+            return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
 

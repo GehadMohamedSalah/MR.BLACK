@@ -43,6 +43,8 @@ namespace MRBLACK.Controllers
         public IActionResult Index(string searchStr = "", int pageNumber = 1, int pageSize = 5)
         {
             var model = GetIndexPageDetails("College");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
             return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
@@ -125,7 +127,16 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                _College.Delete((int)model.PkFieldIntVal);
+                var item = _College.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
+                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الكلية" });
+                }
+                else
+                {
+                    _College.Delete((int)model.PkFieldIntVal);
+                }
+                
             }
             catch
             {

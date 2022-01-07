@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- ClientSide Validation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
     <div class="panel">
         <div class="panel-heading">
@@ -132,20 +138,28 @@
 </form>
 
 <script src="~/Content/assets/tinymce/tinymce.js"></script>
+
+
 <script>
     tinymce.init({
         selector: "textarea"
     });
 
     function AddResource() {
-        var rowsNum = Number($("dvResources tr").length) + 1;
-        var removeFunc = "RemoveRow('row_" + rowsNum + "');";
-        $("#dvResources").append('<tr id="row_' + rowsNum + '"><td><input maxlength="100" class="form-control ArticleResources" name="" /></td><td><button type="button" class="btn btn-danger" onclick="' + removeFunc + '"><i class="fa fa-trash"></i></button></td></tr>');
+        //var rowsNum = Number($("#dvResources tr").length) + 1;
+        //var removeFunc = "RemoveRow('row_" + rowsNum + "');";
+        //$("#dvResources").append('<tr id="row_' + rowsNum + '"><td><input required minLength="3" maxlength="100" class="form-control ArticleResources" name="" /><span class="text-danger"></span></td><td><button type="button" class="btn btn-danger" onclick="' + removeFunc + '"><i class="fa fa-trash"></i></button></td></tr>');
+        $("#dvResources").append('<tr><td><input required minLength="3" maxlength="100" class="form-control ArticleResources" name="" /><span class="text-danger"></span></td><td><button type="button" class="btn btn-danger" onclick="RemoveRow(this)"><i class="fa fa-trash"></i></button></td></tr>');
+
     }
 
 
-    function RemoveRow(rowId) {
-        $("#" + rowId).remove();
+    //function RemoveRow(rowId) {
+    //    $("#" + rowId).remove();
+    //}
+
+    function RemoveRow(element) {
+        element.parentElement.parentElement.remove();
     }
 
     function RemoveResource(itemId, rowId) {
@@ -156,17 +170,28 @@
     function Save() {
         var elements = document.getElementsByClassName("ArticleResources");
         for (var i = 0; i < elements.length; i++) {
+            ValidateTableInput(elements[i]);
             elements[i].setAttribute("name", "ArticleResource[" + i + "].ResLink");
         }
         $("#myForm").submit();
     }
 
+
+    function ValidateTableInput(element) {
+        if (element.value == null || element.value == "") {
+            element.parentElement.childNodes[1].innerHTML = "هذا الحقل مطلوب ادخاله";
+        }
+        else if (element.value.length < 3) {
+            element.parentElement.childNodes[1].innerHTML = "لا يمكن ادخال اقل من 3 احرف";
+        }
+        else {
+            element.parentElement.childNodes[1].innerHTML = "";
+        }
+    }
 </script>
 
-<!-- ClientSide Validation -->
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 @section Scripts {
-    @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
 
