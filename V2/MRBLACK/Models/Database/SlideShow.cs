@@ -15,8 +15,10 @@ namespace MRBLACK.Models.Database
         public int Id { get; set; }
         public string ImgPath { get; set; }
         [StringLength(100, ErrorMessage = "لا يمكن ادخال اكثر من 100 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        
         public string Text { get; set; }
         [StringLength(100, ErrorMessage = "لا يمكن ادخال اكثر من 100 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public string Link { get; set; }
         [ForeignKey(nameof(Gallery))]
         public int? GalleryImgId { get; set; }

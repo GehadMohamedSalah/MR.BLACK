@@ -557,3 +557,4 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcorea
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\SiteNavItems.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Supervisor\Create.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Supervisor\Edit.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TableNavbar.cshtml.g.cs

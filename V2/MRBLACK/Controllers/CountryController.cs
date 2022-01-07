@@ -114,7 +114,7 @@ namespace MRBLACK.Controllers
             try
             {
                 var item = _Country.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "University");
-                if(item.University != null)
+                if(item.University != null && item.University.Count() > 0)
                 {
                     return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الدولة" });
                 }

@@ -136,7 +136,20 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
-                filter = f => f.CreatedOn.ToString().Contains(searchStr);
+                var cateId = 0;
+                if ("التعليم الالكتروني (مستر بلاك بورد)".Contains(searchStr))
+                    cateId = 1;
+                if ("اعداد بحوث ورسائل علمية".Contains(searchStr))
+                    cateId = 2;
+                if ("ملخصات ومراجعات نهائية للمواد الجامعية".Contains(searchStr))
+                    cateId = 3;
+                if ("كتابة ابداعية وتفريغ نصي وكتابة محتوى".Contains(searchStr))
+                    cateId = 4;
+                if ("مشاريع التخرج".Contains(searchStr))
+                    cateId = 5;
+
+                filter = f => f.CreatedOn.ToString().Contains(searchStr)
+                || (cateId != 0 && f.GalleryCategoryId == cateId);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

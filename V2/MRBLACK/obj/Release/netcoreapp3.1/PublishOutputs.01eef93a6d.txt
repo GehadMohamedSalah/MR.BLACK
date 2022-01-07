@@ -1620,6 +1620,7 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Countries\fb96ac98-ed04-4601-b9c7-a84fa4ca0b7e_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Departments\a23ff980-0d03-4834-912e-2831aa6595ec_no-image.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Departments\fec177fb-3a3c-423e-8173-eb7cb1d429d3_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Gallery\1afacfc0-6c83-4626-8b0b-5ecf8e77e9ec_about-01.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Gallery\38787498-cdc3-44ad-b8d1-f075c486fcf1_ArtInstructions.png
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Gallery\5e546dd0-a53e-4f5b-bc8f-7c96ce7ab989_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Gallery\623bc473-f087-496d-afac-d6058af2af39_Screenshot 2021-11-02 011716.png
@@ -1627,6 +1628,7 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Gallery\cf6304ea-749c-469e-86b7-e89b22d80492_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Services\38787498-cdc3-44ad-b8d1-f075c486fcf1_ArtInstructions.png
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\SlideShow\3f3c507c-0030-4bdc-bbb0-eb870d0b3184_slider-2.jpg
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\SlideShow\846b7174-9c10-4a01-963a-f8a11569a4c5_about-01.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\SlideShow\b630bbfb-c037-43ba-84a8-217594a4ade7_Screenshot 2021-11-02 011716.png
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\SlideShow\d4b58200-04c2-4bfe-aa0f-168115030eb6_slider-1.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Subjects\60057990-40db-488e-9bb5-5bc67350b429_no-image.jpg
