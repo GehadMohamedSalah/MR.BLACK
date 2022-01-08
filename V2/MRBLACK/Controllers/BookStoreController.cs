@@ -184,7 +184,16 @@ namespace MRBLACK.Controllers
                 || f.Price.ToString().Contains(searchStr)
                 || f.ArAuthoreName.Contains(searchStr);
             }
-            ViewBag.PageStartRowNum = ((pageNumber - 1) * pageSize) + 1;
+
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "BookStore",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<BookStore>.CreateAsync(_BookStore.GetAllAsIQueryable(filter, orderBy, "BookCategory"),
                 pageNumber, pageSize);
         }

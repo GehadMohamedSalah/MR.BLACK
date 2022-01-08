@@ -108,6 +108,15 @@ namespace MRBLACK.Controllers
                     ModelState.AddModelError("", "لا يمكن اضافة هذه الخدمة لانه يوجد خدمة بنفس المواصفات");
                 }
             }
+
+            //foreach(var item in ModelState.Values)
+            //{
+            //    foreach(var error in item.Errors)
+            //    {
+            //        ModelState.AddModelError("", error.ErrorMessage);
+            //    }
+            //}
+
             ViewBag.ActionName = nameof(Create);
             FillDropdownLists(model.CategoryId);
             return View("EditCreate", model);

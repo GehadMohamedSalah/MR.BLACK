@@ -211,13 +211,7 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr);
             }
 
-            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
-            {
-                ControllerName = "Membership",
-                SearchStr = searchStr,
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            });
+           
 
             var memUsers = new Dictionary<int, int>();
             foreach (var item in _Membership.GetAll(filter, orderBy))
@@ -227,19 +221,28 @@ namespace MRBLACK.Controllers
                 memUsers.Add(item.Id, usersInMem);
             }
             ViewBag.MembershipUsers = memUsers;
+
+            CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
+            {
+                ControllerName = "Membership",
+                SearchStr = searchStr,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
+
             return await PagedList<Membership>.CreateAsync(_Membership.GetAllAsIQueryable(filter, orderBy),
                 pageNumber, pageSize);
         }
 
-        public IActionResult GetItems(string searchStr, int pageNumber = 1)
+        public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
         }
 
 
-        public IActionResult GetPagination(string searchStr, int pageNumber = 1)
+        public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<Membership>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber).Result);
+            var model = PagedList<Membership>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
             model.GetItemsUrl = "/Membership/GetItems";
             model.GetPaginationUrl = "/Membership/GetPagination";
             return PartialView("_Pagination", model);

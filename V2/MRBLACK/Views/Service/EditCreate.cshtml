@@ -56,14 +56,16 @@
                 <div class="col-sm-6">
                     <label asp-for="ProviderId">مقدم الخدمة</label>
                     <select asp-for="ProviderId" class="form-control" data-live-search="true" asp-items="@ViewBag.ProviderList">
-                        <option value="-1" selected disabled>اختر مقدم الخدمة</option>
+                        <option selected disabled>اختر مقدم الخدمة</option>
                     </select>
+                    <span asp-validation-for="ProviderId" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="CategoryId">التصنيف</label>
                     <select asp-for="CategoryId" class="form-control" data-live-search="true" onchange="ChangeCategory(this);" asp-items="@ViewBag.CategoryList">
-                        <option value="-1" disabled selected>اختر التصنيف</option>
+                        <option disabled selected>اختر التصنيف</option>
                     </select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label for="img">الصورة الرئيسية للخدمة</label>
@@ -74,71 +76,79 @@
                     <input type="file" class="form-control" id="anotherImg" name="anotherImg" />
                 </div>
                 @* Start Lists Of ( Country - Universit - College - Departments - Years - Terms - Subjects ) *@
-                <div class="col-sm-6">
-                    <label for="CountryId">الدولة</label>
-                    <select id="CountryId" class="form-control" data-live-search="true" onchange="ChangeCountry(this);">
-                        <option value="-1" disabled selected>اختر الدولة</option>
-                        @foreach (var item in ViewBag.CountryList)
+            <div class="col-sm-6">
+                <label for="CountryId">الدولة</label>
+                <select id="CountryId" class="form-control" data-live-search="true" onchange="ChangeCountry(this);">
+                    <option disabled selected>اختر الدولة</option>
+                    @foreach (var item in ViewBag.CountryList)
+                    {
+                        if (Model.University != null)
                         {
-                            if (Model.University != null)
+                            if (item.Value == Model.University.CountryId.ToString())
                             {
-                                if (item.Value == Model.University.CountryId.ToString())
-                                {
-                                    <option value="@item.Value" selected>@item.Text</option>
-                                }
-                                else
-                                {
-                                    <option value="@item.Value">@item.Text</option>
-                                }
+                                <option value="@item.Value" selected>@item.Text</option>
                             }
                             else
                             {
                                 <option value="@item.Value">@item.Text</option>
                             }
                         }
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="UniversityId">الجامعة</label>
-                    <select asp-for="UniversityId" class="form-control" data-live-search="true" asp-items="@ViewBag.UniversityList">
-                        <option value="-1" disabled selected>اختر الجامعة</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="CollegeId">الكلية</label>
-                    <select asp-for="CollegeId" class="form-control" data-live-search="true" asp-items="@ViewBag.CollegeList">
-                        <option value="-1" disabled selected>اختر الكلية</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="DepartmentId">القسم</label>
-                    <select asp-for="DepartmentId" class="form-control" data-live-search="true" asp-items="@ViewBag.DepartmentList">
-                        <option value="-1" disabled selected>اختر القسم</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="AcademinYearId">السنة الدراسية</label>
-                    <select asp-for="AcademinYearId" class="form-control" data-live-search="true" asp-items="@ViewBag.AcademicYearList">
-                        <option value="-1" disabled selected>اختر السنة الدراسية</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="TermId">الترم</label>
-                    <select asp-for="TermId" class="form-control" data-live-search="true" asp-items="@ViewBag.TermList">
-                        <option value="-1" disabled selected>اختر الترم</option>
-                    </select>
-                </div>
-                <div class="col-sm-6">
-                    <label asp-for="SubjectId">المادة</label>
-                    <select asp-for="SubjectId" class="form-control" data-live-search="true" asp-items="@ViewBag.SubjectList">
-                        <option value="-1" disabled selected>اختر المادة</option>
-                    </select>
-                </div>
+                        else
+                        {
+                            <option value="@item.Value">@item.Text</option>
+                        }
+                    }
+                </select>
+                <span for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="UniversityId">الجامعة</label>
+                <select asp-for="UniversityId" class="form-control" data-live-search="true" asp-items="@ViewBag.UniversityList">
+                    <option disabled selected>اختر الجامعة</option>
+                </select>
+                <span asp-validation-for="UniversityId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="CollegeId">الكلية</label>
+                <select asp-for="CollegeId" class="form-control" data-live-search="true" asp-items="@ViewBag.CollegeList">
+                    <option disabled selected>اختر الكلية</option>
+                </select>
+                <span asp-validation-for="CollegeId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="DepartmentId">القسم</label>
+                <select asp-for="DepartmentId" class="form-control" data-live-search="true" asp-items="@ViewBag.DepartmentList">
+                    <option disabled selected>اختر القسم</option>
+                </select>
+                <span asp-validation-for="DepartmentId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="AcademinYearId">السنة الدراسية</label>
+                <select asp-for="AcademinYearId" class="form-control" data-live-search="true" asp-items="@ViewBag.AcademicYearList">
+                    <option disabled selected>اختر السنة الدراسية</option>
+                </select>
+                <span asp-validation-for="AcademinYearId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="TermId">الترم</label>
+                <select asp-for="TermId" class="form-control" data-live-search="true" asp-items="@ViewBag.TermList">
+                    <option disabled selected>اختر الترم</option>
+                </select>
+                <span asp-validation-for="TermId" class="text-danger"></span>
+            </div>
+            <div class="col-sm-6">
+                <label asp-for="SubjectId">المادة</label>
+                <select asp-for="SubjectId" class="form-control" data-live-search="true" asp-items="@ViewBag.SubjectList">
+                    <option disabled selected>اختر المادة</option>
+                </select>
+                <span asp-validation-for="SubjectId" class="text-danger"></span>
+            </div>
                 @* End Lists Of ( Country - Universit - College - Departments - Years - Terms - Subjects ) *@
-                <div class="col-sm-6">
-                    <label asp-for="TotalPrice">السعر</label>
-                    <input asp-for="TotalPrice" class="form-control" />
-                </div>
+            <div class="col-sm-6">
+                <label asp-for="TotalPrice">السعر</label>
+                <input asp-for="TotalPrice" class="form-control" />
+                <span asp-validation-for="TotalPrice" class="text-danger"></span>
+            </div>
                 <div class="col-sm-6">
                     <label for="PlatformCommission">نسبة المنصة من السعر (%)</label>
                     <input id="PlatformCommission" value="@ViewBag.PlatformCommission" class="form-control" disabled />
@@ -150,11 +160,12 @@
                 <div class="col-sm-6">
                     <label asp-for="Discount">اضافة خصم</label>
                     <input asp-for="Discount" class="form-control" />
+                    <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6">
                         <label asp-for="CurrencyTypeId">نوع العملة</label>
                         <select asp-for="CurrencyTypeId" asp-items="@ViewBag.CurrencyTypeList" class="form-control">
-                            <option value="-1" selected disabled>اختر نوع العملة</option>
+                            <option  selected disabled>اختر نوع العملة</option>
                         </select>
                     </div>*@
 
@@ -168,10 +179,12 @@
                 <div class="col-sm-6">
                     <label asp-for="MinNumOfPages">من</label>
                     <input asp-for="MinNumOfPages" class="form-control" min="1" />
+                    <span asp-validation-for="MinNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="MaxNumOfPages">الى</label>
                     <input asp-for="MaxNumOfPages" class="form-control" min="1" />
+                    <span asp-validation-for="MaxNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 mt-20">
                     <div class="col-sm-6">
@@ -182,6 +195,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة" />
+                                <span asp-validation-for="MarginsPrice" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -193,6 +207,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input asp-for="ReferencesPrice" class="form-control" placeholder="التكلفة" />
+                                <span asp-validation-for="ReferencesPrice" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -204,6 +219,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input asp-for="SpellingPrice" class="form-control" placeholder="التكلفة" />
+                                <span asp-validation-for="SpellingPrice" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -215,6 +231,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input asp-for="IntroAndEndPrice" class="form-control" placeholder="التكلفة" />
+                                <span asp-validation-for="IntroAndEndPrice" class="text-danger"></span>
                             </div>
                         </div>
                     </div>

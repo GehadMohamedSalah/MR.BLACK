@@ -40,8 +40,9 @@ namespace MRBLACK.Models.Database
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @")]
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string MarketingMail { get; set; }
-        [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
-        public string MinWithdrawalRequest { get; set; }
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
+        [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        public decimal? MinWithdrawalRequest { get; set; }
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string MaxWorkBalance { get; set; }
         [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
@@ -59,38 +60,47 @@ namespace MRBLACK.Models.Database
         [StringLength(200, ErrorMessage = "لا يمكن ادخال اكثر من 200 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
         public string TextOfContact { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal ImprovementFeesForStudent { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal ImprovementFeesForServiceProvider { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal SellingFeesForStudent { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal SellingFeesForServiceProvider { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal CurrentBalaces { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal TransferedBalances { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal TotalRevenue { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal ServiceMarginsPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal ServiceReferencePercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal ServiceSpellingPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
+        [StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
         public decimal ServiceIntroAndEndPercentage { get; set; }
     }

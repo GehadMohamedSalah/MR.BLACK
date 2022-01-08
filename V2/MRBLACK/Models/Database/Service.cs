@@ -42,13 +42,13 @@ namespace MRBLACK.Models.Database
         public int? MinNumOfPages { get; set; }
         [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public int? MaxNumOfPages { get; set; }
-        [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
         public bool HasMargins { get; set; }
         public bool HasReference { get; set; }
         public bool HasSpelling { get; set; }
         public bool HasIntroAndEnd { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         [Range(1, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 1")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal TotalPrice { get; set; }
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Discount { get; set; }
