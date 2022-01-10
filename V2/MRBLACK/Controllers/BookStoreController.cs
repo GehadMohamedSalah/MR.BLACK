@@ -256,5 +256,31 @@ namespace MRBLACK.Controllers
 
         }
 
+
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _BookStore.GetElement(id);
+            item.BookCoverImgPath = null;
+            _BookStore.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult RemoveVoice(int id)
+        {
+            var item = _BookStore.GetElement(id);
+            item.BookVoicePath = null;
+            _BookStore.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult RemovePdf(int id)
+        {
+            var item = _BookStore.GetElement(id);
+            item.BookPdfPath = null;
+            _BookStore.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

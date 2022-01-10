@@ -319,12 +319,213 @@ namespace MRBLACK.Controllers
         #endregion
 
         #region Ajax Requests
-        public IActionResult GetCountryUniversities(int CountryId)
+        public IActionResult FilterUponCountry(int CountryId)
         {
-            Expression<Func<University, bool>> filter = f => f.CountryId == CountryId;
-            var x = new SelectList(_University.GetAll(filter), "Id", "ArName");
-            return Json(x);
+            var universities = _University.GetAll(c => c.CountryId == CountryId, null, "UcdsEductionManagement");
+
+            var colleges = new List<College>();
+            foreach(var item in universities)
+            {
+                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach(var item1 in item.UcdsEductionManagement)
+                    {
+                        if(item1.CollegeId != null && item1.CollegeId != 0)
+                        {
+                            if(colleges.Where(c => c.Id == item1.CollegeId).Count() == 0)
+                            {
+                                colleges.Add(_College.GetFirstOrDefault(c => c.Id == (int)item1.CollegeId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            var departments = new List<Department>();
+
+            foreach (var item in colleges)
+            {
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach (var item1 in item.UcdsEductionManagement)
+                    {
+                        if (item1.DepartmentId != null && item1.DepartmentId != 0)
+                        {
+                            if (departments.Where(c => c.Id == item1.DepartmentId).Count() == 0)
+                            {
+                                departments.Add(_Department.GetFirstOrDefault(c => c.Id == (int)item1.DepartmentId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            var subjects = new List<Subject>();
+
+            foreach (var item in departments)
+            {
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach (var item1 in item.UcdsEductionManagement)
+                    {
+                        if (item1.SubjectId != null && item1.SubjectId != 0)
+                        {
+                            if (subjects.Where(c => c.Id == item1.SubjectId).Count() == 0)
+                            {
+                                subjects.Add(_Subject.GetFirstOrDefault(c => c.Id == (int)item1.SubjectId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<SelectList> model = new List<SelectList>();
+            model.Add(new SelectList(universities, "Id", "ArName"));
+            model.Add(new SelectList(colleges, "Id", "ArName"));
+            model.Add(new SelectList(departments, "Id", "ArName"));
+            model.Add(new SelectList(subjects, "Id", "ArName"));
+
+            return Json(model);
         }
+
+        public IActionResult FilterUponUniversity(int UniversityId)
+        {
+            var university = _University.GetFirstOrDefault(c => c.Id == UniversityId, "UcdsEductionManagement");
+
+            var colleges = new List<College>();
+            if (university.UcdsEductionManagement != null && university.UcdsEductionManagement.Count() > 0)
+            {
+                foreach (var item in university.UcdsEductionManagement)
+                {
+                    if (item.CollegeId != null && item.CollegeId != 0)
+                    {
+                        if (colleges.Where(c => c.Id == item.CollegeId).Count() == 0)
+                        {
+                            colleges.Add(_College.GetFirstOrDefault(c => c.Id == (int)item.CollegeId, "UcdsEductionManagement"));
+                        }
+                    }
+                }
+            }
+
+            var departments = new List<Department>();
+
+            foreach (var item in colleges)
+            {
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach (var item1 in item.UcdsEductionManagement)
+                    {
+                        if (item1.DepartmentId != null && item1.DepartmentId != 0)
+                        {
+                            if (departments.Where(c => c.Id == item1.DepartmentId).Count() == 0)
+                            {
+                                departments.Add(_Department.GetFirstOrDefault(c => c.Id == (int)item1.DepartmentId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            var subjects = new List<Subject>();
+
+            foreach (var item in departments)
+            {
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach (var item1 in item.UcdsEductionManagement)
+                    {
+                        if (item1.SubjectId != null && item1.SubjectId != 0)
+                        {
+                            if (subjects.Where(c => c.Id == item1.SubjectId).Count() == 0)
+                            {
+                                subjects.Add(_Subject.GetFirstOrDefault(c => c.Id == (int)item1.SubjectId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<SelectList> model = new List<SelectList>();
+            model.Add(new SelectList(colleges, "Id", "ArName"));
+            model.Add(new SelectList(departments, "Id", "ArName"));
+            model.Add(new SelectList(subjects, "Id", "ArName"));
+
+            return Json(model);
+        }
+
+        public IActionResult FilterUponCollege(int CollegeId)
+        {
+            var college = _College.GetFirstOrDefault(c => c.Id == CollegeId, "UcdsEductionManagement");
+
+            var departments = new List<Department>();
+
+            if (college.UcdsEductionManagement != null && college.UcdsEductionManagement.Count() > 0)
+            {
+                foreach (var item in college.UcdsEductionManagement)
+                {
+                    if (item.DepartmentId != null && item.DepartmentId != 0)
+                    {
+                        if (departments.Where(c => c.Id == item.DepartmentId).Count() == 0)
+                        {
+                            departments.Add(_Department.GetFirstOrDefault(c => c.Id == (int)item.DepartmentId, "UcdsEductionManagement"));
+                        }
+                    }
+                }
+            }
+
+            var subjects = new List<Subject>();
+
+            foreach (var item in departments)
+            {
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                {
+                    foreach (var item1 in item.UcdsEductionManagement)
+                    {
+                        if (item1.SubjectId != null && item1.SubjectId != 0)
+                        {
+                            if (subjects.Where(c => c.Id == item1.SubjectId).Count() == 0)
+                            {
+                                subjects.Add(_Subject.GetFirstOrDefault(c => c.Id == (int)item1.SubjectId, "UcdsEductionManagement"));
+                            }
+                        }
+                    }
+                }
+            }
+
+            List<SelectList> model = new List<SelectList>();
+            model.Add(new SelectList(departments, "Id", "ArName"));
+            model.Add(new SelectList(subjects, "Id", "ArName"));
+
+            return Json(model);
+        }
+
+
+        public IActionResult FilterUponDepartment(int DepartmentId)
+        {
+            var department = _Department.GetFirstOrDefault(c => c.Id == DepartmentId, "UcdsEductionManagement");
+
+            var subjects = new List<Subject>();
+
+            if (department.UcdsEductionManagement != null && department.UcdsEductionManagement.Count() > 0)
+            {
+                foreach (var item in department.UcdsEductionManagement)
+                {
+                    if (item.SubjectId != null && item.SubjectId != 0)
+                    {
+                        if (subjects.Where(c => c.Id == item.SubjectId).Count() == 0)
+                        {
+                            subjects.Add(_Subject.GetFirstOrDefault(c => c.Id == (int)item.SubjectId, "UcdsEductionManagement"));
+                        }
+                    }
+                }
+            }
+
+            List<SelectList> model = new List<SelectList>();
+            model.Add(new SelectList(subjects, "Id", "ArName"));
+
+            return Json(model);
+        }
+
 
         public IActionResult GetServiceCategoryDetails(int CategoryId)
         {

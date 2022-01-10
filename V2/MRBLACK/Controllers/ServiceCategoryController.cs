@@ -101,6 +101,7 @@ namespace MRBLACK.Controllers
                 {
                     model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Categories");
                 }
+                model.IsAccepted = true;
                 _ServiceCategory.Update(model);
                 //var childern = new List<ServiceCategory>();
                 //GeneralHelper.GetSpecificChildernCategories(_ServiceCategory, model.Id, childern);
@@ -219,5 +220,13 @@ namespace MRBLACK.Controllers
             return Json(result);
         }
         #endregion
+
+        public IActionResult RemoveImage(int id)
+        {
+            var item = _ServiceCategory.GetElement(id);
+            item.ImgPath = null;
+            _ServiceCategory.Update(item);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

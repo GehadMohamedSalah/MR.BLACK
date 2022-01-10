@@ -16,18 +16,24 @@
         @if (item.BookCoverImgPath != null)
         {
             <a href="~/Uploads/Books/@item.EnName/@item.BookCoverImgPath" target="_blank"><img src="~/Uploads/Books/@item.EnName/@item.BookCoverImgPath" width="50" height="50" style="border-radius:100%;" /></a>
+            <br />
+            <a href="/BookStore/RemoveImage/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الصورة</a>
         }
     </td>
     <td>
         @if (item.BookPdfPath != null)
         {
-            <a href="~/Uploads/Books/@item.EnName/@item.BookPdfPath" target="_blank">عرض الكتاب</a>
+            <a href="~/Uploads/Books/@item.EnName/@item.BookPdfPath" target="_blank"> ملف ال pdf</a>
+            <br />
+            <a href="/BookStore/RemovePdf/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف pdf</a>
         }
     </td>
     <td>
         @if (item.BookVoicePath != null)
         {
             <a href="~/Uploads/Books/@item.EnName/@item.BookVoicePath" target="_blank">الملف الصوتي</a>
+            <br />
+            <a href="/BookStore/RemoveVoice/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الملف الصوتي</a>
         }
     </td>
     <td>

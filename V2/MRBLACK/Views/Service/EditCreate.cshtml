@@ -103,21 +103,21 @@
             </div>
             <div class="col-sm-6">
                 <label asp-for="UniversityId">الجامعة</label>
-                <select asp-for="UniversityId" class="form-control" data-live-search="true" asp-items="@ViewBag.UniversityList">
+                <select asp-for="UniversityId" class="form-control" data-live-search="true" asp-items="@ViewBag.UniversityList" onchange="ChangeUniversity(this)">
                     <option disabled selected>اختر الجامعة</option>
                 </select>
                 <span asp-validation-for="UniversityId" class="text-danger"></span>
             </div>
             <div class="col-sm-6">
                 <label asp-for="CollegeId">الكلية</label>
-                <select asp-for="CollegeId" class="form-control" data-live-search="true" asp-items="@ViewBag.CollegeList">
+                <select asp-for="CollegeId" class="form-control" data-live-search="true" asp-items="@ViewBag.CollegeList" onchange="ChangeCollege(this)">
                     <option disabled selected>اختر الكلية</option>
                 </select>
                 <span asp-validation-for="CollegeId" class="text-danger"></span>
             </div>
             <div class="col-sm-6">
                 <label asp-for="DepartmentId">القسم</label>
-                <select asp-for="DepartmentId" class="form-control" data-live-search="true" asp-items="@ViewBag.DepartmentList">
+                <select asp-for="DepartmentId" class="form-control" data-live-search="true" asp-items="@ViewBag.DepartmentList" onchange="ChangeDepartment(this)">
                     <option disabled selected>اختر القسم</option>
                 </select>
                 <span asp-validation-for="DepartmentId" class="text-danger"></span>
@@ -146,20 +146,20 @@
                 @* End Lists Of ( Country - Universit - College - Departments - Years - Terms - Subjects ) *@
             <div class="col-sm-6">
                 <label asp-for="TotalPrice">السعر</label>
-                <input asp-for="TotalPrice" class="form-control" />
+                <input asp-for="TotalPrice" class="form-control" maxlength="7"/>
                 <span asp-validation-for="TotalPrice" class="text-danger"></span>
             </div>
                 <div class="col-sm-6">
                     <label for="PlatformCommission">نسبة المنصة من السعر (%)</label>
-                    <input id="PlatformCommission" value="@ViewBag.PlatformCommission" class="form-control" disabled />
+                    <input id="PlatformCommission" maxlength="7" value="@ViewBag.PlatformCommission" class="form-control" disabled />
                 </div>
                 <div class="col-sm-6">
                     <label for="PlatformCommissionVal">مبلغ المنصة من السعر</label>
-                    <input id="PlatformCommissionVal" value="@ViewBag.PlatformCommissionVal" class="form-control" disabled />
+                    <input id="PlatformCommissionVal" maxlength="7" value="@ViewBag.PlatformCommissionVal" class="form-control" disabled />
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="Discount">اضافة خصم</label>
-                    <input asp-for="Discount" class="form-control" />
+                    <input asp-for="Discount" maxlength="7" class="form-control" />
                     <span asp-validation-for="Discount" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6">
@@ -178,12 +178,12 @@
 
                 <div class="col-sm-6">
                     <label asp-for="MinNumOfPages">من</label>
-                    <input asp-for="MinNumOfPages" class="form-control" min="1" />
+                    <input asp-for="MinNumOfPages" class="form-control" min="1" maxlength="7"/>
                     <span asp-validation-for="MinNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="MaxNumOfPages">الى</label>
-                    <input asp-for="MaxNumOfPages" class="form-control" min="1" />
+                    <input asp-for="MaxNumOfPages" class="form-control" min="1" maxlength="7"/>
                     <span asp-validation-for="MaxNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 mt-20">
@@ -195,7 +195,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة" />
-                                <span asp-validation-for="MarginsPrice" class="text-danger"></span>
+                                <span asp-validation-for="MarginsPrice" maxlength="7" class="text-danger"></span>
                             </div>
                         </div>
                     </div>
@@ -206,7 +206,7 @@
                                 <label asp-for="HasReference">يحتوي على مراجع</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="ReferencesPrice" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="ReferencesPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="ReferencesPrice" class="text-danger"></span>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                                 <label asp-for="HasSpelling">تدقيق املائي</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="SpellingPrice" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="SpellingPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="SpellingPrice" class="text-danger"></span>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                 <label asp-for="HasIntroAndEnd">يحتوي على مقدمة و خاتمة</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="IntroAndEndPrice" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="IntroAndEndPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="IntroAndEndPrice" class="text-danger"></span>
                             </div>
                         </div>
@@ -268,18 +268,63 @@
         var countryId = $(element).val();
         $.ajax({
             type: "get",
-            url: "/Service/GetCountryUniversities",
+            url: "/Service/FilterUponCountry",
             data: { CountryId: countryId },
             success: function (result) {
-                debugger;
-                $("#UniversityId").empty();
-                $("#UniversityId").append("<option value='-1' selected disabled>اختر الجامعة</option>");
-
-                for (var i = 0; i < result.length; i++) {
-                    $("#UniversityId").append('<option value="' + result[i].value + '">' + result[i].text + '</option>');
-                }
+                FillList("UniversityId", result[0], "الجامعة");
+                FillList("CollegeId", result[1], "الكلية");
+                FillList("DepartmentId", result[2], "القسم");
+                FillList("SubjectId", result[3], "المادة");
             }
         });
+    }
+
+    function ChangeUniversity(element) {
+        var universityId = $(element).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/FilterUponUniversity",
+            data: { UniversityId: universityId },
+            success: function (result) {
+                FillList("CollegeId", result[0], "الكلية");
+                FillList("DepartmentId", result[1], "القسم");
+                FillList("SubjectId", result[2], "المادة");
+            }
+        });
+    }
+
+    function ChangeCollege(element) {
+        var collegeId = $(element).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/FilterUponCollege",
+            data: { CollegeId: collegeId },
+            success: function (result) {
+                FillList("DepartmentId", result[0], "القسم");
+                FillList("SubjectId", result[1], "المادة");
+            }
+        });
+    }
+
+    function ChangeDepartment(element) {
+        var departmentId = $(element).val();
+        $.ajax({
+            type: "get",
+            url: "/Service/FilterUponDepartment",
+            data: { DepartmentId: departmentId },
+            success: function (result) {
+                FillList("SubjectId", result[0], "المادة");
+            }
+        });
+    }
+
+
+    function FillList(id,source,selected) {
+        $("#" + id).empty();
+        $("#" + id).append("<option selected disabled>اختر " + selected + "</option>");
+        for (var i = 0; i < source.length; i++) {
+            $("#" + id).append('<option value="' + source[i].value + '">' + source[i].text + '</option>');
+        }
     }
 
     var categoryServiceCurrencyType = 0;

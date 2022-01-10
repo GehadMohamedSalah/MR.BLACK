@@ -58,10 +58,11 @@
                 <div class="col-sm-6">
                     <label asp-for="FormType">نوع الفورمة للخدمات المضافة تحت  هذا التصنيف</label>
                     <select class="form-control" data-live-search="true" asp-for="FormType">
-                        <option disabled selected value="-1">اختر الفورمة</option>
+                        <option disabled selected>اختر الفورمة</option>
                         <option value="1">حل واجب</option>
                         <option value="2">بحث</option>
                     </select>
+                    <span asp-validation-for="FormType" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="PricingMethod">نوع التسعير</label>
@@ -74,17 +75,17 @@
                 </div>
                 <div class="col-sm-6" id="dvServicePrice" style="display:@display1">
                     <label asp-for="ServicePrice">سعر الخدمة</label>
-                    <input asp-for="ServicePrice" class="form-control inpNumber" placeholder="سعر الخدمة" type="number"/>
+                    <input asp-for="ServicePrice" class="form-control inpNumber" placeholder="سعر الخدمة" maxlength="7"/>
                     <span asp-validation-for="ServicePrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvPlatformRevenueFromServPrice" style="display:@display1">
                     <label asp-for="PlatformRevenueFromServPrice">مبلغ المنصة من سعر الخدمة</label>
-                    <input asp-for="PlatformRevenueFromServPrice" class="form-control inpNumber" placeholder="مبلغ المنصة من سعر الخدمة"  type="number"/>
+                    <input asp-for="PlatformRevenueFromServPrice" class="form-control" placeholder="مبلغ المنصة من سعر الخدمة" maxlength="7"/>
                     <span asp-validation-for="PlatformRevenueFromServPrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvCommissionPercentage" style="display:@display2">
-                    <label asp-for="CommissionPercentage">عمولة المنصة من سعر الخدمة</label>
-                    <input asp-for="CommissionPercentage" class="form-control inpNumber" placeholder="عمولة المنصة"  type="number"/>
+                    <label asp-for="CommissionPercentage">عمولة المنصة من سعر الخدمة %</label>
+                    <input asp-for="CommissionPercentage" class="form-control inpNumber" placeholder="عمولة المنصة" maxlength="7"/>
                     <span asp-validation-for="CommissionPercentage" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
@@ -120,14 +121,15 @@
         if (elementval == 1) {
             document.getElementById("dvServicePrice").style.display = "";
             document.getElementById("dvPlatformRevenueFromServPrice").style.display = "";
-            //document.getElementById("dvCurrencyTypeId").style.display = "";
             document.getElementById("dvCommissionPercentage").style.display = "none";
+            $("#CommissionPercentage").val(0);
         }
         else {
             document.getElementById("dvServicePrice").style.display = "none";
             document.getElementById("dvPlatformRevenueFromServPrice").style.display = "none";
-            //document.getElementById("dvCurrencyTypeId").style.display = "none";
             document.getElementById("dvCommissionPercentage").style.display = "";
+            $("#ServicePrice").val(0);
+            $("#PlatformRevenueFromServPrice").val(0);
         }
     }
 

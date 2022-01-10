@@ -33,18 +33,25 @@ namespace MRBLACK.Models.Database
         public int? PricingMethod { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        //[StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal ServicePrice { get; set; }
         public int? CurrencyTypeId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        //[StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal PlatformRevenueFromServPrice { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         [Range(0, Double.MaxValue, ErrorMessage = "يجب ادخال قيمة اكبر من او تساوي ال 0")]
+        //[StringLength(7, ErrorMessage = "لا يمكن ادخال اكثر من 7 ارقام")]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public decimal CommissionPercentage { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal RevenueFromThisCatgoryToPlatform { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal RevenueFromThisCatgoryToProvider { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? FormType { get; set; }
         [StringLength(450)]
         public string AddedByUserId { get; set; }
