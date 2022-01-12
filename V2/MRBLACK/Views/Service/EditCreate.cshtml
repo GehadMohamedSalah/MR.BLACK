@@ -178,12 +178,12 @@
 
                 <div class="col-sm-6">
                     <label asp-for="MinNumOfPages">من</label>
-                    <input asp-for="MinNumOfPages" class="form-control" min="1" maxlength="7"/>
+                    <input asp-for="MinNumOfPages" class="form-control"  maxlength="7" type="text"/>
                     <span asp-validation-for="MinNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="MaxNumOfPages">الى</label>
-                    <input asp-for="MaxNumOfPages" class="form-control" min="1" maxlength="7"/>
+                    <input asp-for="MaxNumOfPages" class="form-control"  maxlength="7" type="text"/>
                     <span asp-validation-for="MaxNumOfPages" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12 mt-20">
@@ -194,7 +194,7 @@
                                 <label asp-for="HasMargins">يحتوي على هوامش</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="MarginsPrice" class="form-control" placeholder="التكلفة"  type="text" maxlength="7"/>
                                 <span asp-validation-for="MarginsPrice" maxlength="7" class="text-danger"></span>
                             </div>
                         </div>
@@ -206,7 +206,7 @@
                                 <label asp-for="HasReference">يحتوي على مراجع</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="ReferencesPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="ReferencesPrice"  maxlength="7" type="text" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="ReferencesPrice" class="text-danger"></span>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                                 <label asp-for="HasSpelling">تدقيق املائي</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="SpellingPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="SpellingPrice"  maxlength="7" type="text" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="SpellingPrice" class="text-danger"></span>
                             </div>
                         </div>
@@ -230,7 +230,7 @@
                                 <label asp-for="HasIntroAndEnd">يحتوي على مقدمة و خاتمة</label>
                             </div>
                             <div class="col-sm-6">
-                                <input asp-for="IntroAndEndPrice" maxlength="7" class="form-control" placeholder="التكلفة" />
+                                <input asp-for="IntroAndEndPrice"  maxlength="7" type="text" class="form-control" placeholder="التكلفة" />
                                 <span asp-validation-for="IntroAndEndPrice" class="text-danger"></span>
                             </div>
                         </div>

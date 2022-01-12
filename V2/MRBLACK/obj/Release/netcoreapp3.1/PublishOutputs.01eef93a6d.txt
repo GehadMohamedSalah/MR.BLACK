@@ -1601,8 +1601,11 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Books\book2\30112a46-8bde-47b3-97e0-60baf1748a94_countries control cp.pdf
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Books\book2\8954edd3-6822-47dc-a0c3-2456975541b7_file_example_MP3_700KB.mp3
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Books\book2\e2e653e0-ed8c-440e-a766-f760a11cf0bd_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Books\qasd\2a48249a-4f4a-49b0-ba2e-06a0d54b24dd_DFD.pdf
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Books\qasd\89b1d413-109d-41c7-9b56-fcd6cbb256b9_d1.png
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Articles\90530f7c-1aa3-4a16-aa5b-67b31318d190_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Articles\a2784615-df7a-42b1-8b6c-d56d5f0527f5_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Categories\982094c7-d331-4758-9ae4-e54810721e0c_23972641_494196660964045_1496611006_n.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Categories\b69148fc-3838-4ea3-9484-0e90e9311496_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Colleges\02220245-b2c3-43ab-ad29-71a75cf61a56_no-image.jpg
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\PubTmp\Out\wwwroot\Uploads\Images\Colleges\2a3e35e0-6af6-4bcf-85d7-450127cde59f_9a3ab99c-257a-4fb7-8394-37459179467c.jpg
