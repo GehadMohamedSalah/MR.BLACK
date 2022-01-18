@@ -182,7 +182,8 @@ namespace MRBLACK.Controllers
                 filter = f => f.ArName.Contains(searchStr)
                 || f.BookCategory.ArName.Contains(searchStr)
                 || f.Price.ToString().Contains(searchStr)
-                || f.ArAuthoreName.Contains(searchStr);
+                || f.ArAuthoreName.Contains(searchStr)
+                || f.Id.ToString().Contains(searchStr);
             }
 
 

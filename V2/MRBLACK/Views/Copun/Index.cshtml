@@ -16,6 +16,7 @@
         EndIndex = Model.EndIndex
     };
 }
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <h1 class="text-center">شاشة كوبونات الخصم</h1>
 <div class="panel panel-default">
@@ -27,7 +28,7 @@
                 </a>
             </div>
             <partial name="_TableNavbar" model="@Model.PageIndex" />
-        </div>        
+        </div>
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -35,6 +36,7 @@
                 <thead class="bg-blue">
                     <tr>
                         <td>#</td>
+                        <td>الكود</td>
                         <td>كود الخصم</td>
                         <td>التصنيف</td>
                         <td>نسبة الخصم</td>
@@ -54,7 +56,7 @@
                 <partial name="_Pagination" model="@paginationVM" />
             </div>
         </div>
-      
+
     </div>
 </div>
 

@@ -6,32 +6,33 @@
 
 @foreach (var item in Model)
 {
-<tr>
-    <td>@i</td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EnName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ValueInPound)
-    </td>
-    <td>
-        @if (!item.IsMainCurrency)
-        {
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/CurrencyType/Edit/@item.Id')">
-                <i class="fa fa-edit"></i><span>  تعديل</span>
-            </button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/CurrencyType/Delete/@item.Id')">
-                <i class="fa fa-trash"></i><span>  حذف</span>
-            </button>
-        }
-        else
-        {
-            <span class="text-info">لا يمكن حذف او تعديل هذه العملة</span>
-        }
-    </td>
-</tr>
+    <tr>
+        <td>@i</td>
+        <td>CUR_@item.Id</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValueInPound)
+        </td>
+        <td>
+            @if (!item.IsMainCurrency)
+            {
+                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/CurrencyType/Edit/@item.Id')">
+                    <i class="fa fa-edit"></i><span>  تعديل</span>
+                </button>
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/CurrencyType/Delete/@item.Id')">
+                    <i class="fa fa-trash"></i><span>  حذف</span>
+                </button>
+            }
+            else
+            {
+                <span class="text-info">لا يمكن حذف او تعديل هذه العملة</span>
+            }
+        </td>
+    </tr>
     i++;
 }

@@ -7,8 +7,11 @@
 
 @foreach (var item in Model)
 {
+    var ucdsCount = 0;
+    var allucds = "";
     <tr>
         <td>@i</td>
+        <td>COG_@item.Id</td>
         <td>
             @Html.DisplayFor(modelItem => item.EnName)
         </td>
@@ -51,9 +54,14 @@
             {
                 foreach (var ucds in item.UcdsEductionManagement.Select(c => c.University).Distinct())
                 {
-                    <p>@ucds.ArName - @ucds.Country.ArName</p>
+                    ucdsCount++;
+                    allucds += ucds.ArName + "_";
+                    @*<p>@ucds.ArName - @ucds.Country.ArName</p>*@
                 }
             }
+            <a href="@(ucdsCount == 0 ? "#" : "/University/Index?searchStr="+allucds)">
+                <span class="@(ucdsCount == 0 ? "text-gray" : "font-weight-bold")">@ucdsCount</span>
+            </a>
         </td>
         <td>
             @if (item.ImgPath != null)

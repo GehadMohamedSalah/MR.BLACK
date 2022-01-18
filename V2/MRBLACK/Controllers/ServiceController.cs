@@ -219,12 +219,12 @@ namespace MRBLACK.Controllers
             {
                 filter = f => f.ProviderId == providerId &&
                    ( f.EnName.ToLower().Contains(searchStr) ||
-                    f.ArName.Contains(searchStr));
+                    f.ArName.Contains(searchStr)) || f.Id.ToString().Contains(searchStr);
             }
             else
             {
                 filter = f => f.EnName.ToLower().Contains(searchStr) ||
-                    f.ArName.Contains(searchStr);
+                    f.ArName.Contains(searchStr) || f.Id.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

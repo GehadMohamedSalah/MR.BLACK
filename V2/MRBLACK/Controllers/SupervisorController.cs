@@ -315,5 +315,21 @@ namespace MRBLACK.Controllers
         }
 
         #endregion
+
+
+        public JsonResult IsUniquePhone(string Phone,string Id)
+        {
+            var users = new List<IdentitySetupUser>();
+            users = _userManager.Users.Where(c => c.PhoneNumber == Phone).ToList();
+            if (Id != null)
+            {
+                users = users.Where(c => c.Id != Id).ToList();
+            }
+            if(users != null && users.Count > 0)
+            {
+                return Json(false);
+            }
+            return Json(true);            
+        }
     }
 }

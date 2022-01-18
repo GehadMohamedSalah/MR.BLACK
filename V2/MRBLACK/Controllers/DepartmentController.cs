@@ -147,11 +147,18 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
+                var searchlist = new List<string>();
+                if (searchStr.Contains("_"))
+                {
+                    searchlist = searchStr.Split("_").ToList();
+                }
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr)
                 || f.UcdsEductionManagement.Any(c => c.College.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
-                || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr));
+                || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr))
+                || f.Id.ToString().Contains(searchStr)
+                || searchlist.Contains(f.ArName.ToLower());
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

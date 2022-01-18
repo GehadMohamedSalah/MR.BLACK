@@ -18,11 +18,11 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="Id" />
                     <div class="form-group row">
-                        <input asp-for="Name" class="form-control" placeholder="الاسم بالانجليزية" />
+                        <input asp-for="Name" class="enText form-control" placeholder="الاسم بالانجليزية" />
                         <span asp-validation-for="Name" class="text-danger"></span>
                     </div>
                     <div class="form-group row">
-                        <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                        <input asp-for="ArName" class="arText form-control" placeholder="الاسم بالعربية" />
                         <span asp-validation-for="ArName" class="text-danger"></span>
                     </div>
                 </div>
@@ -45,3 +45,4 @@
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 
 }
+<script type="text/javascript" src="~/js/site.js"></script>

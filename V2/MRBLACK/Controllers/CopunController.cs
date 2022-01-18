@@ -132,7 +132,8 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
-                filter = f => f.NameOrCode.ToLower().Contains(searchStr);
+                filter = f => f.NameOrCode.ToLower().Contains(searchStr)
+                || f.Id.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

@@ -3,13 +3,14 @@
 @{
     Layout = null;
     var i = ViewBag.PageStartRowNum;
-    var memUsers = ViewBag.MembershipUsers as Dictionary<int,int>;
+    var memUsers = ViewBag.MembershipUsers as Dictionary<int, int>;
 }
 
 @foreach (var item in Model)
 {
     <tr>
         <td>@i</td>
+        <td>MEM_@item.Id</td>
         <td>
             <a href="~/Images/@item.ImgPath" target="_blank">
                 <img src="~/Images/@item.ImgPath" width="50" height="50" />

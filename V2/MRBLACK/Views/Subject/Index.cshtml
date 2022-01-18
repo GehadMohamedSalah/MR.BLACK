@@ -17,6 +17,8 @@
     };
 }
 
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
+
 <h1 class="text-center">شاشة المواد</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
@@ -25,11 +27,11 @@
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Subject/Create')">
                     <i class="fa fa-plus"></i><span>  اضافة جديد</span>
                 </button>
-                
+
             </div>
             <partial name="_TableNavbar" model="@Model.PageIndex" />
         </div>
-        
+
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -37,9 +39,10 @@
                 <thead class="bg-blue">
                     <tr>
                         <td>#</td>
+                        <td>الكود</td>
                         <td>الاسم بالانجليزية</td>
                         <td>الاسم بالعربية</td>
-                        <td>مجموعة - كلية - جامعة - دولة</td>
+                        <td>المجموعات</td>
                         <td>عدد الخدمات</td>
                         <td>عدد الطلبات</td>
                         <td>الشعار</td>
@@ -54,7 +57,7 @@
                 <partial name="_Pagination" model="@paginationVM" />
             </div>
         </div>
-        
+
     </div>
 </div>
 

@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="panel">
@@ -18,22 +19,22 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label asp-for="EnName">الاسم بالانجليزية</label>
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <input asp-for="EnName" class="enText form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArName">الاسم بالعربية</label>
-                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <input asp-for="ArName" class="arText form-control" placeholder="الاسم بالعربية" />
                     <span asp-validation-for="ArName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="EnAuthoreName">اسم الكاتب بالانجليزية</label>
-                    <input asp-for="EnAuthoreName" class="form-control" placeholder="اسم الكاتب بالانجليزية" />
+                    <input asp-for="EnAuthoreName" class="enText form-control" placeholder="اسم الكاتب بالانجليزية" />
                     <span asp-validation-for="EnAuthoreName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArAuthoreName">اسم الكاتب بالعربية</label>
-                    <input asp-for="ArAuthoreName" class="form-control" placeholder="اسم الكاتب بالعربية" />
+                    <input asp-for="ArAuthoreName" class="arText form-control" placeholder="اسم الكاتب بالعربية" />
                     <span asp-validation-for="ArAuthoreName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-4">
@@ -83,12 +84,12 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="EnDesc">وصف الكتاب بالانجليزية</label>
-                    <textarea asp-for="EnDesc" class="form-control" placeholder="وصف الكتاب بالانجليزية" rows="15"></textarea>
+                    <textarea asp-for="EnDesc" class="enText form-control" placeholder="وصف الكتاب بالانجليزية" rows="15"></textarea>
                     <span asp-validation-for="EnDesc" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArDesc">وصف الكتاب بالعربية</label>
-                    <textarea asp-for="ArDesc" class="form-control" placeholder="وصف الكتاب بالعربية" rows="15"></textarea>
+                    <textarea asp-for="ArDesc" class="arText form-control" placeholder="وصف الكتاب بالعربية" rows="15"></textarea>
                     <span asp-validation-for="ArDesc" class="text-danger"></span>
                 </div>
             </div>
@@ -107,7 +108,6 @@
 @section Scripts {
     @*@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}*@
 }
-
 <script>
 
     document.querySelector("#Price").addEventListener("keypress", function (evt) {

@@ -152,7 +152,8 @@ namespace MRBLACK.Controllers
                 || f.ArName.Contains(searchStr)
                 || f.WriterName.ToLower().Contains(searchStr)
                 || f.ArticleCategory.ArName.ToLower().Contains(searchStr)
-                || f.CreatedOn.ToString().Contains(searchStr);
+                || f.CreatedOn.ToString().Contains(searchStr)
+                || f.Id.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

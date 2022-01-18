@@ -7,22 +7,23 @@
 
 @foreach (var item in Model)
 {
-<tr>
-    <td>@i</td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EnName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArName)
-    </td>
-    <td>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Term/Edit/@item.Id')">
-            <i class="fa fa-edit"></i><span>  تعديل</span>
-        </button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Term/Delete/@item.Id')">
-            <i class="fa fa-trash"></i><span>  حذف</span>
-        </button>
-    </td>
-</tr>
+    <tr>
+        <td>@i</td>
+        <td>TRM_@item.Id</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Term/Edit/@item.Id')">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Term/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
     i++;
 }

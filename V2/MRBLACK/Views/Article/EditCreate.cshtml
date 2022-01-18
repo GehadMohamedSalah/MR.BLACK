@@ -9,6 +9,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
     <div class="panel">
@@ -24,12 +25,12 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label asp-for="EnName">الاسم بالانجليزية</label>
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <input asp-for="EnName" class="enText form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArName">الاسم بالعربية</label>
-                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <input asp-for="ArName" class="arText form-control" placeholder="الاسم بالعربية" />
                     <span asp-validation-for="ArName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -55,22 +56,22 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="EnKeywords">الكلمات المفتاحية بالانجليزية</label>
-                    <input asp-for="EnKeywords" class="form-control" placeholder="الكلمات المفتاحية بالانجليزية" />
+                    <input asp-for="EnKeywords" class="enText form-control" placeholder="الكلمات المفتاحية بالانجليزية" />
                     <span asp-validation-for="EnKeywords" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArKeywords">الكلمات المفتاحية بالعربية</label>
-                    <input asp-for="ArKeywords" class="form-control" placeholder="الكلمات المفتاحية بالعربية" />
+                    <input asp-for="ArKeywords" class="arText form-control" placeholder="الكلمات المفتاحية بالعربية" />
                     <span asp-validation-for="ArKeywords" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="EnDesc">وصف مختصر للمقال بالانجليزية</label>
-                    <input asp-for="EnDesc" class="form-control" placeholder="وصف مختصر للمقال بالانجليزية" />
+                    <input asp-for="EnDesc" class="enText form-control" placeholder="وصف مختصر للمقال بالانجليزية" />
                     <span asp-validation-for="EnDesc" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArDesc">وصف مختصر للمقال بالعربية</label>
-                    <input asp-for="ArDesc" class="form-control" placeholder="وصف مختصر للمقال بالعربية" />
+                    <input asp-for="ArDesc" class="arText form-control" placeholder="وصف مختصر للمقال بالعربية" />
                     <span asp-validation-for="ArDesc" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -118,12 +119,12 @@
                 </div>
                 <div class="col-sm-12">
                     <label asp-for="EnContent">محتوى المقال بالانجليزية</label>
-                    <textarea class="form-control" rows="20" asp-for="EnContent"></textarea>
+                    <textarea class="enText form-control" rows="20" asp-for="EnContent"></textarea>
                     <span asp-validation-for="EnContent" class="text-danger"></span>
                 </div>
                 <div class="col-sm-12">
                     <label asp-for="ArContent">محتوى المقال بالعربية</label>
-                    <textarea class="form-control" rows="20" asp-for="ArContent"></textarea>
+                    <textarea class="arText form-control" rows="20" asp-for="ArContent"></textarea>
                     <span asp-validation-for="ArContent" class="text-danger"></span>
                 </div>
             </div>

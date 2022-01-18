@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="panel">
@@ -54,12 +55,30 @@
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="Password">كلمة المرور</label>
-                    <input asp-for="Password" class="form-control" placeholder="كلمة المرور" />
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input asp-for="Password" class="form-control" placeholder="كلمة المرور" />
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn-light">
+                                <i toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password" style="font-size:20px;margin-top:10px;"></i>
+                            </a>
+                        </div>
+                    </div>
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ConfirmPassword">تأكيد كلمة المرور</label>
-                    <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input asp-for="ConfirmPassword" class="form-control" placeholder="تأكيد كلمة المرور" />
+                        </div>
+                        <div class="col-sm-1">
+                            <a class="btn-light">
+                                <i toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-confirm-password" style="font-size:20px;margin-top:10px;"></i>
+                            </a>
+                        </div>
+                    </div>
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
             </div>
@@ -85,6 +104,27 @@
     document.querySelector("#Phone").addEventListener("keypress", function (evt) {
         if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
             evt.preventDefault();
+        }
+    });
+
+
+    $('.toggle-password').click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#Password");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+    $('.toggle-confirm-password').click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#ConfirmPassword");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
         }
     });
 

@@ -148,9 +148,16 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
+                var searchlist = new List<string>();
+                if (searchStr.Contains("_"))
+                {
+                    searchlist = searchStr.Split("_").ToList();
+                }
                 filter = f => f.EnName.ToLower().Contains(searchStr) 
                 || f.ArName.Contains(searchStr)
-                || f.Country.ArName.Contains(searchStr);
+                || f.Country.ArName.Contains(searchStr)
+                || f.Id.ToString().Contains(searchStr)
+                || searchlist.Contains(f.ArName.ToLower());
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

@@ -17,6 +17,7 @@
     };
 }
 
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <h1 class="text-center">الاسليدشو</h1>
 <div class="panel panel-default">
@@ -30,8 +31,8 @@
             <partial name="_TableNavbar" model="@Model.PageIndex" />
         </div>
 
-        
-        
+
+
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -39,6 +40,7 @@
                 <thead class="bg-blue">
                     <tr>
                         <td>#</td>
+                        <td>الكود</td>
                         <td>تاريخ الاضافة</td>
                         <td>النص</td>
                         <td>الرابط</td>
@@ -54,7 +56,7 @@
                 <partial name="_Pagination" model="@paginationVM" />
             </div>
         </div>
-        
+
     </div>
 </div>
 

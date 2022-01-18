@@ -8,6 +8,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
+
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data" id="myForm">
 
     <div class="panel">
@@ -19,11 +21,11 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <input asp-for="EnName" class="enText form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
-                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <input asp-for="ArName" class="arText form-control" placeholder="الاسم بالعربية" />
                     <span asp-validation-for="ArName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6 text-center" style="margin: 10px 0px 10px 0px !important; ">
@@ -39,12 +41,12 @@
                     </select>
                     <span asp-validation-for="MembershipType" class="text-danger"></span>
                 </div>
-                
+
             </div>
             <div style="margin: 0px 20px 0px 20px !important;">
                 <partial name="_MembershipLinkList" model="@Model" />
             </div>
-            
+
 
         </div>
         <div class="panel-footer">

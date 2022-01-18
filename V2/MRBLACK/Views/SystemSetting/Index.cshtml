@@ -43,6 +43,8 @@ else
         }
     </style>
 }
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
+
 <form action="/SystemSetting/SaveSystemSetting" method="post">
     <div class="row">
         <div class="col-sm-12">
@@ -151,44 +153,44 @@ else
                         <div id="fees">
                             <div class="col-sm-12">
                                 <label asp-for="ImprovementFeesForStudent" class="control-label">رسوم تحسين المنصة على الطالب</label>
-                                <input asp-for="ImprovementFeesForStudent" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ImprovementFeesForStudent" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ImprovementFeesForStudent" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ImprovementFeesForServiceProvider" class="control-label">رسوم تحسين منصة على مقدم الخدمة</label>
-                                <input asp-for="ImprovementFeesForServiceProvider" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ImprovementFeesForServiceProvider" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ImprovementFeesForServiceProvider" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="SellingFeesForStudent" class="control-label">رسوم شراء على الطالب</label>
-                                <input asp-for="SellingFeesForStudent" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="SellingFeesForStudent" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="SellingFeesForStudent" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="SellingFeesForServiceProvider" class="control-label">رسوم بيع على المقدم</label>
-                                <input asp-for="SellingFeesForServiceProvider" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="SellingFeesForServiceProvider" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="SellingFeesForServiceProvider" class="text-danger"></span>
                             </div>
                         </div>
                         <div id="percentage">
                             <div class="col-sm-12">
                                 <label asp-for="ServiceMarginsPercentage" class="control-label">نسبة الهوامش من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceMarginsPercentage" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ServiceMarginsPercentage" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ServiceMarginsPercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceReferencePercentage" class="control-label">نسبة المصادر من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceReferencePercentage" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ServiceReferencePercentage" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ServiceReferencePercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceSpellingPercentage" class="control-label">نسبة التدقيق و الاملاء من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceSpellingPercentage" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ServiceSpellingPercentage" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ServiceSpellingPercentage" class="text-danger"></span>
                             </div>
                             <div class="col-sm-12">
                                 <label asp-for="ServiceIntroAndEndPercentage" class="control-label">نسبة المقدمة والخاتمة من مبلغ الخدمة (%)</label>
-                                <input asp-for="ServiceIntroAndEndPercentage" maxlength="7" class="form-control inpNumber"  />
+                                <input asp-for="ServiceIntroAndEndPercentage" maxlength="7" class="form-control inpNumber" />
                                 <span asp-validation-for="ServiceIntroAndEndPercentage" class="text-danger"></span>
                             </div>
                         </div>

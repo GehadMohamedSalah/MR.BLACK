@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,7 @@ namespace MRBLACK.Models.ViewModels
         public string Name { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "رقم الهاتف يتكون من 11 رقم")]
+        [Remote("IsUniquePhone", "Supervisor", ErrorMessage = "هذا الرقم تم ادخاله مسبقا")]
         public string Phone { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @ ")]
@@ -52,6 +54,7 @@ namespace MRBLACK.Models.ViewModels
         public string Name { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(11, MinimumLength = 11, ErrorMessage = "رقم الهاتف يتكون من 11 رقم")]
+        [Remote("IsUniquePhone", "Supervisor", ErrorMessage = "هذا الرقم تم ادخاله مسبقا",AdditionalFields = nameof(Id))]
         public string Phone { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [EmailAddress(ErrorMessage = "البريد يجب ان يحتوي على @ ")]

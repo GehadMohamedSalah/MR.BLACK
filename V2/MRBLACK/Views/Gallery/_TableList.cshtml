@@ -1,5 +1,5 @@
 ﻿@model List<MRBLACK.Models.Database.Gallery>
-@using MRBLACK.Models.Enums 
+@using MRBLACK.Models.Enums
 @{
     Layout = null;
     var i = ViewBag.PageStartRowNum;
@@ -9,6 +9,7 @@
 {
     <tr>
         <td>@i</td>
+        <td>GLRY_@item.Id</td>
         <td>
             @item.CreatedOn.ToString("dd/MM/yyyy")
         </td>

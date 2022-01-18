@@ -31,12 +31,12 @@ namespace MRBLACK
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;")
-            options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
+                options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB_Live;Trusted_Connection=True;")
+            //options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
             );
             services.AddDbContext<IdentitySetupContext>(options =>
-            //options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB;Trusted_Connection=True;")
-            options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
+                options.UseSqlServer("Server=DESKTOP-8K7QL6F;Database=MRBLACKDB_Live;Trusted_Connection=True;")
+            //options.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456")
             );
 
             services.AddIdentity<IdentitySetupUser, IdentitySetupRole>()

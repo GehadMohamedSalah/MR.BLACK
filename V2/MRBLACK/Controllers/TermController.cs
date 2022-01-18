@@ -118,7 +118,8 @@ namespace MRBLACK.Controllers
             {
                 searchStr = searchStr.ToLower();
                 filter = f => f.EnName.ToLower().Contains(searchStr)
-                || f.ArName.Contains(searchStr);
+                || f.ArName.Contains(searchStr)
+                || f.Id.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

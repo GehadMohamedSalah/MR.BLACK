@@ -6,48 +6,56 @@
 
 @foreach (var item in Model)
 {
-<tr>
-    <td>@i</td>
-    <td>
-        @Html.DisplayFor(modelItem => item.EnName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.ArName)
-    </td>
-    <td>
-        @if(item.UcdsEductionManagement!= null)
-        {
-            var subjects = item.UcdsEductionManagement.Where(c => c.SubjectId != null).Select(c => c.SubjectId).Distinct().Count();
-            <a href="@(subjects == 0 ? "#" : "/Subject/Index?searchStr="+item.ArName)">
-                <span class="@(subjects == 0 ? "text-gray" : "font-weight-bold")">@subjects</span>
-            </a>
-        }
-    </td>
-    <td>
-        @if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
-        {
-            foreach(var uc in item.UcdsEductionManagement)
+    var ucdsCount = 0;
+    var allucds = "";
+    <tr>
+        <td>@i</td>
+        <td>DPT_@item.Id</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>
+            @if (item.UcdsEductionManagement != null)
             {
-                <p>@uc.College.ArName - @uc.University.ArName - @uc.University.Country.ArName</p>
+                var subjects = item.UcdsEductionManagement.Where(c => c.SubjectId != null).Select(c => c.SubjectId).Distinct().Count();
+                <a href="@(subjects == 0 ? "#" : "/Subject/Index?searchStr="+item.ArName)">
+                    <span class="@(subjects == 0 ? "text-gray" : "font-weight-bold")">@subjects</span>
+                </a>
             }
-        }
-    </td>
-    <td>
-        @if (item.ImgPath != null)
-        {
-            <img src="~/Uploads/Images/Departments/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
-            <br />
-            <a href="/Department/RemoveImage/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الصورة</a>
-        }
-    </td>
-    <td>
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Edit/@item.Id')">
-            <i class="fa fa-edit"></i><span>  تعديل</span>
-        </button>
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Delete/@item.Id')">
-            <i class="fa fa-trash"></i><span>  حذف</span>
-        </button>
-    </td>
-</tr>
+        </td>
+        <td>
+            @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+            {
+                foreach (var uc in item.UcdsEductionManagement)
+                {
+                    ucdsCount++;
+                    allucds += uc.College.ArName + "_";
+                    @*<p>@uc.College.ArName - @uc.University.ArName - @uc.University.Country.ArName</p>*@
+                }
+            }
+            <a href="@(ucdsCount == 0 ? "#" : "/College/Index?searchStr="+allucds)">
+                <span class="@(ucdsCount == 0 ? "text-gray" : "font-weight-bold")">@ucdsCount</span>
+            </a>
+        </td>
+        <td>
+            @if (item.ImgPath != null)
+            {
+                <img src="~/Uploads/Images/Departments/@item.ImgPath" width="50" height="50" style="border-radius:100%;" />
+                <br />
+                <a href="/Department/RemoveImage/@item.Id" class="text-danger"><i class="fa fa-times"></i> حذف الصورة</a>
+            }
+        </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Edit/@item.Id')">
+                <i class="fa fa-edit"></i><span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
     i++;
 }

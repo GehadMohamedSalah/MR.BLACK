@@ -367,36 +367,18 @@
             })
         })
 
+        function BackToPreviousPage() {
+            window.history.back()
+        }
+
     </script>
     @if (TempData["Success"] != null)
     {
 <script>
     $(function () {
         toastr.success("تم بنجاح");
-    })</script> } @*<script>
-                    var tHub;
-                    $(document).ready(function () {
-                        tHub = $.connection.notificationHub;
-                        $.connection.hub.start().done(function () {
-                            tHub.server.join();
-                            tHub.server.storeJoin();
-                        });
-                        tHub.client.notify = function (Body) {
-                            $.ajax({
-                                url: "@Url.Action("Header", "Partials")",
-                                type: "GET",
-                                success: function (results) {
-                                    $("#header-data").empty();
-                                    $("#header-data").html(results);
-                                }
-                            })
-                            NewNotificationToTheUser(Body);
-                        }
-                    });
-
-                    function NewNotificationToTheUser(Body) {
-                        let notification = new Notification(Body);
-                    }
-                </script>*@
+    })</script>
+}
+    <script src="~/js/site.js"></script>
 </body>
 </html>

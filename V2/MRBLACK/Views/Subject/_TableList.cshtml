@@ -6,8 +6,11 @@
 
 @foreach (var item in Model)
 {
+    var ucdsCount = 0;
+    var allucds = "";
     <tr>
         <td>@i</td>
+        <td>SUB_@item.Id</td>
         <td>
             @Html.DisplayFor(modelItem => item.EnName)
         </td>
@@ -22,26 +25,31 @@
                     <p>
                         @if (uc.Department != null)
                         {
-                            <span>@uc.Department.ArName - </span>
+                            ucdsCount++;
+                            allucds += uc.Department.ArName + "_";
+                            @*<span>@uc.Department.ArName - </span>*@
                         }
-                        @if (uc.College != null)
+                        @*@if (uc.College != null)
+                    {
+                        <span>@uc.College.ArName - </span>
+                    }
+                    @if (uc.University != null)
+                    {
+                        <span>@uc.University.ArName - </span>
+                        if (uc.University.Country != null)
                         {
-                            <span>@uc.College.ArName - </span>
+                            <span>@uc.University.Country.ArName</span>
                         }
-                        @if (uc.University != null)
-                        {
-                            <span>@uc.University.ArName - </span>
-                            if (uc.University.Country != null)
-                            {
-                                <span>@uc.University.Country.ArName</span>
-                            }
-                        }
+                    }*@
                     </p>
                 }
             }
+            <a href="@(ucdsCount == 0 ? "#" : "/Department/Index?searchStr="+allucds)">
+                <span class="@(ucdsCount == 0 ? "text-gray" : "font-weight-bold")">@ucdsCount</span>
+            </a>
         </td>
         <td>
-            @if(item.Service != null)
+            @if (item.Service != null)
             {
                 <span>@item.Service.Count()</span>
             }
@@ -51,7 +59,7 @@
             }
         </td>
         <td>
-            @if(item.ServiceCategoryRequest != null)
+            @if (item.ServiceCategoryRequest != null)
             {
                 <span>@item.ServiceCategoryRequest.Count()</span>
             }

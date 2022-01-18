@@ -5,7 +5,10 @@
     Layout = "~/Views/Shared/_SiteLayout.cshtml";
 
 }
-
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <script src="~/Content/assets/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+</head>
 <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
@@ -55,10 +58,26 @@
                     <span asp-validation-for="Input.MembershipId" class="text-danger"></span>
 
                 </div>
-                <input asp-for="Input.Password" type="password" placeholder="Create password">
+
+                <div class="row">
+                    <div class="col-sm-11">
+                        <input asp-for="Input.Password" type="password" placeholder="Create password">
+                    </div>
+                    <div class="col-sm-1">
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-password" style="font-size:20px;margin-top:25px;"></span>
+                    </div>
+                </div>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
 
-                <input asp-for="Input.ConfirmPassword" type="password" placeholder="Confirm password">
+                <div class="row">
+                    <div class="col-sm-11">
+                        <input asp-for="Input.ConfirmPassword" type="password" placeholder="Confirm password">
+                    </div>
+                    <div class="col-sm-1">
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field_icon toggle-confirm-password" style="font-size:20px;margin-top:25px;"></span>
+                    </div>
+                </div>
+                
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
 
                 <button type="submit" class="btn signup">create account</button>
@@ -76,6 +95,26 @@
     function RedirectToLogin() {
         window.location.href = "/Identity/Account/Login";
     }
+
+    $('.toggle-password').click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#Input_Password");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
+    $('.toggle-confirm-password').click(function () {
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $("#Input_ConfirmPassword");
+        if (input.attr("type") === "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 @*@section Scripts {
     <partial name="_ValidationScriptsPartial" />

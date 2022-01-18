@@ -27,6 +27,7 @@
         }
     </style>
 }
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
 <form asp-action="@ViewBag.ActionName" method="post" enctype="multipart/form-data">
     <div class="panel">
@@ -40,12 +41,12 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <label asp-for="EnName">الاسم بالانجليزية</label>
-                    <input asp-for="EnName" class="form-control" placeholder="الاسم بالانجليزية" />
+                    <input asp-for="EnName" class="enText form-control" placeholder="الاسم بالانجليزية" />
                     <span asp-validation-for="EnName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
                     <label asp-for="ArName">الاسم بالعربية</label>
-                    <input asp-for="ArName" class="form-control" placeholder="الاسم بالعربية" />
+                    <input asp-for="ArName" class="arText form-control" placeholder="الاسم بالعربية" />
                     <span asp-validation-for="ArName" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6">
@@ -75,17 +76,17 @@
                 </div>
                 <div class="col-sm-6" id="dvServicePrice" style="display:@display1">
                     <label asp-for="ServicePrice">سعر الخدمة</label>
-                    <input asp-for="ServicePrice" class="form-control inpNumber" placeholder="سعر الخدمة" maxlength="7"/>
+                    <input asp-for="ServicePrice" class="form-control inpNumber" placeholder="سعر الخدمة" maxlength="7" />
                     <span asp-validation-for="ServicePrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvPlatformRevenueFromServPrice" style="display:@display1">
                     <label asp-for="PlatformRevenueFromServPrice">مبلغ المنصة من سعر الخدمة</label>
-                    <input asp-for="PlatformRevenueFromServPrice" class="form-control" placeholder="مبلغ المنصة من سعر الخدمة" maxlength="7"/>
+                    <input asp-for="PlatformRevenueFromServPrice" class="form-control" placeholder="مبلغ المنصة من سعر الخدمة" maxlength="7" />
                     <span asp-validation-for="PlatformRevenueFromServPrice" class="text-danger"></span>
                 </div>
                 <div class="col-sm-6" id="dvCommissionPercentage" style="display:@display2">
                     <label asp-for="CommissionPercentage">عمولة المنصة من سعر الخدمة %</label>
-                    <input asp-for="CommissionPercentage" class="form-control inpNumber" placeholder="عمولة المنصة" maxlength="7"/>
+                    <input asp-for="CommissionPercentage" class="form-control inpNumber" placeholder="عمولة المنصة" maxlength="7" />
                     <span asp-validation-for="CommissionPercentage" class="text-danger"></span>
                 </div>
                 @*<div class="col-sm-6" id="dvCurrencyTypeId" style="display:@display1">
