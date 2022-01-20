@@ -147,7 +147,8 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr) 
                 || f.ArName.Contains(searchStr)
                 || f.CurrencyType.ArName.Contains(searchStr)
-                || f.Id.ToString().Contains(searchStr);
+                || ("ctry_"+f.Id.ToString()).Contains(searchStr)
+                || f.CountryCode.ToLower().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
@@ -185,6 +186,12 @@ namespace MRBLACK.Controllers
             item.ImgPath = null;
             _Country.Update(item);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult GetCountryCode(int id)
+        {
+            var country = _Country.GetElement(id);
+            return Json(country.CountryCode);
         }
     }
 }

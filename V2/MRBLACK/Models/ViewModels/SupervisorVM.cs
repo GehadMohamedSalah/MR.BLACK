@@ -75,6 +75,7 @@ namespace MRBLACK.Models.ViewModels
         public int MembershipId { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int CountryId { get; set; }
+        public string CountryCode { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int Gender { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]

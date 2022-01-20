@@ -154,7 +154,7 @@ namespace MRBLACK.Controllers
                 || f.UcdsEductionManagement.Any(c => c.College.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr))
-                || f.Id.ToString().Contains(searchStr);
+                || ("sub_"+f.Id.ToString()).Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

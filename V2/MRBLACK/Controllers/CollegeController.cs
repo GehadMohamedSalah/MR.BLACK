@@ -167,8 +167,10 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr)
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
-                || f.Id.ToString().Contains(searchStr)
-                || searchlist.Contains(f.ArName.ToLower());
+                || ("cog_"+f.Id.ToString()).Contains(searchStr)
+                || searchlist.Contains(f.ArName.ToLower())
+                || f.Years.ToString().Contains(searchStr)
+                || f.Terms.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

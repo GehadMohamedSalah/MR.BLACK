@@ -8,7 +8,7 @@
 {
     <tr>
         <td>@i</td>
-        <td>SV_@item.Id</td>
+        <td>SV_@item.Code</td>
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
@@ -38,6 +38,13 @@
                 <span>@country.Text</span>
             }
         </td>
+        <td>
+            @if (item.CreatedOn != null)
+            {
+            <p>@(((DateTime)item.CreatedOn).ToString("dd/MM/yyyy"))</p>
+            }
+        </td>
+        <td>@item.CreatedUsername</td>
         <td>
             @if (item.UserName.ToLower() == "admin@gmail.com")
             {

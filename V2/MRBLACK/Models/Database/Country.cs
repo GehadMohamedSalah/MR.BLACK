@@ -28,6 +28,9 @@ namespace MRBLACK.Models.Database
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         public int? CurrencyTypeId { get; set; }
         public string ImgPath { get; set; }
+        [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
+        [StringLength(10, ErrorMessage = "لا يمكن ادخال اكثر من 10 ارقام او رموز ولا اقل من رقم واحد او رمز", MinimumLength = 1)]
+        public string CountryCode { get; set; }
 
         [ForeignKey(nameof(CurrencyTypeId))]
         [InverseProperty("Country")]

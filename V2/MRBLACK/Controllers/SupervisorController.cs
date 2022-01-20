@@ -31,7 +31,7 @@ namespace MRBLACK.Controllers
             IdentitySetupContext context,
             IWebHostEnvironment webHostEnvironment
             , IRepository<Country> country
-            ,UserManager<IdentitySetupUser> userManager
+            , UserManager<IdentitySetupUser> userManager
             , SignInManager<IdentitySetupUser> signInManager)
         {
             _context = context;
@@ -83,10 +83,13 @@ namespace MRBLACK.Controllers
                     PhoneNumber = model.Phone,
                     UserType = (int)UserType.Supervisor,
                     RedirectUrl = "/Home/Index",
+                    CreatedBy = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    CreatedUsername = User.Identity.Name,
+                    CreatedOn = DateTime.Now
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 var role = _context.Roles.FirstOrDefault(c => c.Id == model.RoleId);
-                
+
                 if (result.Succeeded)
                 {
                     await _context.UserRoles.AddAsync(new IdentityUserRole<string>()
@@ -102,7 +105,7 @@ namespace MRBLACK.Controllers
                 {
                     var x = error.Code;
                     var errorMsg = "";
-                    if(error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
+                    if (error.Code == "DuplicateUserName" || error.Code == "DuplicateEmail")
                     {
                         errorMsg = "هذ البريد مضاف مسبقا";
                     }
@@ -137,10 +140,11 @@ namespace MRBLACK.Controllers
             var user = _userManager.Users.FirstOrDefault(c => c.Id == id);
             var model = new SupervisorEditVM()
             {
-                Id=user.Id,
+                Id = user.Id,
                 Name = user.ArName,
                 Gender = (int)user.Gender,
                 CountryId = (int)user.CountryId,
+                CountryCode = _country.GetElement((int)user.CountryId).CountryCode,
                 Email = user.Email,
                 Phone = user.PhoneNumber,
                 CountryList = new SelectList(_country.GetAll(), "Id", "ArName"),
@@ -174,12 +178,12 @@ namespace MRBLACK.Controllers
                 var result = await _userManager.UpdateAsync(user);
                 var passRemoved = true;
                 var passAdded = true;
-                if(model.Password != null) 
+                if (model.Password != null)
                 {
                     passRemoved = (await _userManager.RemovePasswordAsync(user)).Succeeded;
                     passAdded = (await _userManager.AddPasswordAsync(user, model.Password)).Succeeded;
                 }
-               
+
                 if (result.Succeeded && passRemoved && passAdded)
                 {
                     var roles = _userManager.GetRolesAsync(user).Result;
@@ -193,7 +197,7 @@ namespace MRBLACK.Controllers
                         });
                         await _context.SaveChangesAsync();
                     }
-                    
+
                     return RedirectToAction(nameof(Index));
                 }
                 List<string> errorlist = new List<string>();
@@ -254,10 +258,10 @@ namespace MRBLACK.Controllers
         {
             try
             {
-               var user =  _userManager.Users.FirstOrDefault(c => c.Id == model.PkFieldStrVal);
+                var user = _userManager.Users.FirstOrDefault(c => c.Id == model.PkFieldStrVal);
                 user.IsDeleted = true;
                 await _userManager.UpdateAsync(user);
-                if(user.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                if (user.Id == User.FindFirstValue(ClaimTypes.NameIdentifier))
                 {
                     await _signInManager.SignOutAsync();
                 }
@@ -278,14 +282,55 @@ namespace MRBLACK.Controllers
         public async Task<PagedList<IdentitySetupUser>> GetPagedListItems(string searchStr, int pageNumber, int pageSize = 5)
         {
             var users = _userManager.Users.Where(c => c.IsDeleted == false && (c.UserType == (int)UserType.Supervisor || c.UserType == (int)UserType.Admin));
+            var countries = _country.GetAll().ToList().Where(c => users.Where(x => x.CountryId == c.Id).Count() > 0);
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
-                users = users.Where(c => c.ArName.ToLower().Contains(searchStr)
-                 || c.Email.ToLower().Contains(searchStr)
-                || c.PhoneNumber.Contains(searchStr));
+                var searchByGender = false;
+                var searchByCountry = false;
+                if (searchStr.Contains("ذكر"))
+                {
+                    searchStr = "1";
+                    searchByGender = true;
+                }
+                if (searchStr.Contains("انثى"))
+                {
+                    searchStr = "2";
+                    searchByGender = true;
+                }
+
+                if (countries.Where(c => c.ArName.ToLower().Contains(searchStr)).Count() > 0)
+                {
+                    searchStr = countries.FirstOrDefault(c => c.ArName.ToLower().Contains(searchStr)).Id.ToString();
+                    searchByCountry = true;
+                }
+
+                if (searchByGender)
+                {
+                    users = users.Where(c => c.Gender.ToString().Contains(searchStr));
+                    if (searchStr == "1")
+                        searchStr = "ذكر";
+                    else
+                        searchStr = "انثى";
+                }
+                else if (searchByCountry)
+                {
+                    users = users.Where(c => c.CountryId.ToString().Contains(searchStr));
+                    searchStr = countries.FirstOrDefault(c => c.Id == Int32.Parse(searchStr)).ArName;
+                }
+                else
+                {
+                    users = users.Where(c => c.ArName.ToLower().Contains(searchStr)
+                            || c.Email.ToLower().Contains(searchStr)
+                            || c.PhoneNumber.Contains(searchStr)
+                            || ("sv_"+c.Code.ToString()).Contains(searchStr)
+                            || (c.CreatedUsername != null && c.CreatedUsername.Contains(searchStr))
+                            || (c.CreatedOn != null && c.CreatedOn.ToString().Contains(searchStr)));
+                }
+
             }
-            ViewBag.CountryList = new SelectList(_country.GetAll(), "Id", "ArName");
+
+            ViewBag.CountryList = new SelectList(countries, "Id", "ArName");
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
             {
@@ -317,7 +362,7 @@ namespace MRBLACK.Controllers
         #endregion
 
 
-        public JsonResult IsUniquePhone(string Phone,string Id)
+        public JsonResult IsUniquePhone(string Phone, string Id)
         {
             var users = new List<IdentitySetupUser>();
             users = _userManager.Users.Where(c => c.PhoneNumber == Phone).ToList();
@@ -325,11 +370,11 @@ namespace MRBLACK.Controllers
             {
                 users = users.Where(c => c.Id != Id).ToList();
             }
-            if(users != null && users.Count > 0)
+            if (users != null && users.Count > 0)
             {
                 return Json(false);
             }
-            return Json(true);            
+            return Json(true);
         }
     }
 }

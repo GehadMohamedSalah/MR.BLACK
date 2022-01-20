@@ -22,5 +22,6 @@ namespace MRBLACK.Models.ViewModels
         public string MembershipType { get; set; }
         public string Gender { get; set; }
         public decimal Balance { get; set; }
+        public int Code { get; set; }
     }
 }

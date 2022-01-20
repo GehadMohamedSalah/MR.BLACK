@@ -156,7 +156,7 @@ namespace MRBLACK.Controllers
                 filter = f => f.EnName.ToLower().Contains(searchStr) 
                 || f.ArName.Contains(searchStr)
                 || f.Country.ArName.Contains(searchStr)
-                || f.Id.ToString().Contains(searchStr)
+                || ("uni_"+f.Id.ToString()).Contains(searchStr)
                 || searchlist.Contains(f.ArName.ToLower());
             }
 

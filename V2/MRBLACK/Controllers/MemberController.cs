@@ -38,7 +38,7 @@ namespace MRBLACK.Controllers
 
         #region CRUD OPERTIONS
 
-        #region Get Book Categories
+        #region Get Members
         public IActionResult Index(int pageNumber = 1, int pageSize = 5)
         {
             var model = GetIndexPageDetails("Member");
@@ -78,7 +78,8 @@ namespace MRBLACK.Controllers
                     Email = item.Email,
                     Phone = item.PhoneNumber,
                     Gender = item.Gender != null ? (item.Gender == 1 ? "ذكر" : "انثى") :"غير ذلك" ,
-                    Balance = 0
+                    Balance = 0,
+                    Code = item.Code
                 });
             }
 
@@ -91,7 +92,8 @@ namespace MRBLACK.Controllers
                 || c.MembershipType.ToLower().Contains(searchStr)
                 || c.Phone.Contains(searchStr)
                 || c.Gender.ToLower().Contains(searchStr)
-                || c.Balance.ToString().Contains(searchStr)).ToList();
+                || c.Balance.ToString().Contains(searchStr)
+                || ("usr_"+c.Code.ToString()).Contains(searchStr)).ToList();
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

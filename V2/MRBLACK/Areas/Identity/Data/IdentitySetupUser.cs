@@ -22,6 +22,10 @@ namespace MRBLACK.Areas.Identity.Data
         public bool IsDeleted { get; set; }
         public int? UserType { get; set; }
         public string ImgPath { get; set; }
+        public string CreatedBy { get; set; }
+        public string CreatedUsername { get; set; }
+        public DateTime? CreatedOn { get; set; }
+        public int Code { get; set; }
     }
 
     public class IdentitySetupRole : IdentityRole
@@ -47,6 +51,7 @@ namespace MRBLACK.Areas.Identity.Data
 
         public bool CanBeEditedOrDeleted { get; set; }
         public bool IsDeleted { get; set; }
-        
+        public int Code { get; set; }
+
     }
 }

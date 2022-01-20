@@ -133,7 +133,11 @@ namespace MRBLACK.Controllers
             {
                 searchStr = searchStr.ToLower();
                 filter = f => f.NameOrCode.ToLower().Contains(searchStr)
-                || f.Id.ToString().Contains(searchStr);
+                || ("cop_"+f.Id.ToString()).Contains(searchStr)
+                || f.StartDate.ToString().Contains(searchStr)
+                || f.EndDate.ToString().Contains(searchStr)
+                || f.MinInvoiceVal.ToString().Contains(searchStr)
+                || f.AccountStartDate.ToString().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

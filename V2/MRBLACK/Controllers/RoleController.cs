@@ -149,10 +149,13 @@ namespace MRBLACK.Controllers
         {
             var model = _context.Roles.Where(i => i.MembershipId == null &&
                 i.IsDeleted == false);
+            
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
-                model = model.Where(c => c.Name.ToLower().Contains(searchStr) || c.ArName.Contains(searchStr));
+                model = model.Where(c => c.Name.ToLower().Contains(searchStr) 
+                || c.ArName.Contains(searchStr)
+                || ("rol_" + c.Code.ToString()).Contains(searchStr));
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
