@@ -561,3 +561,7 @@ D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcor
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\Group\EditCreate.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\Group\Index.cshtml.g.cs
 D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\Group\_TableList.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\Department\DepartmentColleges.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\Subject\SubjectDepartments.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\College\CollegeDepartments.cshtml.g.cs
+D:\My Work\Free Lancing Projects\Mr. Black\Project\V2\MRBLACK\obj\Release\netcoreapp3.1\Razor\Views\College\CollegeSubjects.cshtml.g.cs

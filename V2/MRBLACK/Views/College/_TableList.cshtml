@@ -31,8 +31,8 @@
         <td>
             @if (item.UcdsEductionManagement != null)
             {
-                var depts = item.UcdsEductionManagement.Where(c => c.DepartmentId != null).Select(c => c.DepartmentId).Distinct().Count();
-                <a href="@(depts == 0 ? "#" : "/Department/Index?searchStr="+item.ArName)">
+                var depts = item.UcdsEductionManagement.Where(c => c.UniversityId != null & c.DepartmentId != null).Select(c => c.UniversityId & c.DepartmentId).Distinct().Count();
+                <a href="@(depts == 0 ? "#" : "/College/CollegeDepartments/"+item.Id)">
                     <span class="@(depts == 0 ? "text-gray" : "font-weight-bold")">@depts</span>
                 </a>
             }
@@ -40,8 +40,8 @@
         <td>
             @if (item.UcdsEductionManagement != null)
             {
-                var subjects = item.UcdsEductionManagement.Where(c => c.SubjectId != null).Select(c => c.SubjectId).Distinct().Count();
-                <a href="@(subjects == 0 ? "#" : "/Subject/Index?searchStr="+item.ArName)">
+                var subjects = item.UcdsEductionManagement.Where(c => c.UniversityId != null && c.DepartmentId != null && c.SubjectId != null).Select(c => c.UniversityId & c.DepartmentId & c.SubjectId).Distinct().Count();
+                <a href="@(subjects == 0 ? "#" : "/College/CollegeSubjects/"+item.Id)">
                     <span class="@(subjects == 0 ? "text-gray" : "font-weight-bold")">@subjects</span>
                 </a>
             }

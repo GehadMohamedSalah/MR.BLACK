@@ -183,7 +183,7 @@ namespace MRBLACK.Controllers
                 || f.BookCategory.ArName.Contains(searchStr)
                 || f.Price.ToString().Contains(searchStr)
                 || f.ArAuthoreName.Contains(searchStr)
-                || f.Id.ToString().Contains(searchStr);
+                || ("bs_"+f.Id.ToString()).Contains(searchStr);
             }
 
 

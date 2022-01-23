@@ -1,0 +1,93 @@
+﻿@model MRBLACK.Models.Database.College
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
+
+
+<h1 class="text-center">اقسام كلية (@Model.ArName)</h1>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group mt-5">
+                    <input class="form-control left-border-none" type="text" id="Search" maxlength="20" placeholder="اكتب للبحث" onkeyup="SearchInTable()">
+                    <span class="input-group-addon transparent" onclick="SearchInTable()">
+                        <i class='fa fa-search' aria-hidden='true'></i>
+                    </span>
+                    <span class="input-group-addon transparent" onclick="RemoveSearchText()">
+                        <i class='fa fa-times' aria-hidden='true'></i>
+                    </span>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="bg-blue">
+                    <tr>
+                        <th>#</th>
+                        <th>قسم</th>
+                        <th>كلية</th>
+                        <th>جامعة</th>
+                        <th>دولة</th>
+                    </tr>
+                </thead>
+                <tbody id="tbBody">
+                    @{
+                        var i = 1;
+                        var str = "";
+                    }
+                    @foreach (var item in Model.UcdsEductionManagement.Where(c => c.UniversityId != null && c.DepartmentId != null))
+                    {
+                        var x = item.UniversityId + "_" + item.CollegeId + "_" + item.DepartmentId;
+                        if (!str.Contains(x))
+                        {
+                            <tr class="Search">
+                                <td>@i</td>
+                                <td>@item.Department.ArName</td>
+                                <td>@item.College.ArName</td>
+                                <td>@item.University.ArName</td>
+                                <td>@item.University.Country.ArName</td>
+                            </tr>
+                            i++;
+                            str += "," + x;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    function Contains(text_one, text_two) {
+        if (text_one.indexOf(text_two) != -1)
+            return true;
+    }
+
+    function SearchInTable() {
+        var searchText = $("#Search").val().toLowerCase();
+        $(".Search").each(function () {
+            if (!Contains($(this).text().toLowerCase(), searchText)) {
+                $(this).hide();
+            }
+            else {
+                $(this).show();
+            }
+        });
+    }
+
+    function RemoveSearchText() {
+        $("#Search").val("");
+        SearchInTable();
+    }
+</script>

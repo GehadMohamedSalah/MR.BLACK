@@ -258,5 +258,12 @@ namespace MRBLACK.Controllers
             _Department.Update(item);
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult DepartmentColleges(int id)
+        {
+           var model = _Department.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.College,UcdsEductionManagement.University.Country");
+            return View(model); 
+        }
+
     }
 }

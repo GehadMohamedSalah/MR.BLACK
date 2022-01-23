@@ -150,10 +150,10 @@ namespace MRBLACK.Controllers
                 searchStr = searchStr.ToLower();
                 filter = f => f.EnName.ToLower().Contains(searchStr)
                 || f.ArName.Contains(searchStr)
-                || f.UcdsEductionManagement.Any(c => c.Department.ArName.ToLower().Contains(searchStr))
-                || f.UcdsEductionManagement.Any(c => c.College.ArName.ToLower().Contains(searchStr))
-                || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
-                || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr))
+                || f.UcdsEductionManagement.Where(c => c.Department.ArName.ToLower().Contains(searchStr)).Count()>0
+                || f.UcdsEductionManagement.Where(c => c.College.ArName.ToLower().Contains(searchStr)).Count()>0
+                || f.UcdsEductionManagement.Where(c => c.University.ArName.ToLower().Contains(searchStr)).Count()>0
+                || f.UcdsEductionManagement.Where(c => c.University.Country.ArName.ToLower().Contains(searchStr)).Count()>0
                 || ("sub_"+f.Id.ToString()).Contains(searchStr);
             }
 
@@ -255,6 +255,12 @@ namespace MRBLACK.Controllers
             item.ImgPath = null;
             _Subject.Update(item);
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult SubjectDepartments(int id)
+        {
+            var model = _Subject.GetFirstOrDefault(c => c.Id == id , "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.College,UcdsEductionManagement.University.Country,UcdsEductionManagement.Department");
+            return View(model);
         }
 
     }

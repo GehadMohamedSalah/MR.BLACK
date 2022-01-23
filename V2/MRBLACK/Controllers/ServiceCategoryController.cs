@@ -169,8 +169,18 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
+                var pricingMethod = 0;
+
+                if (searchStr.Contains("جبري"))
+                    pricingMethod = 1;
+                if (searchStr.Contains("عمولة"))
+                    pricingMethod = 2;
+
                 filter = f => f.EnName.ToLower().Contains(searchStr)
-                || f.ArName.Contains(searchStr) || f.Id.ToString().Contains(searchStr);
+                || f.ArName.Contains(searchStr) 
+                || ("srvc_" + f.Id.ToString()).Contains(searchStr)
+                || (f.ParentCategoryId != null  && f.ParentCategory.ArName.Contains(searchStr))
+                || ( pricingMethod != 0 && f.PricingMethod == pricingMethod);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

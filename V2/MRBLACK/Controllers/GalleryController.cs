@@ -149,7 +149,8 @@ namespace MRBLACK.Controllers
                     cateId = 5;
 
                 filter = f => f.CreatedOn.ToString().Contains(searchStr)
-                || (cateId != 0 && f.GalleryCategoryId == cateId) || f.Id.ToString().Contains(searchStr);
+                || (cateId != 0 && f.GalleryCategoryId == cateId) 
+                || ("glry_" + f.Id.ToString()).Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

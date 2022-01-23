@@ -85,13 +85,13 @@ namespace MRBLACK.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Service model,IFormFile img, IFormFile anotherImg)
+        public IActionResult Create(Service model, IFormFile img, IFormFile anotherImg)
         {
             if (ModelState.IsValid)
             {
                 if (!CheckServiceExisting(model))
                 {
-                    if(img != null)
+                    if (img != null)
                     {
                         model.ImgPath = FileHelper.UploadFile(img, _webHostEnvironment, "Uploads/Images/Services");
                     }
@@ -127,7 +127,7 @@ namespace MRBLACK.Controllers
         public IActionResult Edit(int id)
         {
             ViewBag.ActionName = nameof(Edit);
-            var model = _Service.GetFirstOrDefault(c => c.Id == id , "Category");
+            var model = _Service.GetFirstOrDefault(c => c.Id == id, "Category");
             FillDropdownLists(model.CategoryId);
             return View("EditCreate", model);
         }
@@ -215,16 +215,22 @@ namespace MRBLACK.Controllers
                 }
             }
 
-            if(providerId != -1)
+            if (providerId != -1)
             {
                 filter = f => f.ProviderId == providerId &&
-                   ( f.EnName.ToLower().Contains(searchStr) ||
-                    f.ArName.Contains(searchStr)) || f.Id.ToString().Contains(searchStr);
+                   (f.EnName.ToLower().Contains(searchStr)
+                   || f.ArName.Contains(searchStr))
+                   || ("srv_" + f.Id.ToString()).Contains(searchStr)
+                   || f.TotalPrice.ToString().Contains(searchStr)
+                   || (f.CategoryId != null && f.Category.ArName.Contains(searchStr));
             }
             else
             {
-                filter = f => f.EnName.ToLower().Contains(searchStr) ||
-                    f.ArName.Contains(searchStr) || f.Id.ToString().Contains(searchStr);
+                filter = f => f.EnName.ToLower().Contains(searchStr)
+                    || f.ArName.Contains(searchStr)
+                    || ("srv_" + f.Id.ToString()).Contains(searchStr)
+                    || f.TotalPrice.ToString().Contains(searchStr)
+                    || (f.CategoryId != null && f.Category.ArName.Contains(searchStr));
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
@@ -241,13 +247,13 @@ namespace MRBLACK.Controllers
 
         public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber, pageSize).Result.ToList());
         }
 
 
         public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<Service>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = PagedList<Service>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber, pageSize).Result);
             model.GetItemsUrl = "/Service/GetItems";
             model.GetPaginationUrl = "/Service/GetPagination";
             return PartialView("_Pagination", model);
@@ -324,15 +330,15 @@ namespace MRBLACK.Controllers
             var universities = _University.GetAll(c => c.CountryId == CountryId, null, "UcdsEductionManagement");
 
             var colleges = new List<College>();
-            foreach(var item in universities)
+            foreach (var item in universities)
             {
-                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
                 {
-                    foreach(var item1 in item.UcdsEductionManagement)
+                    foreach (var item1 in item.UcdsEductionManagement)
                     {
-                        if(item1.CollegeId != null && item1.CollegeId != 0)
+                        if (item1.CollegeId != null && item1.CollegeId != 0)
                         {
-                            if(colleges.Where(c => c.Id == item1.CollegeId).Count() == 0)
+                            if (colleges.Where(c => c.Id == item1.CollegeId).Count() == 0)
                             {
                                 colleges.Add(_College.GetFirstOrDefault(c => c.Id == (int)item1.CollegeId, "UcdsEductionManagement"));
                             }
@@ -536,7 +542,7 @@ namespace MRBLACK.Controllers
         public IActionResult GetUCDSByUniversity(int? universityId, int? collegeId, int? departmentId, int? subjectId)
         {
             Dictionary<string, List<SelectListItem>> result = new Dictionary<string, List<SelectListItem>>();
-            if(universityId != null)
+            if (universityId != null)
             {
 
             }
@@ -555,7 +561,7 @@ namespace MRBLACK.Controllers
              f.SubjectId == model.SubjectId &&
              f.CategoryId == model.CategoryId &&
              f.ProviderId == model.ProviderId;
-            if(model.Id != 0)
+            if (model.Id != 0)
             {
                 filter = f => f.Id != model.Id && f.UniversityId == model.UniversityId &&
                          f.CollegeId == model.CollegeId &&
@@ -566,7 +572,7 @@ namespace MRBLACK.Controllers
                          f.CategoryId == model.CategoryId &&
                          f.ProviderId == model.ProviderId;
             }
-            if(_Service.GetAll(filter) != null && _Service.GetAll(filter).Count() > 0)
+            if (_Service.GetAll(filter) != null && _Service.GetAll(filter).Count() > 0)
             {
                 return true;
             }

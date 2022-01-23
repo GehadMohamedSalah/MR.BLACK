@@ -206,9 +206,22 @@ namespace MRBLACK.Controllers
 
             if (searchStr != "" && searchStr != null)
             {
+                int memType = 0;
+
+                if (searchStr.Contains("طالب"))
+                    memType = 1;
+
+                if (searchStr.Contains("مقدم خدمة"))
+                    memType = 2;
+                
+                if (searchStr.Contains("معلن"))
+                    memType = 3;
+                
                 searchStr = searchStr.ToLower();
                 filter = f => f.EnName.ToLower().Contains(searchStr)
-                || f.ArName.Contains(searchStr) || f.Id.ToString().Contains(searchStr);
+                || f.ArName.Contains(searchStr) 
+                || ("mem_"+f.Id.ToString()).Contains(searchStr)
+                || (memType != 0 && f.MembershipType == memType);
             }
 
            
