@@ -24,6 +24,8 @@ namespace MRBLACK.TempDb
         public string ArName { get; set; }
         public string EnName { get; set; }
         public string ImgPath { get; set; }
+        public int? Years { get; set; }
+        public int? Terms { get; set; }
 
         [InverseProperty("College")]
         public virtual ICollection<Service> Service { get; set; }

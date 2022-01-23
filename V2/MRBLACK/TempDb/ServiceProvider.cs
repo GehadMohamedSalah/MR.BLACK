@@ -31,6 +31,8 @@ namespace MRBLACK.TempDb
         public decimal WithdrawableBalances { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal WithdrawnBalances { get; set; }
+        public int? MembershipId { get; set; }
+        public bool IsSponsered { get; set; }
 
         [ForeignKey(nameof(CountryId))]
         [InverseProperty("ServiceProvider")]

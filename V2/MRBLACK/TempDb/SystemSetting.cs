@@ -24,7 +24,8 @@ namespace MRBLACK.TempDb
         [Column("CEOMail")]
         public string Ceomail { get; set; }
         public string MarketingMail { get; set; }
-        public string MinWithdrawalRequest { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? MinWithdrawalRequest { get; set; }
         public string MaxWorkBalance { get; set; }
         public string SiteClosureMsg { get; set; }
         public string TermsAndConditions { get; set; }

@@ -24,11 +24,14 @@ namespace MRBLACK.TempDb
         public string EnDesc { get; set; }
         public string ArAuthoreName { get; set; }
         public string EnAuthoreName { get; set; }
-        public string BookPath { get; set; }
         public int? BookCategoryId { get; set; }
         [Column(TypeName = "decimal(18, 3)")]
         public decimal Price { get; set; }
         public int? CurrencyTypeId { get; set; }
+        public string BookPdfPath { get; set; }
+        public string BookVoicePath { get; set; }
+        public string BookCoverImgPath { get; set; }
+        public int? PaperNum { get; set; }
 
         [ForeignKey(nameof(BookCategoryId))]
         [InverseProperty("BookStore")]

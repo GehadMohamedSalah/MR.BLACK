@@ -40,6 +40,7 @@
                 || Context.Request.Path.ToString().ToLower().Contains("university")
                 ||Context.Request.Path.ToString().ToLower().Contains("college")
                 || Context.Request.Path.ToString().ToLower().Contains("department")
+                || Context.Request.Path.ToString().ToLower().Contains("group")
                 ||Context.Request.Path.ToString().ToLower().Contains("academicyear")
                 ||Context.Request.Path.ToString().ToLower().Contains("term")
                 ||Context.Request.Path.ToString().ToLower().Contains("subject")
@@ -66,7 +67,12 @@
                     </li>
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("department") ? "active" : "")">
                         <a href="@Url.Action("Index", "Department")">
-                            <i class="fa fa-industry"></i> <span>المجموعات</span>
+                            <i class="fa fa-industry"></i> <span>الاقسام</span>
+                        </a>
+                    </li>
+                    <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("group") ? "active" : "")">
+                        <a href="@Url.Action("Index", "group")">
+                            <i class="fa fa-object-group"></i> <span>المجموعات</span>
                         </a>
                     </li>
                     <li class="treeview @(Context.Request.Path.ToString().ToLower().Contains("academicyear") ? "active" : "")">

@@ -9,21 +9,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MRBLACK.TempDb
 {
-    public partial class Gallery
+    public partial class SlideShow
     {
-        public Gallery()
-        {
-            SlideShow = new HashSet<SlideShow>();
-        }
-
         [Key]
         public int Id { get; set; }
         public string ImgPath { get; set; }
+        public string Text { get; set; }
+        public string Link { get; set; }
+        public int? GalleryImgId { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedOn { get; set; }
-        public int? GalleryCategoryId { get; set; }
 
-        [InverseProperty("GalleryImg")]
-        public virtual ICollection<SlideShow> SlideShow { get; set; }
+        [ForeignKey(nameof(GalleryImgId))]
+        [InverseProperty(nameof(Gallery.SlideShow))]
+        public virtual Gallery GalleryImg { get; set; }
     }
 }

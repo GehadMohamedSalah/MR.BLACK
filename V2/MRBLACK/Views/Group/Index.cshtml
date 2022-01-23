@@ -1,4 +1,4 @@
-﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.Database.Department>
+﻿@model MRBLACK.Helper.PagedList<MRBLACK.Models.Database.Group>
 @using MRBLACK.Models.ViewModels;
 @{
     ViewData["Title"] = "Index";
@@ -9,8 +9,8 @@
         TotalPages = Model.TotalPages,
         PreviousPage = Model.PreviousPage,
         NextPage = Model.NextPage,
-        GetItemsUrl = "/Department/GetItems",
-        GetPaginationUrl = "/Department/GetPagination",
+        GetItemsUrl = "/Group/GetItems",
+        GetPaginationUrl = "/Group/GetPagination",
         ItemsCount = Model.ItemsCount,
         StartIndex = Model.StartIndex,
         EndIndex = Model.EndIndex
@@ -19,18 +19,17 @@
 
 <button type="button" class="btn btn-buy" onclick="BackToPreviousPage()"><i class="fa fa-forward"></i> العودة للصفحة السابقة</button>
 
-<h1 class="text-center">شاشة الاقسام</h1>
+<h1 class="text-center">شاشة المجموعات</h1>
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="row">
             <div class="col-sm-6">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Department/Create')">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Group/Create')">
                     <i class="fa fa-plus"></i><span>  اضافة جديد</span>
                 </button>
             </div>
             <partial name="_TableNavbar" model="@Model.PageIndex" />
         </div>
-
     </div>
     <div class="panel-body">
         <div class="table-responsive">
@@ -41,9 +40,7 @@
                         <td>الكود</td>
                         <td>الاسم بالانجليزية</td>
                         <td>الاسم بالعربية</td>
-                        <td>عدد المواد</td>
-                        <td>الكليات</td>
-                        <td>الصورة</td>
+                        <td>قسم - كلية - جامعة - دولة</td>
                         <td>الاجراءات</td>
                     </tr>
                 </thead>
@@ -55,7 +52,7 @@
                 <partial name="_Pagination" model="@paginationVM" />
             </div>
         </div>
-
     </div>
 </div>
+
 

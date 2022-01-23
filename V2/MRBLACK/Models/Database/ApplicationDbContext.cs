@@ -68,6 +68,7 @@ namespace MRBLACK.Models.Database
         public virtual DbSet<UserBookGift> UserBookGift { get; set; }
         public virtual DbSet<UserVisit> UserVisit { get; set; }
         public virtual DbSet<SlideShow> SlideShow { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -460,6 +461,14 @@ namespace MRBLACK.Models.Database
                     .WithMany(p => p.SlideShow)
                     .HasForeignKey(d => d.GalleryImgId)
                     .HasConstraintName("FK_SlideShow_Gallery");
+            });
+
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Groups)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .HasConstraintName("FK_Group_Department");
             });
 
             OnModelCreatingPartial(modelBuilder);

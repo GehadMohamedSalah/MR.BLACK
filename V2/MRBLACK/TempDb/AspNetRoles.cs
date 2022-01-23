@@ -28,6 +28,7 @@ namespace MRBLACK.TempDb
         public string ArName { get; set; }
         public bool CanBeEditedOrDeleted { get; set; }
         public bool IsDeleted { get; set; }
+        public int Code { get; set; }
 
         [ForeignKey(nameof(MembershipId))]
         [InverseProperty("AspNetRoles")]

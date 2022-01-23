@@ -147,6 +147,8 @@ namespace MRBLACK
             services.AddScoped<IRepository<Gallery>, Repository<Gallery>>();
             services.AddScoped<IRepository<BookStore>, Repository<BookStore>>();
             services.AddScoped<IRepository<BookCategory>, Repository<BookCategory>>();
+            services.AddScoped<IRepository<Group>, Repository<Group>>();
+
 
 
         }

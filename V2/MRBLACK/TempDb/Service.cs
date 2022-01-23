@@ -31,12 +31,23 @@ namespace MRBLACK.TempDb
         public bool HasReference { get; set; }
         public bool HasSpelling { get; set; }
         public bool HasIntroAndEnd { get; set; }
-        [Column(TypeName = "decimal(18, 3)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal TotalPrice { get; set; }
-        [Column(TypeName = "decimal(18, 3)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal Discount { get; set; }
-        [Column(TypeName = "decimal(18, 3)")]
+        [Column(TypeName = "decimal(18, 2)")]
         public decimal PlatformRevenue { get; set; }
+        public string ImgPath { get; set; }
+        public int? FormTypeId { get; set; }
+        public string AnotherImgPath { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? MarginsPrice { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? ReferencesPrice { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? SpellingPrice { get; set; }
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal? IntroAndEndPrice { get; set; }
 
         [ForeignKey(nameof(AcademinYearId))]
         [InverseProperty(nameof(AcademicYear.Service))]

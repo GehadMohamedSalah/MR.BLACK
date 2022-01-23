@@ -48,6 +48,7 @@ namespace MRBLACK.TempDb
         public virtual DbSet<CurrencyType> CurrencyType { get; set; }
         public virtual DbSet<Department> Department { get; set; }
         public virtual DbSet<Gallery> Gallery { get; set; }
+        public virtual DbSet<Group> Group { get; set; }
         public virtual DbSet<Membership> Membership { get; set; }
         public virtual DbSet<MembershipLink> MembershipLink { get; set; }
         public virtual DbSet<Messaging> Messaging { get; set; }
@@ -64,6 +65,7 @@ namespace MRBLACK.TempDb
         public virtual DbSet<ServiceRequest> ServiceRequest { get; set; }
         public virtual DbSet<ServicesInServicesPurchaseInvoice> ServicesInServicesPurchaseInvoice { get; set; }
         public virtual DbSet<ServicesPurchaseInvoice> ServicesPurchaseInvoice { get; set; }
+        public virtual DbSet<SlideShow> SlideShow { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<Subject> Subject { get; set; }
         public virtual DbSet<SystemPage> SystemPage { get; set; }
@@ -80,7 +82,7 @@ namespace MRBLACK.TempDb
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Data Source=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456");
+                optionsBuilder.UseSqlServer("Server=SQL5108.site4now.net;Initial Catalog=db_a6e36f_mrblack;User Id=db_a6e36f_mrblack_admin;Password=MRBLACK_123456");
             }
         }
 
@@ -167,6 +169,8 @@ namespace MRBLACK.TempDb
                     .IsUnique()
                     .HasFilter("([NormalizedName] IS NOT NULL)");
 
+                entity.Property(e => e.Code).ValueGeneratedOnAdd();
+
                 entity.HasOne(d => d.Membership)
                     .WithMany(p => p.AspNetRoles)
                     .HasForeignKey(d => d.MembershipId)
@@ -207,6 +211,8 @@ namespace MRBLACK.TempDb
                     .HasName("UserNameIndex")
                     .IsUnique()
                     .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Code).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<BalanceTransfer>(entity =>
@@ -275,6 +281,14 @@ namespace MRBLACK.TempDb
             modelBuilder.Entity<CurrencyType>(entity =>
             {
                 entity.Property(e => e.ValueInPound).HasDefaultValueSql("((1))");
+            });
+
+            modelBuilder.Entity<Group>(entity =>
+            {
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Group)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .HasConstraintName("FK_Group_Department");
             });
 
             modelBuilder.Entity<MembershipLink>(entity =>
@@ -437,8 +451,19 @@ namespace MRBLACK.TempDb
                     .HasConstraintName("FK_ServicesPurchaseInvoice_CurrencyType");
             });
 
+            modelBuilder.Entity<SlideShow>(entity =>
+            {
+                entity.HasOne(d => d.GalleryImg)
+                    .WithMany(p => p.SlideShow)
+                    .HasForeignKey(d => d.GalleryImgId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK_SlideShow_Gallery");
+            });
+
             modelBuilder.Entity<Student>(entity =>
             {
+                entity.Property(e => e.CreatedOn).HasDefaultValueSql("(((20)/(11))/(2021))");
+
                 entity.HasOne(d => d.AcademicYear)
                     .WithMany(p => p.Student)
                     .HasForeignKey(d => d.AcademicYearId)

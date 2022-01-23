@@ -23,6 +23,8 @@ namespace MRBLACK.TempDb
         public string EnName { get; set; }
         public int? CurrencyTypeId { get; set; }
         public string ImgPath { get; set; }
+        [StringLength(50)]
+        public string CountryCode { get; set; }
 
         [ForeignKey(nameof(CurrencyTypeId))]
         [InverseProperty("Country")]

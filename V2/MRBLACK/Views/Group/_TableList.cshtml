@@ -1,0 +1,29 @@
+﻿@model List<MRBLACK.Models.Database.Group>
+@{
+    Layout = null;
+    var i = ViewBag.PageStartRowNum;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@i</td>
+        <td>GRP_@item.Id</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EnName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArName)
+        </td>
+        <td>@item.Department.ArName - @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.CollegeId == item.DptCollegeId).College.ArName - @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.UniversityId == item.DptUniversityId).University.ArName  - @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.UniversityId == item.DptUniversityId).University.Country.ArName </td>
+        <td>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Group/Edit/@item.Id')">
+                <i class="fa fa-edit"></i> <span>  تعديل</span>
+            </button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Group/Delete/@item.Id')">
+                <i class="fa fa-trash"></i><span>  حذف</span>
+            </button>
+        </td>
+    </tr>
+    i++;
+}

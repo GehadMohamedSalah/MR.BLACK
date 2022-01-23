@@ -31,6 +31,12 @@ namespace MRBLACK.TempDb
         public string EnKeywords { get; set; }
         public int? ArticleCategoryId { get; set; }
         public string Instructions { get; set; }
+        public int? ViewsNum { get; set; }
+        public int? Status { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreatedOn { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime PublishOn { get; set; }
 
         [ForeignKey(nameof(ArticleCategoryId))]
         [InverseProperty("Article")]

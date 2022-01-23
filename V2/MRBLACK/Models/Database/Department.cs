@@ -17,6 +17,7 @@ namespace MRBLACK.Models.Database
             ServiceCategoryRequest = new HashSet<ServiceCategoryRequest>();
             Student = new HashSet<Student>();
             UcdsEductionManagement = new HashSet<UcdsEductionManagement>();
+            Groups = new HashSet<Group>();
         }
 
         [Key]
@@ -37,5 +38,6 @@ namespace MRBLACK.Models.Database
         public virtual ICollection<Student> Student { get; set; }
         [InverseProperty("Department")]
         public virtual ICollection<UcdsEductionManagement> UcdsEductionManagement { get; set; }
+        public virtual ICollection<Group> Groups { get; set; }
     }
 }

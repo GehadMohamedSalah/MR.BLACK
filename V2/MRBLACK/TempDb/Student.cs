@@ -29,6 +29,9 @@ namespace MRBLACK.TempDb
         [Column(TypeName = "decimal(18, 3)")]
         public decimal WalletBalance { get; set; }
         public int? CountryId { get; set; }
+        public int? MembershipId { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime CreatedOn { get; set; }
 
         [ForeignKey(nameof(AcademicYearId))]
         [InverseProperty("Student")]

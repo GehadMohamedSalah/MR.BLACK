@@ -31,6 +31,8 @@ namespace MRBLACK.TempDb
         public DateTime? StartDate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? EndDate { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? AccountStartDate { get; set; }
 
         [ForeignKey(nameof(CategoryId))]
         [InverseProperty(nameof(ServiceCategory.Copun))]

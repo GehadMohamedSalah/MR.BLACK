@@ -45,6 +45,16 @@ namespace MRBLACK.TempDb
         public string EnName { get; set; }
         public int? Gender { get; set; }
         public string RedirectUrl { get; set; }
+        public int? CountryId { get; set; }
+        public bool IsDeleted { get; set; }
+        public int? UserType { get; set; }
+        public string ImgPath { get; set; }
+        [StringLength(450)]
+        public string CreatedBy { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? CreatedOn { get; set; }
+        public string CreatedUsername { get; set; }
+        public int Code { get; set; }
 
         [InverseProperty("User")]
         public virtual ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }

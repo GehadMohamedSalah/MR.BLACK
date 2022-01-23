@@ -13,6 +13,7 @@ namespace MRBLACK.TempDb
     {
         public Department()
         {
+            Group = new HashSet<Group>();
             Service = new HashSet<Service>();
             ServiceCategoryRequest = new HashSet<ServiceCategoryRequest>();
             Student = new HashSet<Student>();
@@ -25,6 +26,8 @@ namespace MRBLACK.TempDb
         public string EnName { get; set; }
         public string ImgPath { get; set; }
 
+        [InverseProperty("Department")]
+        public virtual ICollection<Group> Group { get; set; }
         [InverseProperty("Department")]
         public virtual ICollection<Service> Service { get; set; }
         [InverseProperty("Department")]
