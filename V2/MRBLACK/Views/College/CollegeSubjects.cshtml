@@ -33,11 +33,11 @@
                 <thead class="bg-blue">
                     <tr>
                         <th>#</th>
-                        <th>مادة</th>
-                        <th>قسم</th>
-                        <th>كلية</th>
-                        <th>جامعة</th>
                         <th>دولة</th>
+                        <th>جامعة</th>
+                        <th>كلية</th>
+                        <th>قسم</th>
+                        <th>مادة</th>
                     </tr>
                 </thead>
                 <tbody id="tbBody">
@@ -52,11 +52,11 @@
                         {
                             <tr class="Search">
                                 <td>@i</td>
-                                <td>@item.Subject.ArName</td>
-                                <td>@item.Department.ArName</td>
-                                <td>@item.College.ArName</td>
-                                <td>@item.University.ArName</td>
                                 <td>@item.University.Country.ArName</td>
+                                <td>@item.University.ArName</td>
+                                <td>@item.College.ArName</td>
+                                <td>@item.Department.ArName</td>
+                                <td>@item.Subject.ArName</td>
                             </tr>
                             i++;
                             str += "," + x;

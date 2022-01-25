@@ -317,28 +317,28 @@
             $("body").toggleClass('sidebar-open');
             $("body").click(function (e) {
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    if (e.target.className == "sidebar-toggle") {
-                        $(this).removeClass('sidebar-open');
-                    }
-                    else {
-                        if (e.toElement != null) {
-                            //do nothing
-                        }
-                        else {
-                            $("body").addClass('sidebar-open');
-                        }
-                        //if (e.toElement.offsetParent.className.includes('treeview')) {
-                        //}
-                        //else {
-                        //    if (e.toElement.offsetParent != null && e.toElement.offsetParent.offsetParent != null && e.toElement.offsetParent.offsetParent.className != null && e.toElement.offsetParent.offsetParent.className.includes('treeview')) {
-                        //        //do nothing
-                        //    }
-                        //    else {
-                        //        $("body").addClass('sidebar-open');
-                        //    }
-                        //}
-                    }
-                    $(".sidebar-toggle").click(false);
+                    //if (e.target.className == "sidebar-toggle") {
+                    //    $(this).removeClass('sidebar-open');
+                    //}
+                    //else {
+                    //    if (e.toElement != null) {
+                    //        //do nothing
+                    //    }
+                    //    else {
+                    //        $("body").addClass('sidebar-open');
+                    //    }
+                    //    //if (e.toElement.offsetParent.className.includes('treeview')) {
+                    //    //}
+                    //    //else {
+                    //    //    if (e.toElement.offsetParent != null && e.toElement.offsetParent.offsetParent != null && e.toElement.offsetParent.offsetParent.className != null && e.toElement.offsetParent.offsetParent.className.includes('treeview')) {
+                    //    //        //do nothing
+                    //    //    }
+                    //    //    else {
+                    //    //        $("body").addClass('sidebar-open');
+                    //    //    }
+                    //    //}
+                    //}
+                    //$(".sidebar-toggle").click(false);
                 }
             })
             if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
