@@ -20,7 +20,7 @@
         <td>
             @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
             {
-                ucdsCount = item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.CollegeId != null && c.UniversityId != null).Select(c => c.DepartmentId & c.CollegeId & c.UniversityId).Distinct().Count();
+                ucdsCount = item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.CollegeId != null && c.UniversityId != null).Select(c => c.DepartmentId + "_" + c.CollegeId + "_" + c.UniversityId + "_" + c.University.CountryId).Distinct().Count();
             }
             <a href="@(ucdsCount == 0 ? "#" : "/Subject/SubjectDepartments/"+item.Id)">
                 <span class="@(ucdsCount == 0 ? "text-gray" : "font-weight-bold")">@ucdsCount</span>

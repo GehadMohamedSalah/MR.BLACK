@@ -192,7 +192,8 @@ namespace MRBLACK.Controllers
 
         private void FillDropdownLists()
         {
-            var ucds = _ucds.GetAll(null, null, "University,College,University.Country").ToList();
+            var ucds = new List<UcdsEductionManagement>();
+            ucds = _ucds.GetAll(null, null, "University,College,University.Country").ToList();
             var lst = new List<UcdsEductionManagement>();
             if(ucds != null && ucds.Count() > 0)
             {

@@ -44,7 +44,7 @@
                         var i = 1;
                         var str = "";
                     }
-                    @foreach (var item in Model.UcdsEductionManagement)
+                    @foreach (var item in Model.UcdsEductionManagement.Where(c => c.UniversityId != null && c.CollegeId != null && c.DepartmentId != null))
                     {
                         var x = item.UniversityId + "_" + item.CollegeId + "_" + item.DepartmentId;
                         if (!str.Contains(x))

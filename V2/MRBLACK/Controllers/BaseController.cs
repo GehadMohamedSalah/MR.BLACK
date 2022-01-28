@@ -53,7 +53,7 @@ namespace MRBLACK.Controllers
             if (strIndexPageDetails != null && strIndexPageDetails != "")
             {
                 jsonIndexPageDetails = JsonConvert.DeserializeObject<List<IndexPageDetailsVM>>(strIndexPageDetails);
-                model = jsonIndexPageDetails.FirstOrDefault(c => c.ControllerName == tableName);
+                model = jsonIndexPageDetails.FirstOrDefault(c => c.ControllerName.ToLower() == tableName.ToLower());
                 if (model == null || model.PageNumber == 0)
                 {
                     model = new IndexPageDetailsVM()

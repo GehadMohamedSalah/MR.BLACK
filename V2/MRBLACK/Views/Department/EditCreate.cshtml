@@ -40,7 +40,7 @@
                         <select class="col-lg-9 form-control chosen-select" multiple id="UCDS" name="UCDS">
                             @foreach (MRBLACK.Models.Database.UcdsEductionManagement item in ViewBag.CollegeUniversityCountryList)
                             {
-                                if (Model.UcdsEductionManagement.Where(c => c.Id == item.Id).Count() > 0)
+                                if (Model.UcdsEductionManagement.Where(c => c.CollegeId == item.CollegeId && c.UniversityId == item.UniversityId && c.University.CountryId == item.University.CountryId).Count() > 0)
                                 {
                                     <option value="@item.Id" selected>@item.College.ArName - @item.University.ArName - @item.University.Country.ArName</option>
                                 }

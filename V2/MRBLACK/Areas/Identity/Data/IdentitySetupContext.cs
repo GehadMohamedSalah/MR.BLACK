@@ -16,11 +16,13 @@ namespace MRBLACK.Data
             builder.Entity<IdentitySetupUser>(entity =>
             {
                 entity.Property(c => c.Code).ValueGeneratedOnAdd();
+                entity.Property(c => c.Code).ValueGeneratedOnAddOrUpdate();
             });
 
             builder.Entity<IdentitySetupRole>(entity =>
             {
                 entity.Property(c => c.Code).ValueGeneratedOnAdd();
+                entity.Property(c => c.Code).ValueGeneratedOnAddOrUpdate();
             });
 
             base.OnModelCreating(builder);
