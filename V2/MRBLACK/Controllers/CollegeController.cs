@@ -128,12 +128,19 @@ namespace MRBLACK.Controllers
             try
             {
                 var item = _College.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
-                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                if(item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.SubjectId != null) != null && item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.SubjectId != null).Count() > 0)
                 {
                     return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الكلية" });
                 }
                 else
                 {
+                    List<UcdsEductionManagement> ucds = new List<UcdsEductionManagement>();
+                    ucds = item.UcdsEductionManagement.ToList();
+                    ucds.ForEach(c =>
+                    {
+                        c.CollegeId = null;
+                        _ucds.Update(c);
+                    });
                     _College.Delete((int)model.PkFieldIntVal);
                 }
                 

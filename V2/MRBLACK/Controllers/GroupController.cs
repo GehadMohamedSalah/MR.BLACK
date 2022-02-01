@@ -33,9 +33,11 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Groups
-        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
+        public IActionResult Index(string searchStr = "", int pageNumber = 1, int pageSize = 5)
         {
             var model = GetIndexPageDetails("Group");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
             return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
@@ -152,7 +154,8 @@ namespace MRBLACK.Controllers
             {
                 searchStr = searchStr.ToLower();
                 filter = f => f.EnName.ToLower().Contains(searchStr)
-                || f.ArName.Contains(searchStr) || ("grp_" + f.Id.ToString()).Contains(searchStr);
+                || f.ArName.Contains(searchStr) || ("grp_" + f.Id.ToString()).Contains(searchStr)
+                || f.Department.ArName.ToLower().Contains(searchStr);
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()

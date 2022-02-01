@@ -1,4 +1,5 @@
 ﻿@model List<MRBLACK.Models.Database.Group>
+@using MRBLACK.Models.Database
 @{
     Layout = null;
     var i = ViewBag.PageStartRowNum;
@@ -15,7 +16,43 @@
         <td>
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
-        <td> @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.UniversityId == item.DptUniversityId).University.Country.ArName - @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.UniversityId == item.DptUniversityId).University.ArName - @item.Department.UcdsEductionManagement.FirstOrDefault(c => c.CollegeId == item.DptCollegeId).College.ArName - @item.Department.ArName </td>
+        <td>
+            @{
+                var ucds = item.Department.UcdsEductionManagement.ToList();
+                University university = null;
+                Country country = null;
+                College college = null;
+                Department department = item.Department;
+                if (ucds != null && ucds.Count > 0)
+                {
+                    if (ucds.FirstOrDefault(c => c.UniversityId == item.DptUniversityId) != null)
+                    {
+                        university = ucds.FirstOrDefault(c => c.UniversityId == item.DptUniversityId).University;
+                        country = university.Country;
+                    }
+                    if (ucds.FirstOrDefault(c => c.CollegeId == item.DptCollegeId) != null)
+                    {
+                        college = ucds.FirstOrDefault(c => c.CollegeId == item.DptCollegeId).College;
+                    }
+                }
+            }
+            @if (country != null)
+            {
+                <span>@country.ArName - </span>
+            }
+            @if (university != null)
+            {
+                <span>@university.ArName - </span>
+            }
+            @if (college != null)
+            {
+                <span>@college.ArName - </span>
+            }
+            @if (department != null)
+            {
+                <span>@department.ArName</span>
+            }
+        </td>
         <td>
             <button type="button" class="btn btn-info" data-toggle="modal" data-target="#flipFlop" onclick="FillPopup('/Group/Edit/@item.Id')">
                 <i class="fa fa-edit"></i> <span>  تعديل</span>

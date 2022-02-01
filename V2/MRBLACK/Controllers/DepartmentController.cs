@@ -21,19 +21,22 @@ namespace MRBLACK.Controllers
         private readonly Repository<Department> _Department;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly Repository<UcdsEductionManagement> _ucds;
+        private readonly Repository<Group> _group;
         public DepartmentController(IRepository<Department> Department
             , IWebHostEnvironment webHostEnvironment
-            ,IRepository<UcdsEductionManagement> ucds)
+            , IRepository<UcdsEductionManagement> ucds
+            , IRepository<Group> group)
         {
             _Department = (Repository<Department>)Department;
             _webHostEnvironment = webHostEnvironment;
             _ucds = (Repository<UcdsEductionManagement>)ucds;
+            _group = (Repository<Group>)group;
         }
 
         #region CRUD OPERTIONS
 
         #region Get Departments
-        public IActionResult Index(string searchStr = "",int pageNumber = 1, int pageSize = 5)
+        public IActionResult Index(string searchStr = "", int pageNumber = 1, int pageSize = 5)
         {
             var model = GetIndexPageDetails("Department");
             if (searchStr != "" && searchStr != null)
@@ -74,12 +77,12 @@ namespace MRBLACK.Controllers
         {
             ViewBag.ActionName = nameof(Edit);
             FillDropdownLists();
-            var model = _Department.GetFirstOrDefault(c=>c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country");
+            var model = _Department.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country");
             return View("EditCreate", model);
         }
 
         [HttpPost]
-        public IActionResult Edit(Department model, IFormFile img,List<int> UCDS)
+        public IActionResult Edit(Department model, IFormFile img, List<int> UCDS)
         {
             if (ModelState.IsValid)
             {
@@ -104,7 +107,7 @@ namespace MRBLACK.Controllers
             {
                 ControllerName = "Department",
                 ActionName = nameof(Delete),
-                Title = "حذف من شاشة المجموعات",
+                Title = "حذف من شاشة الاقسام",
                 PkFieldStrVal = null,
                 PkFieldIntVal = id
             };
@@ -116,19 +119,28 @@ namespace MRBLACK.Controllers
         {
             try
             {
-                var item = _Department.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
-                if(item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+                var item = _Department.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement,Groups");
+                if (item.UcdsEductionManagement.Where(c => c.SubjectId != null) != null && item.UcdsEductionManagement.Where(c => c.SubjectId != null).Count() > 0
+                    && item.Groups != null && item.Groups.Count() > 0)
                 {
                     return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا القسم" });
                 }
                 else
                 {
+                    List<UcdsEductionManagement> ucds = new List<UcdsEductionManagement>();
+                    ucds = item.UcdsEductionManagement.ToList();
+                    ucds.ForEach(c =>
+                    {
+                        c.DepartmentId = null;
+                        _ucds.Update(c);
+                    });
+
                     _Department.Delete((int)model.PkFieldIntVal);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذا القسم" });
+                return Json(new { IsSuccess = false, Msg = e.InnerException });
             }
 
             return Json(new { IsSuccess = true, Msg = "تم الحذف بنجاح" });
@@ -157,7 +169,7 @@ namespace MRBLACK.Controllers
                 || f.UcdsEductionManagement.Any(c => c.College.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.ArName.ToLower().Contains(searchStr))
                 || f.UcdsEductionManagement.Any(c => c.University.Country.ArName.ToLower().Contains(searchStr))
-                || ("dpt_"+f.Id.ToString()).Contains(searchStr)
+                || ("dpt_" + f.Id.ToString()).Contains(searchStr)
                 || searchlist.Contains(f.ArName.ToLower());
             }
 
@@ -169,19 +181,19 @@ namespace MRBLACK.Controllers
                 PageSize = pageSize
             });
 
-            return await PagedList<Department>.CreateAsync(_Department.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
+            return await PagedList<Department>.CreateAsync(_Department.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.College,UcdsEductionManagement.University,UcdsEductionManagement.University.Country,Groups"),
                 pageNumber, pageSize);
         }
 
         public IActionResult GetItems(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber,pageSize).Result.ToList());
+            return PartialView("_TableList", GetPagedListItems(searchStr, pageNumber, pageSize).Result.ToList());
         }
 
 
         public IActionResult GetPagination(string searchStr, int pageNumber = 1, int pageSize = 5)
         {
-            var model = PagedList<Department>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber,pageSize).Result);
+            var model = PagedList<Department>.GetPaginationObject(GetPagedListItems(searchStr, pageNumber, pageSize).Result);
             model.GetItemsUrl = "/Department/GetItems";
             model.GetPaginationUrl = "/Department/GetPagination";
             return PartialView("_Pagination", model);
@@ -195,19 +207,19 @@ namespace MRBLACK.Controllers
             var ucds = new List<UcdsEductionManagement>();
             ucds = _ucds.GetAll(null, null, "University,College,University.Country").ToList();
             var lst = new List<UcdsEductionManagement>();
-            if(ucds != null && ucds.Count() > 0)
+            if (ucds != null && ucds.Count() > 0)
             {
-                foreach(var item in ucds)
+                foreach (var item in ucds)
                 {
-                    if(lst.Where(c => c.University.CountryId == item.University.CountryId
-                    && c.UniversityId == item.UniversityId
-                    && c.CollegeId == item.CollegeId).Count() == 0)
+                    if (lst.Where(c => c.University.CountryId == item.University.CountryId
+                     && c.UniversityId == item.UniversityId
+                     && c.CollegeId == item.CollegeId).Count() == 0)
                     {
                         lst.Add(item);
                     }
                 }
             }
-            
+
             ViewBag.CollegeUniversityCountryList = lst;
         }
 
@@ -217,6 +229,12 @@ namespace MRBLACK.Controllers
             {
                 var oldUCDS = new List<UcdsEductionManagement>();
                 oldUCDS = _ucds.GetAll(c => c.DepartmentId == model.Id).ToList();
+                var deptGroups = new List<Group>();
+                if (model != null && model.Id > 0)
+                {
+                    deptGroups = _group.GetAll(c => c.DepartmentId == model.Id).ToList();
+                }
+
                 if (oldUCDS != null && oldUCDS.Count() > 0)
                 {
                     oldUCDS.ForEach(c =>
@@ -226,13 +244,16 @@ namespace MRBLACK.Controllers
                     });
                 }
 
+                List<UcdsEductionManagement> newItems = new List<UcdsEductionManagement>();
+
                 foreach (var item in UCDS)
                 {
                     var ucds = _ucds.GetElement(item);
-                    if(ucds.DepartmentId == null)
+                    if (ucds.DepartmentId == null)
                     {
                         ucds.DepartmentId = model.Id;
                         _ucds.Update(ucds);
+                        newItems.Add(ucds);
                     }
                     else
                     {
@@ -243,10 +264,25 @@ namespace MRBLACK.Controllers
                             DepartmentId = model.Id
                         };
                         _ucds.Add(newUcds);
+                        newItems.Add(newUcds);
                     }
                 }
+
+                var deletedGroups = new List<Group>();
+                foreach (var group in deptGroups)
+                {
+                    var check = newItems.Where(c => c.CollegeId == group.DptCollegeId && c.UniversityId == group.DptUniversityId).ToList();
+                    if (check == null || check.Count == 0)
+                    {
+                        deletedGroups.Add(group);
+                    }
+                }
+
+                if(deletedGroups != null && deletedGroups.Count()>0)
+                    _group.DeleteRange(deletedGroups);
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 var x = e.Message;
             }
@@ -262,8 +298,8 @@ namespace MRBLACK.Controllers
 
         public IActionResult DepartmentColleges(int id)
         {
-           var model = _Department.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.College,UcdsEductionManagement.University.Country");
-            return View(model); 
+            var model = _Department.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.College,UcdsEductionManagement.University.Country");
+            return View(model);
         }
 
     }

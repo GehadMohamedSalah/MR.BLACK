@@ -27,6 +27,11 @@
             }
         </td>
         <td>
+            <a href="@(item.Groups.Count() == 0 ? "#" : "/Group/Index?searchStr="+item.ArName)">
+                <span class="@(item.Groups.Count() == 0 ? "text-gray" : "font-weight-bold")">@item.Groups.Count()</span>
+            </a>
+        </td>
+        <td>
             @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
             {
                 ucdsCount = item.UcdsEductionManagement.Where(c => c.CollegeId != null && c.UniversityId != null).Select(c => c.CollegeId.ToString() + "_" + c.UniversityId.ToString() + "_" + c.University.CountryId.ToString()).Distinct().Count();
