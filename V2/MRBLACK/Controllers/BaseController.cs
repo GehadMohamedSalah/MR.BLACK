@@ -87,7 +87,7 @@ namespace MRBLACK.Controllers
                 PageNumber = 1,
                 PageSize = 5
             });
-            return RedirectToAction("Index",controllerName);
+            return RedirectToAction("Index", controllerName);
         }
     }
 }

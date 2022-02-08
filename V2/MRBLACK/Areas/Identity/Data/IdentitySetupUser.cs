@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using MRBLACK.Models.Database;
 
 namespace MRBLACK.Areas.Identity.Data
@@ -38,6 +39,7 @@ namespace MRBLACK.Areas.Identity.Data
 
         [Required(ErrorMessage ="هذا الحقل مطلوب ادخاله")]
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        [Remote("IsUniqueRow", "Role", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public string ArName { get; set; }
 
 
@@ -47,6 +49,7 @@ namespace MRBLACK.Areas.Identity.Data
 
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        [Remote("IsUniqueRow", "Role", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public override string Name { get => base.Name; set => base.Name = value; }
 
         public bool CanBeEditedOrDeleted { get; set; }

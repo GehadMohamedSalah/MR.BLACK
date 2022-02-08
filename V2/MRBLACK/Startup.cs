@@ -54,7 +54,7 @@ namespace MRBLACK
                 options.Password.RequiredUniqueChars = 0;
 
                 // Lockout settings.
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromHours(1);
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
@@ -72,16 +72,17 @@ namespace MRBLACK
             //session
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromHours(1);
+                options.IdleTimeout = TimeSpan.FromMinutes(10);
                 options.Cookie.IsEssential = true;
             });
+
 
             //cookies
             services.ConfigureApplicationCookie(options =>
             {
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
-                options.ExpireTimeSpan = TimeSpan.FromDays(1000);
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
 
                 options.LoginPath = "/Identity/Account/Login";
                 options.AccessDeniedPath = "/Home/Error";
@@ -114,7 +115,7 @@ namespace MRBLACK
                 .Services.ConfigureApplicationCookie(options =>
                 {
                     options.SlidingExpiration = true;
-                    options.ExpireTimeSpan = TimeSpan.FromDays(10);
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                 });
             services.AddCors();
 

@@ -24,17 +24,25 @@ namespace MRBLACK.Controllers
         private readonly Repository<Country> _country;
         private readonly Repository<University> _university;
         private readonly Repository<UcdsEductionManagement> _ucds;
+        private readonly Repository<Department> _department;
+        private readonly Repository<Group> _group;
+
+
         public CollegeController(IRepository<College> College
             , IWebHostEnvironment webHostEnvironment
             ,IRepository<Country> country
             ,IRepository<University> university,
-            IRepository<UcdsEductionManagement> ucds)
+            IRepository<UcdsEductionManagement> ucds
+            ,IRepository<Department> department
+            ,IRepository<Group> group)
         {
             _College = (Repository<College>)College;
             _webHostEnvironment = webHostEnvironment;
             _country = (Repository<Country>)country;
             _university = (Repository<University>)university;
             _ucds = (Repository<UcdsEductionManagement>)ucds;
+            _department = (Repository<Department>)department;
+            _group = (Repository<Group>)group;
         }
 
         #region CRUD OPERTIONS
@@ -128,7 +136,7 @@ namespace MRBLACK.Controllers
             try
             {
                 var item = _College.GetFirstOrDefault(c => c.Id == (int)model.PkFieldIntVal, "UcdsEductionManagement");
-                if(item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.SubjectId != null) != null && item.UcdsEductionManagement.Where(c => c.DepartmentId != null && c.SubjectId != null).Count() > 0)
+                if(item.UcdsEductionManagement.Where(c => c.DepartmentId != null) != null && item.UcdsEductionManagement.Where(c => c.DepartmentId != null).Count() > 0)
                 {
                     return Json(new { IsSuccess = false, Msg = "لا يمكن حذف هذه الكلية" });
                 }
@@ -136,11 +144,7 @@ namespace MRBLACK.Controllers
                 {
                     List<UcdsEductionManagement> ucds = new List<UcdsEductionManagement>();
                     ucds = item.UcdsEductionManagement.ToList();
-                    ucds.ForEach(c =>
-                    {
-                        c.CollegeId = null;
-                        _ucds.Update(c);
-                    });
+                    _ucds.DeleteRange(ucds);
                     _College.Delete((int)model.PkFieldIntVal);
                 }
                 
@@ -187,7 +191,7 @@ namespace MRBLACK.Controllers
                 PageNumber = pageNumber,
                 PageSize = pageSize
             });
-
+            ViewBag.Departments = _department.GetAll(null, null, "Groups").ToList();
             return await PagedList<College>.CreateAsync(_College.GetAllAsIQueryable(filter, orderBy, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.University.Country"),
                 pageNumber, pageSize);
         }
@@ -287,6 +291,56 @@ namespace MRBLACK.Controllers
             var model = _College.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.University,UcdsEductionManagement.University.Country,UcdsEductionManagement.Department,UcdsEductionManagement.Subject");
             return View(model);
         }
+
+
+        public IActionResult CollegeGroups(int id)
+        {
+            var model = new List<Group>();
+            var college = _College.GetFirstOrDefault(c => c.Id == id, "UcdsEductionManagement,UcdsEductionManagement.Department,UcdsEductionManagement.Department.Groups,UcdsEductionManagement.University,UcdsEductionManagement.University.Country,UcdsEductionManagement.Department.Groups.Department.UcdsEductionManagement");
+            foreach(var item in college.UcdsEductionManagement
+                .Where(c => c.UniversityId != null && c.DepartmentId != null))
+            {
+                foreach(var group in item.Department.Groups
+                    .Where(c => c.DptCountryId == item.University.CountryId 
+                    && c.DptUniversityId == item.UniversityId && c.DptCollegeId == college.Id))
+                {
+                    if(model.Where(c => c.Id == group.Id).Count() == 0)
+                    {
+                        model.Add(group);
+                    }
+                }
+            }
+            ViewBag.CollegeName = college.ArName;
+            return View(model);
+        }
+
+
+        #region Remote Validation Functions
+        public bool IsUniqueRow(string EnName, string ArName, int Id)
+        {
+            var name = "";
+            if (EnName != null)
+                name = EnName.ToLower();
+            else if (ArName != null)
+                name = ArName.ToLower();
+            if (Id == 0)
+            {
+                if (_College.GetAll(c => c.ArName.ToLower() == name || c.EnName.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (_College.GetAll(c => c.Id != Id && (c.ArName.ToLower() == name || c.EnName.ToLower() == name)).Count() == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
 
     }
 }

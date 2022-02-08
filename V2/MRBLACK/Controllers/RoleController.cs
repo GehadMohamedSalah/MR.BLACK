@@ -185,5 +185,33 @@ namespace MRBLACK.Controllers
 
         #endregion
 
+
+        #region Remote Validation Functions
+        public bool IsUniqueRow(string Name, string ArName, string Id)
+        {
+            var name = "";
+            if (Name != null)
+                name = Name.ToLower();
+            else if (ArName != null)
+                name = ArName.ToLower();
+            if (Id == null || Id == "")
+            {
+                if (_context.Roles.Where(c => c.ArName.ToLower() == name || c.Name.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (_context.Roles.Where(c => c.Id != Id && (c.ArName.ToLower() == name || c.Name.ToLower() == name)).Count() == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
+
     }
 }

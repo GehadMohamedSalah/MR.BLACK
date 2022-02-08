@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,7 +12,9 @@ namespace MRBLACK.Models.Database
     {
         [Key]
         public int Id { get; set; }
+        [Remote("IsUniqueRow", "Group", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public string ArName { get; set; }
+        [Remote("IsUniqueRow", "Group", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public string EnName { get; set; }
         public int? DptCountryId { get; set; }
         public int? DptUniversityId { get; set; }

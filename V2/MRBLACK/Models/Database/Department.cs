@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -24,9 +25,11 @@ namespace MRBLACK.Models.Database
         public int Id { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        [Remote("IsUniqueRow", "Department", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public string ArName { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ادخاله")]
         [StringLength(50,ErrorMessage = "لا يمكن ادخال اكثر من 50 حرف ولا اقل من 3 احرف", MinimumLength = 3)]
+        [Remote("IsUniqueRow", "Department", ErrorMessage = "لا يمكن تكرار الاسم", AdditionalFields = nameof(Id))]
         public string EnName { get; set; }
         public string ImgPath { get; set; }
 

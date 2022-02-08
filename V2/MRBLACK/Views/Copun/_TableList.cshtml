@@ -22,6 +22,16 @@
             @Html.DisplayFor(modelItem => item.DiscountPercentage) %
         </td>
         <td>
+            @if ((DateTime)item.EndDate < DateTime.Now)
+            {
+                <span class="text-danger">منتهي</span>
+            }
+            else
+            {
+                <span class="text-success">جاري</span>
+            }
+        </td>
+        <td>
             @if (item.DiscountOnWho == 1)
             {
                 <span>المنصة</span>

@@ -578,5 +578,32 @@ namespace MRBLACK.Controllers
             }
             return false;
         }
+
+        #region Remote Validation Functions
+        public bool IsUniqueRow(string EnName, string ArName, int Id)
+        {
+            var name = "";
+            if (EnName != null)
+                name = EnName.ToLower();
+            else if (ArName != null)
+                name = ArName.ToLower();
+            if (Id == 0)
+            {
+                if (_Service.GetAll(c => c.ArName.ToLower() == name || c.EnName.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (_Service.GetAll(c => c.Id != Id && (c.ArName.ToLower() == name || c.EnName.ToLower() == name)).Count() == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

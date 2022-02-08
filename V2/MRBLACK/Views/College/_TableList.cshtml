@@ -2,13 +2,31 @@
 @{
     Layout = null;
     var i = ViewBag.PageStartRowNum;
-
+    var departments = ViewBag.Departments as List<MRBLACK.Models.Database.Department>;
 }
 
 @foreach (var item in Model)
 {
-    var ucdsCount = 0;
-    var allucds = "";
+    var uCount = 0;
+    var cCount = 0;
+    var allu = "";
+    var allc = "";
+    var mydepts = new List<string>();
+    var groups = 0;
+    @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
+    {
+        foreach (var ucds in item.UcdsEductionManagement.Select(c => c.University).Distinct())
+        {
+            uCount++;
+            allu += ucds.ArName + "_";
+            if (!allc.Contains(ucds.Country.ArName))
+            {
+                allc += ucds.Country.ArName + "_";
+                cCount++;
+            }
+            @*<p>@ucds.ArName - @ucds.Country.ArName</p>*@
+        }
+    }
     <tr>
         <td>@i</td>
         <td>COG_@item.Id</td>
@@ -19,23 +37,38 @@
             @Html.DisplayFor(modelItem => item.ArName)
         </td>
         <td>
-            <a href="/AcademicYear/Index">
-                <span class="@(item.Years == 0 ? "text-gray" : "font-weight-bold")">@item.Years</span>
+            <a href="@(cCount == 0 ? "#" : "/Country/Index?searchStr="+allc)">
+                <span class="@(cCount == 0 ? "text-gray" : "font-weight-bold")">@cCount</span>
             </a>
         </td>
         <td>
-            <a href="/Term/Index">
-                <span class="@(item.Terms == 0 ? "text-gray" : "font-weight-bold")">@item.Terms</span>
+            <a href="@(uCount == 0 ? "#" : "/University/Index?searchStr="+allu)">
+                <span class="@(uCount == 0 ? "text-gray" : "font-weight-bold")">@uCount</span>
             </a>
         </td>
         <td>
             @if (item.UcdsEductionManagement != null)
             {
-                var depts = item.UcdsEductionManagement.Where(c => c.UniversityId != null & c.DepartmentId != null).Select(c => c.University.CountryId + "_" + c.UniversityId + "_" + c.DepartmentId).Distinct().Count();
+                mydepts = item.UcdsEductionManagement.Where(c => c.UniversityId != null & c.DepartmentId != null).Select(c => c.University.CountryId + "_" + c.UniversityId + "_" + c.DepartmentId).Distinct().ToList();
+                var depts = mydepts.Count();
                 <a href="@(depts == 0 ? "#" : "/College/CollegeDepartments/"+item.Id)">
                     <span class="@(depts == 0 ? "text-gray" : "font-weight-bold")">@depts</span>
                 </a>
             }
+        </td>
+        <td>
+            @foreach (var dept in mydepts)
+            {
+                var arr = dept.Split("_");
+                var co = Int32.Parse(arr[0]);
+                var u = Int32.Parse(arr[1]);
+                var d = Int32.Parse(arr[2]);
+                var mydept = departments.FirstOrDefault(c => c.Id == d);
+                groups += mydept.Groups.Where(c => c.DptCollegeId == item.Id && c.DptUniversityId == u && c.DptCountryId == co).Count();
+            }
+            <a href="@(groups == 0 ? "#" : "/College/CollegeGroups/"+item.Id)">
+                <span class="@(groups == 0 ? "text-gray" : "font-weight-bold")">@groups</span>
+            </a>
         </td>
         <td>
             @if (item.UcdsEductionManagement != null)
@@ -47,22 +80,20 @@
             }
         </td>
         <td>
-            <span class="text-gray">0</span>
-        </td>
-        <td>
-            @if (item.UcdsEductionManagement != null && item.UcdsEductionManagement.Count() > 0)
-            {
-                foreach (var ucds in item.UcdsEductionManagement.Select(c => c.University).Distinct())
-                {
-                    ucdsCount++;
-                    allucds += ucds.ArName + "_";
-                    @*<p>@ucds.ArName - @ucds.Country.ArName</p>*@
-                }
-            }
-            <a href="@(ucdsCount == 0 ? "#" : "/University/Index?searchStr="+allucds)">
-                <span class="@(ucdsCount == 0 ? "text-gray" : "font-weight-bold")">@ucdsCount</span>
+            <a href="/AcademicYear/Index">
+                <span class="@(item.Years == 0 ? "text-gray" : "font-weight-bold")">@item.Years</span>
             </a>
         </td>
+        <td>
+            <a href="/Term/Index">
+                <span class="@(item.Terms == 0 ? "text-gray" : "font-weight-bold")">@item.Terms</span>
+            </a>
+        </td>
+
+        <td>
+            <span class="text-gray">0</span>
+        </td>
+
         <td>
             @if (item.ImgPath != null)
             {

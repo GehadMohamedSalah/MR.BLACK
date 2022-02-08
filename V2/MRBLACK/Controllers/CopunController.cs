@@ -216,5 +216,31 @@ namespace MRBLACK.Controllers
                 return true;
             return false;
         }
+
+
+        #region Remote Validation Functions
+        public bool IsUniqueRow(string NameOrCode, int Id)
+        {
+            var name = "";
+            if (NameOrCode != null)
+                name = NameOrCode.ToLower();
+            if (Id == 0)
+            {
+                if (_Copun.GetAll(c => c.NameOrCode.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (_Copun.GetAll(c => c.Id != Id && c.NameOrCode.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
     }
 }

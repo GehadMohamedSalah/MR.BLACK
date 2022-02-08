@@ -34,9 +34,11 @@ namespace MRBLACK.Controllers
         #region CRUD OPERTIONS
 
         #region Get Countries
-        public IActionResult Index(int pageNumber = 1, int pageSize = 5)
+        public IActionResult Index(string searchStr = "", int pageNumber = 1, int pageSize = 5)
         {
             var model = GetIndexPageDetails("Country");
+            if (searchStr != "" && searchStr != null)
+                model.SearchStr = searchStr;
             return View(GetPagedListItems(model.SearchStr, model.PageNumber, model.PageSize).Result);
         }
         #endregion
@@ -144,11 +146,18 @@ namespace MRBLACK.Controllers
             if (searchStr != "" && searchStr != null)
             {
                 searchStr = searchStr.ToLower();
+                var searchlist = new List<string>();
+                if (searchStr.Contains("_"))
+                {
+                    searchlist = searchStr.Split("_").ToList();
+                }
+
                 filter = f => f.EnName.ToLower().Contains(searchStr) 
                 || f.ArName.Contains(searchStr)
                 || f.CurrencyType.ArName.Contains(searchStr)
                 || ("ctry_"+f.Id.ToString()).Contains(searchStr)
-                || f.CountryCode.ToLower().Contains(searchStr);
+                || f.CountryCode.ToLower().Contains(searchStr)
+                || searchlist.Contains(f.ArName.ToLower());
             }
 
             CreateIndexPageDetailsCookie(new IndexPageDetailsVM()
@@ -193,5 +202,33 @@ namespace MRBLACK.Controllers
             var country = _Country.GetElement(id);
             return Json(country.CountryCode);
         }
+
+
+        #region Remote Validation Functions
+        public bool IsUniqueRow(string EnName, string ArName, int Id)
+        {
+            var name = "";
+            if (EnName != null)
+                name = EnName.ToLower();
+            else if (ArName != null)
+                name = ArName.ToLower();
+            if (Id == 0)
+            {
+                if (_Country.GetAll(c => c.ArName.ToLower() == name || c.EnName.ToLower() == name).Count() == 0)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if (_Country.GetAll(c => c.Id != Id && (c.ArName.ToLower() == name || c.EnName.ToLower() == name)).Count() == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
     }
 }
